@@ -2,4 +2,4 @@
 
 Sandbox for CI/CD exercising.
 
-To start the project execute script : yarn start or npm run start.
+<p>To start the project execute script <code>yarn start</code> or <code>npm run start</code>.</p>
