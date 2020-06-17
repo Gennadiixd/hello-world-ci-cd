@@ -1,47 +1,37 @@
 version: "3"
 services:
   server:
-    build:
-      context: ../.
-      dockerfile: docker/server/Dockerfile
     image: myapp-server
-    deploy:
-      resources: # Set these values when you know what you do!
-        limits:
-          cpus: "0.001"
-          memory: 50M
-        reservations:
-          cpus: "0.0001"
-          memory: 20M
+    container_name: nginx-proxy
+    restart: always
+    volumes:
+     - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
     ports:
-      - "3080:80" # Connect localhost 80 port to container 80 port
+      - "3080:80" # Connect localhost 3080 port to container 80 port
     links: # Link services to access http://app and  http://api inside the container
       - api:api
       - app:app
   app:
-    build:
-      context: ../.
-      dockerfile: docker/app/Dockerfile
     image: myapp-app
+    container_name: ssr-app
+    restart: always
     environment:
       - NODE_ENV=development
+      - PORT=5000 # port inside container
+      - HOST=0.0.0.0 # host to bind inside container
     volumes: # For webpack dev server to use our local files
-      - ./../app:/usr/src/app
+      - ./../app:/app
+    working_dir: '/app'
+    entrypoint: /bin/sh -c "npm i && npm run start"
     ports:
-      - "3000:3000" # For docker to now where to redirect HMR queries
+      - "5000:5000" # For docker to now where to redirect HMR queries
+    stdin_open: true
+    links:
+      - api:api
   api:
-    deploy:
-      resources: # Set these values when you know what you do!
-        limits:
-          cpus: "0.001"
-          memory: 50M
-        reservations:
-          cpus: "0.0001"
-          memory: 20M
-    build:
-      context: ../.
-      dockerfile: docker/api/Dockerfile
     image: myapp-api
+    container_name: api
+    restart: always
     environment:
       - DB_NAME=myappdb
       - DB_USER=myappuser
@@ -52,16 +42,14 @@ services:
     links:
       - db:db
     volumes:
-      - ./../api:/usr/src/api
+      - ./../api:/api
+    working_dir: /api
+    entrypoint: /bin/sh -c "npm i && npm run start"
     ports:
-      - "8080"
-    depends_on:
-      - "db"
+      - "3000:3000"
   db:
-    build:
-      context: ../.
-      dockerfile: docker/db/Dockerfile
     env_file: db/psql.env
-    image: myapp-db
+    image: postgres:9.5
+    container_name: db
     ports:
       - "5431:5432"
