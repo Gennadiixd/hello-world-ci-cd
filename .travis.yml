@@ -3,7 +3,8 @@ node_js:
   - 12
 before_script:
   - npm install
-  - npm run dev:up
+  - installDeps:app
+  - installDeps:api
 script:
   - npm run test
   - npm run lint

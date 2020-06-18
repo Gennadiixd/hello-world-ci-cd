@@ -5,6 +5,9 @@
   "author": "Thomas",
   "license": "MIT",
   "scripts": {
+    "installDeps:all": "cd ./api && npm install && cd .. && cd ./app && npm install",
+    "installDeps:app": "cd ./app && npm install",
+    "installDeps:api": "cd ./api && npm install",
     "dev:up": "docker-compose -f docker/docker-compose.yml up",
     "dev:down": "docker-compose -f docker/docker-compose.yml down",
     "dev:uninstall": "docker-compose -f docker/docker-compose.yml down --rmi all",
