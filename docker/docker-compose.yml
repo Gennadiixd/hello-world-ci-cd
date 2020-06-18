@@ -1,7 +1,7 @@
 version: "3"
 services:
   server:
-    image: myapp-server
+    image: nginx
     container_name: nginx-proxy
     restart: always
     volumes:
@@ -12,7 +12,7 @@ services:
       - api:api
       - app:app
   app:
-    image: myapp-app
+    image: node:10-alpine
     container_name: ssr-app
     restart: always
     environment:
@@ -29,7 +29,7 @@ services:
     links:
       - api:api
   api:
-    image: myapp-api
+    image: node:10-alpine
     container_name: api
     restart: always
     environment:
