@@ -7,31 +7,8 @@
     "express": "^4.17.1",
     "jest-express": "^1.12.0"
   },
-  "devDependencies": {
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "supertest": "^4.0.2"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
-  },
   "scripts": {
-    "start": "node server.js",
-    "test": "jest --detectOpenHandles",
-    "lint": "eslint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run test"
-    }
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC"
