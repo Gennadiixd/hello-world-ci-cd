@@ -6,6 +6,7 @@ services:
     restart: always
     volumes:
      - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
+     - "../certs:/etc/nginx/certs"
     ports:
       - "3080:80" # Connect localhost 3080 port to container 80 port
     links: # Link services to access http://app and  http://api inside the container
