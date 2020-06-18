@@ -1,0 +1,15 @@
+{
+  "name": "hello-world-ci-cd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jest-express": "^1.12.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
