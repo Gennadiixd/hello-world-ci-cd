@@ -12,8 +12,8 @@ before_script:
   - npm run installDeps:api
 
 before_install:
-  - docker build -t gennadiixd/hello-world-api$TRAVIS_TAG ./api
-  - docker build -t gennadiixd/hello-world-app$TRAVIS_TAG ./app
+  - docker build -t gennadiixd/hello-world-api${TRAVIS_TAG} ./api
+  - docker build -t gennadiixd/hello-world-app${TRAVIS_TAG} ./app
 
 script:
   - npm run test
