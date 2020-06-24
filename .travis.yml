@@ -24,4 +24,3 @@ deploy:
   script: bash docker_push
   on:
     tags: true
-    branches: master
