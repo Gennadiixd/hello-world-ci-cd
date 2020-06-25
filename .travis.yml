@@ -22,9 +22,8 @@ script:
 deploy:
   provider: script
   script: 
-    - >
-      -- docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
-      -- docker push gennadiixd/hello-world-api:${TRAVIS_TAG} 
-      -- docker push gennadiixd/hello-world-app:${TRAVIS_TAG}
+      docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}" |
+      docker push gennadiixd/hello-world-api:${TRAVIS_TAG} |
+      docker push gennadiixd/hello-world-app:${TRAVIS_TAG} |
   on:
     tags: true
