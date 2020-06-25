@@ -13,9 +13,9 @@ before_script:
 
 stages: 
   - name: test
-  if: ${TRAVIS_TAG} = ""
-  - name: build
-  if: ${TRAVIS_TAG} != ""
+  # if: ${TRAVIS_TAG} = ""
+  # - name: build
+  # if: ${TRAVIS_TAG} != ""
 
 jobs:
   include:
@@ -25,7 +25,7 @@ jobs:
         - npm run test
         - npm run lint
 
-    - stage: build
-      install: skip
-      script:
-        - bash docker_build
+    # - stage: build
+    #   install: skip
+    #   script:
+    #     - bash docker_build
