@@ -11,17 +11,17 @@ before_script:
   - npm run installDeps:app
   - npm run installDeps:api
 
+script:
+  - npm run test
+  - npm run lint
+
+deploy:
+  provider: script
   script:
-    - npm run test
-    - npm run lint
-    
-  deploy:
-    provider: script
-    script: 
-      - docker build -t gennadiixd/hello-world-api:${TRAVIS_TAG} ./api
-      - docker build -t gennadiixd/hello-world-app:${TRAVIS_TAG} ./app
-      - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}" 
-      - docker push gennadiixd/hello-world-api:${TRAVIS_TAG} 
-      - docker push gennadiixd/hello-world-app:${TRAVIS_TAG} 
-  on:
-    tags: true
+    - docker build -t gennadiixd/hello-world-api:${TRAVIS_TAG} ./api
+    - docker build -t gennadiixd/hello-world-app:${TRAVIS_TAG} ./app
+    - docker login -u "${DOCKER_USERNAME}" -p "${DOCKER_PASSWORD}"
+    - docker push gennadiixd/hello-world-api:${TRAVIS_TAG}
+    - docker push gennadiixd/hello-world-app:${TRAVIS_TAG}
+on:
+  tags: true
