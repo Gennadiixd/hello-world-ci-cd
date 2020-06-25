@@ -18,10 +18,6 @@ script:
 deploy:
   provider: script
   script:
-    - docker build -t gennadiixd/hello-world-api:${TRAVIS_TAG} ./api
-    - docker build -t gennadiixd/hello-world-app:${TRAVIS_TAG} ./app
-    - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-    - docker push gennadiixd/hello-world-api:${TRAVIS_TAG}
-    - docker push gennadiixd/hello-world-app:${TRAVIS_TAG}
+    - bash docker_deploy
   on:
     tags: true
