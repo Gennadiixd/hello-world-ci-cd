@@ -13,9 +13,9 @@ before_script:
 
 stages: 
   - name: build
-  if: branch = travis
+    if: branch = travis
   - name: test
-  if: branch = master
+    if: branch = master
 
 jobs:
   include:
