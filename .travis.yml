@@ -13,9 +13,9 @@ before_script:
 
 stages: 
   - name: build
-  if: ${TRAVIS_TAG} != ""
+  if: branch = travis
   - name: test
-  if: ${TRAVIS_TAG} = ""
+  if: branch = master
 
 jobs:
   include:
