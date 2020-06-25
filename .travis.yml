@@ -11,13 +11,21 @@ before_script:
   - npm run installDeps:app
   - npm run installDeps:api
 
-script:
-  - npm run test
-  - npm run lint
+stages: 
+  - name: test
+  if: ${TRAVIS_TAG} = ""
+  - name: build
+  if: ${TRAVIS_TAG} != ""
 
-deploy:
-  provider: script
-  script:
-    - bash docker_deploy
-  on:
-    tags: true
+jobs:
+  include:
+    - stage: test
+      install: skip
+      script:
+        - npm run test
+        - npm run lint
+
+    - stage: build
+      install: skip
+      script:
+        - bash docker_build
