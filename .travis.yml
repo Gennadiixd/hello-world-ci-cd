@@ -13,9 +13,9 @@ before_script:
 
 stages: 
   - name: build
-  # if: ${TRAVIS_TAG} = ""
-  # - name: build
-  # if: ${TRAVIS_TAG} != ""
+  if: tag IS present
+  - name: test
+  if: tag IS blank
 
 jobs:
   include:
