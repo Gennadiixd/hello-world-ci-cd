@@ -5,8 +5,8 @@ services:
     container_name: nginx-proxy
     restart: always
     volumes:
-     - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
-     - "../certs:/etc/nginx/certs"
+     - "../config/nginx/nginx.prod.conf:/etc/nginx/nginx.conf"
+     - "../../../../etc/letsencrypt"
     ports:
       - "80:80" 
       - "443:443" 
