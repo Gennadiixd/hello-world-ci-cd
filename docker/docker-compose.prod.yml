@@ -1,0 +1,49 @@
+version: "3"
+services:
+  server:
+    image: nginx
+    container_name: nginx-proxy
+    restart: always
+    volumes:
+     - "../config/nginx/nginx.prod.conf:/etc/nginx/nginx.conf"
+     - "/etc/letsencrypt:/etc/nginx/certs"
+    ports:
+      - "80:80" 
+      - "443:443" 
+    links: # Link services to access http://app and  http://api inside the container
+      - api:api
+      - app:app
+  app:
+    image: gennadiixd/hello-world-app:${TAG}
+    container_name: ssr-app
+    restart: always
+    environment:
+      - NODE_ENV=development
+      - PORT=5000 # port inside container
+      - HOST=0.0.0.0 # host to bind inside container
+    ports:
+      - "5000:5000" # For docker to now where to redirect HMR queries
+    stdin_open: true
+    links:
+      - api:api
+  api:
+    image: gennadiixd/hello-world-api:${TAG}
+    container_name: api
+    restart: always
+    environment:
+      - DB_NAME=myappdb
+      - DB_USER=myappuser
+      - DB_PASSWORD=myapppassword
+      - DB_HOST="db"
+      - DB_PORT=5432
+      - NODE_ENV=development
+    links:
+      - db:db
+    ports:
+      - "3000:3000"
+  db:
+    env_file: ../db/psql.env
+    image: postgres:9.5
+    container_name: db
+    ports:
+      - "5431:5432"
