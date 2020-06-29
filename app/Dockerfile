@@ -12,4 +12,6 @@ RUN npm run build
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+ENTRYPOINT ["npm"]
+
+CMD ["run", "start"]
