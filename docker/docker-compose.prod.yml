@@ -6,7 +6,7 @@ services:
     restart: always
     volumes:
      - "../config/nginx/nginx.prod.conf:/etc/nginx/nginx.conf"
-     - "../../../../etc/letsencrypt/live:/etc/nginx/certs"
+     - "/etc/letsencrypt:/etc/nginx/certs"
     ports:
       - "80:80" 
       - "443:443" 
