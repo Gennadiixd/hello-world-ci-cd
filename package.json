@@ -28,11 +28,21 @@
       "json",
       "ts"
     ],
+    "rootDir": "./",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "testEnvironment": "node"
-  }
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node",
+    "moduleDirectories": [
+      "node_modules"
+    ]
+  },
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.1.0",
@@ -42,5 +52,9 @@
     "jest": "^26.0.1",
     "supertest": "^4.0.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/jest": "^26.0.3",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.5"
+  }
 }

@@ -1,5 +1,8 @@
-const request = require("supertest");
-const { app } = require("./app");
+import app from "./app";
+import * as request from "supertest";
+
+let server;
+let agent;
 
 beforeEach((done) => {
   server = app.listen(4000, (err) => {
