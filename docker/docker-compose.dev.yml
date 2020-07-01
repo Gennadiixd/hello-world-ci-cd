@@ -23,7 +23,7 @@ services:
     volumes: # For webpack dev server to use our local files
       - ./../app:/app
     working_dir: '/app'
-    entrypoint: /bin/sh -c "npm i && npm run start"
+    entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:
       - "5000:5000" # For docker to now where to redirect HMR queries
     stdin_open: true
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./../api:/api
     working_dir: /api
-    entrypoint: /bin/sh -c "npm i && npm run start"
+    entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:
       - "3000:3000"
   db:

@@ -2,11 +2,13 @@ import * as express from "express";
 import * as morgan from "morgan";
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
+import * as cors from "cors";
 
 const app = express();
 
+app.use(cors())
+
 import productsRoutes from "./components/products/products-api";
-// const productsRoutes = require("./components/products");
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());

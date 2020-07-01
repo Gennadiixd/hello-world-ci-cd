@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "start:dev": "next -p 5000",
     "build": "next build",
     "start": "next start -p ${PORT}",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,11 +15,13 @@
   "dependencies": {
     "-": "0.0.1",
     "@types/next": "^9.0.0",
+    "@types/node": "^14.0.14",
     "@types/react": "^16.9.41",
     "@zeit/next-typescript": "^1.1.1",
     "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "typescript": "^3.9.6"
   }
 }
