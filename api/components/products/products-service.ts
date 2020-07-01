@@ -1,4 +1,4 @@
-const productsRepository = require("./products-repository");
+import productsRepository from "./products-repository";
 
 class ProductsService {
   getProducts() {
@@ -8,4 +8,4 @@ class ProductsService {
 
 const productsService = new ProductsService();
 
-module.exports = productsService;
+export default productsService;

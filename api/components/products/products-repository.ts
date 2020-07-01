@@ -6,4 +6,4 @@ class ProductsRepository {
 
 const productsRepository = new ProductsRepository();
 
-module.exports = productsRepository;
+export default productsRepository;

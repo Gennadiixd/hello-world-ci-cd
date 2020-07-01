@@ -4,14 +4,34 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "@types/express": "^4.17.6",
+    "@types/node": "^14.0.14",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "jest-express": "^1.12.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "ts-node": "^8.10.2",
+    "typeorm": "^0.2.25",
+    "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start:dev": "NODE_ENV=development nodemon server.ts",
+    "tsc": "tsc"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   },
   "author": "",
   "license": "ISC",

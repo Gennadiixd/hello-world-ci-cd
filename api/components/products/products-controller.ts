@@ -1,4 +1,4 @@
-const productsService = require("./products-service");
+import productsService from "./products-service";
 
 class ProductsController {
   getProducts(req, res) {
@@ -8,4 +8,4 @@ class ProductsController {
 
 const productsController = new ProductsController();
 
-module.exports = productsController;
+export default productsController;
