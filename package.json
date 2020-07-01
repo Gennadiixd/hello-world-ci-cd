@@ -28,14 +28,11 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
-    "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
+  }
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.1.0",
