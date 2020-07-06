@@ -1,15 +1,18 @@
 import React from "react";
 import Link from "next/link";
+import ProductsService from "../../services/product-service";
+
+const productsService = new ProductsService({});
 
 export default function FirstPage() {
-  const getProducts = () => {
-    fetch("http://localhost:3000/products");
+  const getProducts = (): void => {
+    productsService.getProducts();
   };
 
   return (
     <div>
-      <h1>First Post</h1>
-      <button onClick={getProducts}>dddddd</button>
+      <h1>First Page</h1>
+      <button onClick={getProducts}>get products</button>
       <h2>
         <Link href="/">
           <a>Back to home</a>
