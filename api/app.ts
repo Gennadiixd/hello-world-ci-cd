@@ -1,12 +1,12 @@
-import * as express from "express";
-import * as morgan from "morgan";
-import * as bodyParser from "body-parser";
-import * as cookieParser from "cookie-parser";
-import * as cors from "cors";
+import express = require("express");
+import morgan = require("morgan");
+import bodyParser = require("body-parser");
+import cookieParser = require("cookie-parser");
+import cors = require("cors");
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 
 import productsRoutes from "./components/products/products-api";
 
