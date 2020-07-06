@@ -12,6 +12,10 @@ services:
     links: # Link services to access http://app and  http://api inside the container
       - api:api
       - app:app
+    networks:
+      default:
+        aliases:
+          - myprojectdomain.dev
   app:
     image: node:10-alpine
     container_name: ssr-app
