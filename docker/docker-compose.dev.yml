@@ -8,22 +8,28 @@ services:
      - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
      - "../certs:/etc/nginx/certs"
     ports:
-      - "3080:443" # Connect localhost 3080 port to container 443 port
-    links: # Link services to access http://app and  http://api inside the container
+      - "443:443" 
+    links: 
       - api:api
       - app:app
+    networks:
+      default:
+        aliases:
+          - myprojectdomain.dev
   app:
     image: node:10-alpine
     container_name: ssr-app
     restart: always
     environment:
+      - NODE_EXTRA_CA_CERTS=/certs/minica.pem
       - NODE_ENV=development
       - PORT=5000 # port inside container
       - HOST=0.0.0.0 # host to bind inside container
     volumes: # For webpack dev server to use our local files
-      - ./../app:/app
+      - "./../app:/app"
+      - "../certs/minica.pem:/certs/minica.pem"
     working_dir: '/app'
-    entrypoint: /bin/sh -c "npm i && npm run start"
+    entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:
       - "5000:5000" # For docker to now where to redirect HMR queries
     stdin_open: true
@@ -45,7 +51,7 @@ services:
     volumes:
       - ./../api:/api
     working_dir: /api
-    entrypoint: /bin/sh -c "npm i && npm run start"
+    entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:
       - "3000:3000"
   db:

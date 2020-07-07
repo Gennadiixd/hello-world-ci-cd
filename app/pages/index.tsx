@@ -6,7 +6,7 @@ export default function Index() {
     <div>
       <h1>Hello World</h1>
       <Link href="/first-page">
-        <a>this page!</a>
+        <a>first page!</a>
       </Link>
     </div>
   );

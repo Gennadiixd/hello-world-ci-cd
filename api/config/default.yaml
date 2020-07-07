@@ -1,0 +1,4 @@
+db:
+  type: 'postgres'
+  database: 'myappdb'
+  port: 5432

@@ -8,9 +8,9 @@
     "installDeps:all": "cd ./api && npm install && cd .. && cd ./app && npm install",
     "installDeps:app": "cd ./app && npm install",
     "installDeps:api": "cd ./api && npm install",
-    "dev:up": "docker-compose -f docker/docker-compose.yml up",
-    "dev:down": "docker-compose -f docker/docker-compose.yml down",
-    "dev:uninstall": "docker-compose -f docker/docker-compose.yml down --rmi all",
+    "dev:up": "docker-compose -f docker/docker-compose.dev.yml up",
+    "dev:down": "docker-compose -f docker/docker-compose.dev.yml down",
+    "dev:uninstall": "docker-compose -f docker/docker-compose.dev.yml down --rmi all",
     "dev:connect:api": "docker exec -it target_api_1 /bin/sh",
     "dev:connect:db": "psql -h localhost -p 5431 -U myappuser -d myappdb",
     "test": "jest --detectOpenHandles",
@@ -23,9 +23,24 @@
     }
   },
   "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "./",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
+    "moduleDirectories": [
+      "node_modules"
     ]
   },
   "devDependencies": {
@@ -36,5 +51,10 @@
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.3",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.5"
   }
 }
