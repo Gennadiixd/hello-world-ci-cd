@@ -27,7 +27,7 @@ services:
       - HOST=0.0.0.0 # host to bind inside container
     volumes: # For webpack dev server to use our local files
       - "./../app:/app"
-      - "../certs/minica.pem:certs/minica.pem"
+      - "../certs/minica.pem:/certs/minica.pem"
     working_dir: '/app'
     entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:
