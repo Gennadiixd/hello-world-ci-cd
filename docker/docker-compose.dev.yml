@@ -21,13 +21,13 @@ services:
     container_name: ssr-app
     restart: always
     environment:
-      - NODE_EXTRA_CA_CERTS=./certs/myprojectdomain.dev.crt
+      - NODE_EXTRA_CA_CERTS=/app/certs/myprojectdomain.dev.crt
       - NODE_ENV=development
       - PORT=5000 # port inside container
       - HOST=0.0.0.0 # host to bind inside container
     volumes: # For webpack dev server to use our local files
-      - ./../app:/app
-     - ../certs/myprojectdomain.dev.crt:/app/certs/myprojectdomain.dev.crt
+      - "./../app:/app"
+      - "../certs/myprojectdomain.dev.crt:/app/certs/myprojectdomain.dev.crt"
     working_dir: '/app'
     entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:
