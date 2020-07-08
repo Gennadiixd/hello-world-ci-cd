@@ -14,7 +14,7 @@ before_script:
   - npm run installDeps:app
   - npm run installDeps:api
 
-stages: 
+stages:
   - name: build
     if: tag IS present
   - name: test
@@ -44,6 +44,6 @@ jobs:
       deploy:
         - provider: script
           skip_cleanup: true
-          script: sudo TAG=$TRAVIS_TAG gennadiixd@84.201.137.129:my_app/docker/docker-compose -f docker-compose.prod.yml up
+          script: ssh -p22 gennadiixd@84.201.137.129 "mkdir deployed"
           on:
             all_branches: true
