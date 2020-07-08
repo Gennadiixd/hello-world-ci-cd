@@ -46,4 +46,4 @@ jobs:
           skip_cleanup: true
           script: sudo TAG=$TRAVIS_TAG gennadiixd@84.201.137.129:my_app/docker/docker-compose -f docker-compose.prod.yml up
           on:
-            tag: true
+            all_branches: true
