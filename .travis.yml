@@ -41,10 +41,9 @@ jobs:
           - eval "$(ssh-agent -s)"
           - chmod 600 /tmp/deploy_rsa
           - ssh-add /tmp/deploy_rsa
-
         deploy:
           - provider: script
             skip_cleanup: true
-            script: gennadiixd@84.201.137.129:my_app/docker sudo TAG=$TRAVIS_TAG docker-compose -f docker-compose.prod.yml up
+            script: sudo TAG=$TRAVIS_TAG gennadiixd@84.201.137.129:my_app/docker/docker-compose -f docker-compose.prod.yml up
             on:
               tag: true
