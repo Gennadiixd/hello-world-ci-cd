@@ -19,6 +19,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
+    "start": "ts-node server.ts",
     "start:dev": "NODE_ENV=development nodemon server.ts",
     "tsc": "tsc"
   },
