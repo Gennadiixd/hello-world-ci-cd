@@ -1,11 +1,15 @@
-import productsRepository from "./products-repository";
+import { injectable } from "tsyringe";
 
+import ProductsRepository from "./products-repository";
+
+@injectable()
 class ProductsService {
+  constructor(public productsRepository: ProductsRepository) {}
   getProducts() {
-    return productsRepository.getProducts();
+    // return this.productsRepository.getProducts();
   }
 }
 
-const productsService = new ProductsService();
+// const productsService = new ProductsService();
 
-export default productsService;
+export default ProductsService;

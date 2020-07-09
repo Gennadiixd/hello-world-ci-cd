@@ -4,6 +4,4 @@ class ProductsRepository {
   }
 }
 
-const productsRepository = new ProductsRepository();
-
-export default productsRepository;
+export default ProductsRepository;
