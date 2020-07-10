@@ -7,9 +7,6 @@ import ProductsController from "./products-controller";
 const productsRouter = Router();
 const productsController = container.resolve(ProductsController);
 
-productsRouter.get(
-  "/",
-  productsController.getProducts.bind(productsController)
-);
+productsRouter.get("/", productsController.getProducts);
 
 export default productsRouter;

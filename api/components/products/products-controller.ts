@@ -6,9 +6,9 @@ import ProductsService from "./products-service";
 class ProductsController {
   constructor(public productsService: ProductsService) {}
 
-  getProducts(req, res) {
+  getProducts = (req, res) => {
     res.json(this.productsService.getProducts());
-  }
+  };
 }
 
 export default ProductsController;
