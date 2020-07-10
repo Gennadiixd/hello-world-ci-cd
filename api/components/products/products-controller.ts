@@ -1,11 +1,14 @@
-import productsService from "./products-service";
+import { injectable } from "tsyringe";
 
+import ProductsService from "./products-service";
+
+@injectable()
 class ProductsController {
-  getProducts(req, res) {
-    res.json(productsService.getProducts());
-  }
+  constructor(public productsService: ProductsService) {}
+
+  getProducts = (req, res) => {
+    res.json(this.productsService.getProducts());
+  };
 }
 
-const productsController = new ProductsController();
-
-export default productsController;
+export default ProductsController;
