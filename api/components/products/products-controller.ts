@@ -7,8 +7,6 @@ class ProductsController {
   constructor(public productsService: ProductsService) {}
 
   getProducts(req, res) {
-    console.log(this); // undefined ?
-
     res.json(this.productsService.getProducts());
   }
 }

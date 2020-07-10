@@ -1,4 +1,8 @@
+import { injectable } from "tsyringe";
+
+@injectable()
 class ProductsRepository {
+  
   getProducts() {
     return [1, 2, 3, 5];
   }
