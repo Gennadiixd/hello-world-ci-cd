@@ -41,9 +41,9 @@ services:
     restart: always
     environment:
       - DB_NAME=myappdb
-      - DB_DB_USERNAME=myappuser
+      - DB_USERNAME=myappuser
       - DB_PASSWORD=myapppassword
-      - DB_HOST="db"
+      - DB_HOST=db
       - DB_PORT=5432
       - TYPEORM_SYNC=true
       - NODE_ENV=development

@@ -6,8 +6,9 @@ import ProductsService from "./products-service";
 class ProductsController {
   constructor(public productsService: ProductsService) {}
 
-  getProducts = (req, res) => {
-    res.json(this.productsService.getProducts());
+  getProducts = async (req, res) => {
+    const products = await this.productsService.getProducts();
+    res.json(products);
   };
 }
 

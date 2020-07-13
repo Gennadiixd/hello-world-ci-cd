@@ -34,7 +34,7 @@ services:
       - DB_NAME=myappdb
       - DB_USER=myappuser
       - DB_PASSWORD=myapppassword
-      - DB_HOST="db"
+      - DB_HOST=db
       - DB_PORT=5432
       - NODE_ENV=production
     links:

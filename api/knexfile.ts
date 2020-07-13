@@ -1,21 +1,18 @@
-import config from "config";
-
-const dbConfig = config.get("db") as any;
-
 module.exports = {
   development: {
-    client: "postgresql",
+    client: "pg",
     connection: {
-      database: dbConfig.database,
-      user: dbConfig.user,
-      password: dbConfig.password,
+      host:'db',
+      database: process.env.DB_NAME,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
     },
     pool: {
       min: 2,
       max: 10,
     },
     migrations: {
-      tableName: __dirname + "/db/migrations",
+      directory: __dirname + "/db/migrations",
     },
     seeds: {
       directory: __dirname + "/db/seeds",
