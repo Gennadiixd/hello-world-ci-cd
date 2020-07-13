@@ -18,7 +18,7 @@ afterEach((done) => {
 });
 
 describe("App", () => {
-  it.skip('should respond "Hello World" ', async (done) => {
+  it('should respond "Hello World" ', async (done) => {
     const res = await request(app).get("/");
     expect(res.statusCode).toEqual(200);
     expect(res.text).toBe("Hello World!");
