@@ -1,7 +1,7 @@
+import { Repository, EntityRepository } from "typeorm";
 import { injectable } from "tsyringe";
 import { ProductEntity } from "./product.entity";
 import { connection } from "../../connection";
-import { Repository, EntityRepository } from "typeorm";
 
 export interface IProductsRepository {
   getProducts: () => any;
