@@ -1,10 +1,10 @@
 import { createConnection } from "typeorm";
 
-const plug = { manager: { find: () => {} } };
+const PLUG = { manager: { find: () => {} } };
 
 export const connection =
   process.env.NODE_ENV === "test"
-    ? plug
+    ? PLUG
     : createConnection({
         type: "postgres",
         host: process.env.DB_HOST,
