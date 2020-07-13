@@ -1,27 +1,25 @@
-import app from "./app";
-import request from "supertest";
+import "reflect-metadata";
+import { container } from "tsyringe";
+import ProductsService from "./components/products/products-service";
+import { IProductsRepository } from "./components/products/products-repository";
 
-let server;
-let agent;
+class mockProductsRepository implements IProductsRepository {
+  getProducts() {
+    return "success";
+  }
+}
 
-beforeEach((done) => {
-  server = app.listen(4000, (err) => {
-    if (err) return done(err);
-
-    agent = request.agent(server);
-    done();
-  });
-});
-
-afterEach((done) => {
-  return server && server.close(done);
+container.register("IProductsRepository", {
+  useClass: mockProductsRepository,
 });
 
 describe("App", () => {
-  it('should respond "Hello World" ', async (done) => {
-    const res = await request(app).get("/");
-    expect(res.statusCode).toEqual(200);
-    expect(res.text).toBe("Hello World!");
+  process.on('unhandledRejection', (reason, promise) => {
+    console.log('Unhandled Rejection at:', reason)
+  });
+  it("should return success", async (done) => {
+    const productsService = container.resolve(ProductsService);
+    expect(productsService.getProducts()).toBe("success");
     done();
   });
 });

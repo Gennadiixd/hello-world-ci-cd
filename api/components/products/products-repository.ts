@@ -3,6 +3,10 @@ import { ProductEntity } from "./product.entity";
 import { connection } from "../../connection";
 import { Repository, EntityRepository } from "typeorm";
 
+export interface IProductsRepository {
+  getProducts: () => any;
+}
+
 @injectable()
 @EntityRepository(ProductEntity)
 class ProductsRepository extends Repository<any> {
