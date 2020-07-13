@@ -14,7 +14,8 @@
     "dev:connect:api": "docker exec -it target_api_1 /bin/sh",
     "dev:connect:db": "psql -h localhost -p 5431 -U myappuser -d myappdb",
     "test": "jest --detectOpenHandles",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrate": "npx knex migrate:latest"
   },
   "husky": {
     "hooks": {

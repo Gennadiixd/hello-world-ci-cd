@@ -1,7 +1,7 @@
 import { createConnection } from "typeorm";
-import config from 'config';
+import config from "config";
 
-const dbConfig = config.get('db') as any;
+const dbConfig = config.get("db") as any;
 
 export const connection = createConnection({
   type: dbConfig.type,

@@ -1,10 +1,15 @@
 import { injectable } from "tsyringe";
+import { ProductEntity } from "./product-entity";
+import { connection } from "../../connection";
 
 @injectable()
 class ProductsRepository {
-  
-  getProducts() {
-    return [1, 2, 3, 5];
+  async getProducts() {
+    const connect = await connection;
+
+    const products = await connect.manager.find(ProductEntity);
+
+    return products;
   }
 }
 

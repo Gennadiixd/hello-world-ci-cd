@@ -1,7 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
-export class Task extends BaseEntity {
+export class ProductEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,5 +12,5 @@ export class Task extends BaseEntity {
   description: string;
 
   @Column()
-  price: number;
+  price: string;
 }

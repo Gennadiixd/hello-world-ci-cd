@@ -17,7 +17,7 @@ services:
         aliases:
           - myprojectdomain.dev
   app:
-    image: node:10-alpine
+    image: node:12-alpine
     container_name: ssr-app
     restart: always
     environment:
@@ -36,7 +36,7 @@ services:
     links:
       - api:api
   api:
-    image: node:10-alpine
+    image: node:12-alpine
     container_name: api
     restart: always
     environment:
