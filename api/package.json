@@ -13,7 +13,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jest-express": "^1.12.0",
+    "knex": "^0.21.2",
+    "knex-migrate": "^1.7.4",
     "morgan": "^1.10.0",
+    "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "ts-node": "^8.10.2",
     "tsyringe": "^4.3.0",
@@ -22,8 +25,10 @@
   },
   "scripts": {
     "start": "ts-node server.ts",
-    "start:dev": "NODE_ENV=development nodemon server.ts",
-    "tsc": "tsc"
+    "start:dev": "echo '>>> MIGRATIONS_START' && npx knex migrate:latest && knex seed:run && echo '>>> MIGRATIONS_END' && NODE_ENV=development nodemon server.ts",
+    "start:dev:local": "NODE_ENV=test nodemon server.ts",
+    "tsc": "tsc",
+    "migrate": "echo '>>> MIGRATIONS_START' && npx knex migrate:latest && knex seed:run && echo '>>> MIGRATIONS_END'"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -42,6 +47,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/config": "0.0.36",
     "@types/cookie-parser": "^1.4.2",
     "@types/morgan": "^1.9.1",
     "nodemon": "^2.0.4"

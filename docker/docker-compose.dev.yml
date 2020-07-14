@@ -5,11 +5,11 @@ services:
     container_name: nginx-proxy
     restart: always
     volumes:
-     - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
-     - "../certs:/etc/nginx/certs"
+      - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
+      - "../certs:/etc/nginx/certs"
     ports:
-      - "443:443" 
-    links: 
+      - "443:443"
+    links:
       - api:api
       - app:app
     networks:
@@ -17,7 +17,7 @@ services:
         aliases:
           - myprojectdomain.dev
   app:
-    image: node:10-alpine
+    image: node:12-alpine
     container_name: ssr-app
     restart: always
     environment:
@@ -28,7 +28,7 @@ services:
     volumes: # For webpack dev server to use our local files
       - "./../app:/app"
       - "../certs/minica.pem:/certs/minica.pem"
-    working_dir: '/app'
+    working_dir: "/app"
     entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:
       - "5000:5000" # For docker to now where to redirect HMR queries
@@ -36,16 +36,21 @@ services:
     links:
       - api:api
   api:
-    image: node:10-alpine
+    image: node:12-alpine
     container_name: api
     restart: always
     environment:
       - DB_NAME=myappdb
-      - DB_USER=myappuser
+      - DB_USERNAME=myappuser
       - DB_PASSWORD=myapppassword
-      - DB_HOST="db"
+      - DB_HOST=db
       - DB_PORT=5432
+      - TYPEORM_SYNC=true
       - NODE_ENV=development
+      - WAIT_HOSTS=db:5432
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
     links:
       - db:db
     volumes:

@@ -1,10 +1,25 @@
-import { injectable } from "tsyringe";
+import { Repository, EntityRepository } from "typeorm";
+import { injectable, inject } from "tsyringe";
+import { ProductEntity } from "./product.entity";
+import DBConnection from '../../connection';
+
+export interface IProductsRepository {
+  getProducts: () => any;
+}
 
 @injectable()
-class ProductsRepository {
-  
-  getProducts() {
-    return [1, 2, 3, 5];
+@EntityRepository(ProductEntity)
+class ProductsRepository extends Repository<any> {
+  constructor(@inject("IDBConnection") private dbConnection: DBConnection) {
+    super();
+  }
+
+  async getProducts() {
+    const connect = await this.dbConnection.getConnection();
+    
+    const products = await connect.manager.find(ProductEntity);
+
+    return products;
   }
 }
 

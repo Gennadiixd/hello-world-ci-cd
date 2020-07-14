@@ -1,15 +1,31 @@
-import { createConnection } from "typeorm";
-import * as config from 'config';
+import { createConnection, Connection } from "typeorm";
+import { injectable } from "tsyringe";
 
-const dbConfig = config.get('db');
+export interface IDBConnection {
+  connection: Promise<Connection>;
+  getConnection: () => Promise<Connection>;
+}
 
-export const connection = createConnection({
-  type: dbConfig.type,
-  host: process.env.DB_HOSTNAME || dbConfig.host,
-  port: process.env.DB_PORT || dbConfig.port,
-  username: process.env.DB_USERNAME || dbConfig.username,
-  password: process.env.DB_PASSWORD || dbConfig.password,
-  database: process.env.DB_NAME || dbConfig.database,
-  entities: [__dirname + "/../components/**/*.entity{.ts,.js}"],
-  synchronize: process.env.TYPEORM_SYNC || dbConfig.synchronize,
-});
+@injectable()
+class DBConnection implements IDBConnection {
+  connection: Promise<Connection>;
+
+  constructor() {
+    this.connection = createConnection({
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      entities: [__dirname + "/components/**/*.entity{.ts,.js}"],
+      synchronize: false,
+    });
+  }
+
+  getConnection() {
+    return this.connection;
+  }
+}
+
+export default DBConnection;

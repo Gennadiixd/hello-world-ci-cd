@@ -1,13 +1,19 @@
-import { injectable } from "tsyringe";
+import { injectable, inject } from "tsyringe";
+import { Response } from "express";
 
 import ProductsService from "./products-service";
 
-@injectable()
-class ProductsController {
-  constructor(public productsService: ProductsService) {}
+export interface IProductsController {
+  getProducts: (_: any, res: Response) => void;
+}
 
-  getProducts = (req, res) => {
-    res.json(this.productsService.getProducts());
+@injectable()
+class ProductsController implements IProductsController {
+  constructor(@inject("IProductsService") public productsService: ProductsService) {}
+
+  getProducts = async (_: any, res: Response) => {
+    const products = await this.productsService.getProducts();
+    res.json(products);
   };
 }
 
