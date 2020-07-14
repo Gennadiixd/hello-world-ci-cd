@@ -9,7 +9,9 @@ export interface IProductsController {
 
 @injectable()
 class ProductsController implements IProductsController {
-  constructor(@inject("IProductsService") public productsService: ProductsService) {}
+  constructor(
+    @inject("IProductsService") public productsService: ProductsService
+  ) {}
 
   getProducts = async (_: any, res: Response) => {
     const products = await this.productsService.getProducts();
