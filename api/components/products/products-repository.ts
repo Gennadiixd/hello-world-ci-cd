@@ -1,7 +1,7 @@
 import { Repository, EntityRepository } from "typeorm";
-import { injectable } from "tsyringe";
+import { injectable, inject } from "tsyringe";
 import { ProductEntity } from "./product.entity";
-import { connection } from "../../connection";
+import DBConnection from '../../connection';
 
 export interface IProductsRepository {
   getProducts: () => any;
@@ -10,9 +10,13 @@ export interface IProductsRepository {
 @injectable()
 @EntityRepository(ProductEntity)
 class ProductsRepository extends Repository<any> {
-  async getProducts() {
-    const connect = await connection;
+  constructor(@inject("IDBConnection") private dbConnection: DBConnection) {
+    super();
+  }
 
+  async getProducts() {
+    const connect = await this.dbConnection.getConnection();
+    
     const products = await connect.manager.find(ProductEntity);
 
     return products;
