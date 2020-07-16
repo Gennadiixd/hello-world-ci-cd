@@ -15,4 +15,4 @@ printf "[dn]\nCN=myprojectdomain.dev\n[req]\ndistinguished_name = dn\n[EXT]\nsub
 
 API documented by swagger
 
-http://localhost:3000/swagger/
+https://myprojectdomain.dev/api/swagger/
