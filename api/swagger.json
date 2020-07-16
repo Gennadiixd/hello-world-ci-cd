@@ -11,10 +11,10 @@
   },
   "servers": [
     {
-        "url": "/api/",
-        "description": "API server"
+      "url": "/api/",
+      "description": "API server"
     }
-],
+  ],
   "consumes": [
     "application/json"
   ],
