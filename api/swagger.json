@@ -9,6 +9,12 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
+  "servers": [
+    {
+        "url": "/api/",
+        "description": "API server"
+    }
+],
   "consumes": [
     "application/json"
   ],
