@@ -1,6 +1,6 @@
 import { injectable, inject } from "tsyringe";
 
-import ProductsRepository from "./products-repository";
+import { IProductsRepository } from "./products-repository";
 
 export interface IProductsService {
   getProducts: () => any;
@@ -8,7 +8,10 @@ export interface IProductsService {
 
 @injectable()
 class ProductsService implements IProductsService {
-  constructor(@inject("IProductsRepository") public productsRepository: ProductsRepository) {}
+  constructor(
+    @inject("IProductsRepository")
+    public productsRepository: IProductsRepository
+  ) {}
 
   getProducts() {
     return this.productsRepository.getProducts();

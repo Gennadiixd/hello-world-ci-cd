@@ -1,63 +1,68 @@
 {
   "openapi": "3.0.0",
   "info": {
-      "version": "1.0.0",
-      "title": "Seans-TypeScript-NodeJS-CRUD-REST-API-Boilerplate",
-      "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs using TypeScript",
-      "license": {
-          "name": "MIT",
-          "url": "https://opensource.org/licenses/MIT"
-      }
+    "version": "1.0.0",
+    "title": "Hello-world-ci-cd ",
+    "description": "Hello-world-ci-cd api documentation",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
   },
+  "servers": [
+    {
+      "url": "/api/",
+      "description": "API server"
+    }
+  ],
   "consumes": [
-      "application/json"
+    "application/json"
   ],
   "produces": [
-      "application/json"
+    "application/json"
   ],
   "paths": {
-      "/products": {
-          "get": {
-              "summary": "Get all Products",
-              "responses": {
-                  "200": {
-                      "description": "OK",
-                      "schema": {
-                          "$ref": "#/definitions/Products"
-                      }
-                  }
+    "/products": {
+      "get": {
+        "summary": "Get all Products",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Products"
+                }
               }
+            }
           }
+        }
       }
+    }
   },
   "definitions": {
-      "Product": {
-          "type": "object",
-          "properties": {
-              "id": {
-                "type": "number"
-              },
-              "title": {
-                  "type": "string"
-              },
-              "description": {
-                  "type": "string"
-              },
-              "price": {
-                  "type": "string"
-              }
-          }
-      },
-      "Products": {
-          "type": "object",
-          "properties": {
-              "products": {
-                  "type": "object",
-                  "additionalProperties": {
-                      "$ref": "#/definitions/Product"
-                  }
-              }
-          }
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        }
       }
+    },
+    "Products": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Product"
+      }
+    }
   }
 }

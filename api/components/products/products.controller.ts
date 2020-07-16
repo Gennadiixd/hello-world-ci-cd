@@ -1,7 +1,7 @@
 import { injectable, inject } from "tsyringe";
 import { Response } from "express";
 
-import ProductsService from "./products-service";
+import { IProductsService } from "./products-service";
 
 export interface IProductsController {
   getProducts: (_: any, res: Response) => void;
@@ -10,7 +10,7 @@ export interface IProductsController {
 @injectable()
 class ProductsController implements IProductsController {
   constructor(
-    @inject("IProductsService") public productsService: ProductsService
+    @inject("IProductsService") public productsService: IProductsService
   ) {}
 
   getProducts = async (_: any, res: Response) => {

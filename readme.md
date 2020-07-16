@@ -12,3 +12,7 @@ openssl req -x509 -out myprojectdomain.dev.crt -keyout myprojectdomain.dev.key \
 -subj '/CN=myprojectdomain.dev' -extensions EXT -config <( \
 printf "[dn]\nCN=myprojectdomain.dev\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:myprojectdomain.dev\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 ```
+
+API documented by swagger
+
+https://myprojectdomain.dev/api/swagger/
