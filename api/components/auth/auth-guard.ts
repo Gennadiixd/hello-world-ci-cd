@@ -31,12 +31,12 @@ class AuthGuard implements IAuthGuard {
       jwt.verify(token, this.privateKey, this.algorithm, (err, user) => {
         if (err) {
           this.destroyCookies(res);
-          res.status(500).json({ error: "Not Authorized" });
+          res.status(401).json({ error: "Not Authorized" });
         }
         return next();
       });
     } else {
-      res.status(500).json({ error: "Not Authorized" });
+      res.status(401).json({ error: "Not Authorized" });
     }
   };
 
