@@ -12,12 +12,14 @@ const app = express();
 app.use(cors());
 
 import productsRoutes from "./components/products/products-api";
+import usersRoutes from "./components/users/users-api";
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use("/products", productsRoutes);
+app.use("/users", usersRoutes);
 app.get("/", (req, res) => res.send("Hello World!"));
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
