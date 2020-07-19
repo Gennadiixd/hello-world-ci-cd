@@ -3,10 +3,9 @@ import { injectable, inject } from "tsyringe";
 
 import { UserEntity } from "./user.entity";
 import { IDBConnection } from "../../connection";
-import { SearchCriteria } from "./users-service";
 
 export interface IUsersRepository {
-  getUser: (SearchCriteria) => any;
+  getUser: (loginDTO) => any;
 }
 
 @injectable()
@@ -16,11 +15,10 @@ class UsersRepository extends Repository<any> {
     super();
   }
 
-  async getUser(searchCriteria: SearchCriteria) {
+  async getUser(loginDTO) {
     const connect = await this.dbConnection.getConnection();
     const repository = connect.getRepository(UserEntity);
-
-    const user = await repository.findOne(searchCriteria);
+    const user = await repository.findOne(loginDTO);
 
     delete user.password;
 

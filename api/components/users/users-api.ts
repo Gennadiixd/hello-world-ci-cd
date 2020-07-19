@@ -8,8 +8,6 @@ import DBConnection from "../../connection";
 import UsersRepository from "./users-repository";
 import AuthGuard from "../auth/auth-guard";
 
-const { isAuthenticated } = new AuthGuard();
-
 container.register("IUsersService", {
   useClass: UsersService,
 });
@@ -29,12 +27,8 @@ container.register("IAuthGuard", {
 const productsRouter = Router();
 const usersController = container.resolve(UsersController);
 
-productsRouter.get(
-  "/authorize",
-  // isAuthenticated,
-  usersController.authorizeUser
-);
+productsRouter.get("/authorize", usersController.authorizeUser);
 
-productsRouter.get("/login", usersController.loginUser);
+productsRouter.post("/login", usersController.loginUser);
 
 export default productsRouter;

@@ -6,14 +6,10 @@ export default class UsersService extends HttpService {
   }
 
   authorizeUser(): Promise<{ data: any }> {
-    return this.get("users/authorize", {
-      headers: {
-        Authorization: `Bearer ${this.getToken()}`,
-      },
-    });
+    return this.get("users/authorize");
   }
 
-  loginUser(): Promise<{ data: any }> {
-    return this.get("users/login");
+  loginUser(product): Promise<{ data: any }> {
+    return this.post("users/login", product);
   }
 }

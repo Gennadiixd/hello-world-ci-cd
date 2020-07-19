@@ -3,6 +3,8 @@ import { Response, Request } from "express";
 
 import { IUsersService } from "./users-service";
 import { IAuthGuard } from "../auth/auth-guard";
+import { AuthenticateUserDTO } from "./dto/authenticate-user.dto";
+import { LoginUserDTO } from "./dto/login-user-dto";
 
 export interface IUsersController {
   authorizeUser: (req: Request, res: Response) => void;
@@ -19,17 +21,18 @@ class UsersController implements IUsersController {
     const { SID } = req.cookies;
 
     if (SID) {
-      let decodedSID;
-
       try {
-        decodedSID = this.authGuard.decode(SID);
+        const decodedSID = this.authGuard.decode(SID);
+        const loginDTO = new AuthenticateUserDTO(decodedSID);
+        const user = await this.usersService.loginUser(loginDTO);
+
+        this.authGuard.setToken(res, user);
+        
+        res.status(200).json({ authorized: true, user });
       } catch (error) {
         this.authGuard.destroyCookies(res);
         res.status(401).json({ authorized: false });
       }
-
-      req.body.id = decodedSID.id;
-      this.loginUser(req, res);
     } else {
       this.authGuard.destroyCookies(res);
       res.status(401).json({ authorized: false });
@@ -37,17 +40,12 @@ class UsersController implements IUsersController {
   };
 
   loginUser = async (req: Request, res: Response) => {
-    const { name, password, id } = req.body;
-    const user = await this.usersService.loginUser({ name, password, id });
+    const loginDTO = new LoginUserDTO(req.body);
+    const user = await this.usersService.loginUser(loginDTO);
 
     if (user) {
-      const sid = this.authGuard.sign(user);
-      res.cookie("SID", sid, {
-        maxAge: 99999999,
-        httpOnly: true,
-      });
-
-      res.cookie("token", sid, { maxAge: 900000 });
+      this.authGuard.setSID(res, user);
+      this.authGuard.setToken(res, user);
 
       res.status(200).json({ authorized: true, user });
     } else {
