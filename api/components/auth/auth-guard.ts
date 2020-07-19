@@ -34,6 +34,9 @@ class AuthGuard implements IAuthGuard {
     const { authorization } = req.headers;
     const token = authorization?.split(" ")[1];
 
+    console.log(SID, authorization);
+    
+
     if (token && SID) {
       try {
         this.decode(SID);

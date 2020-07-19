@@ -21,6 +21,20 @@
   "produces": [
     "application/json"
   ],
+  "components": {
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "SID"
+      },
+      "bearerAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
   "paths": {
     "/products": {
       "get": {
@@ -32,6 +46,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/definitions/Products"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Post new Product",
+        "responses": {
+          "200": {
+            "security": {
+              "cookieAuth": [],
+              "bearerAuth": []
+            },
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Product"
                 }
               }
             }
