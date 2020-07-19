@@ -27,8 +27,8 @@ class UsersController implements IUsersController {
         const user = await this.usersService.loginUser(loginDTO);
 
         this.authGuard.setToken(res, user);
-        
-        res.status(200).json({ authorized: true, user });
+
+        res.status(200).json({ authorized: true });
       } catch (error) {
         this.authGuard.destroyCookies(res);
         res.status(401).json({ authorized: false });
@@ -47,9 +47,9 @@ class UsersController implements IUsersController {
       this.authGuard.setSID(res, user);
       this.authGuard.setToken(res, user);
 
-      res.status(200).json({ authorized: true, user });
+      res.status(200).json({ authorized: true });
     } else {
-      res.status(401).json({ authorized: false, user });
+      res.status(401).json({ authorized: false });
     }
   };
 }

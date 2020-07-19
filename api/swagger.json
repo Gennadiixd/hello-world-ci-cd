@@ -29,9 +29,9 @@
         "name": "SID"
       },
       "bearerAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "Authorization"
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   },
@@ -54,12 +54,12 @@
       },
       "post": {
         "summary": "Post new Product",
+        "security": {
+          "cookieAuth": [],
+          "bearerAuth": []
+        },
         "responses": {
           "200": {
-            "security": {
-              "cookieAuth": [],
-              "bearerAuth": []
-            },
             "description": "OK",
             "content": {
               "application/json": {
