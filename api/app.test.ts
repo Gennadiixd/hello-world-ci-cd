@@ -7,6 +7,7 @@ class mockProductsRepository implements IProductsRepository {
   getProducts() {
     return "success";
   }
+  createProduct: (any) => "product";
 }
 
 container.register("IProductsRepository", {
