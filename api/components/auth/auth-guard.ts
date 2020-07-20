@@ -6,50 +6,45 @@ export interface IAuthGuard {
   isAuthenticated: (req: any, res: any, next: any) => void;
   decode: (token: string) => any;
   destroyCookies: (res: any) => void;
-  setSID: (res: any, SID: any) => void;
   setToken: (res: any, token: any) => void;
+  handleUnauthorized: (res: any) => void;
 }
 
 @injectable()
 class AuthGuard implements IAuthGuard {
   privateKey: string;
-  algorithm: any;
+  JWTTokenOptions: any;
   keyPath: string;
+  cookieTokenOptions: any;
+  JWTSecret: string;
 
   constructor() {
-    this.algorithm = { algorithm: "HS256" };
-    this.privateKey = "MySuperSecretPassPhrase";
+    this.cookieTokenOptions = { maxAge: 99999999 };
+    this.JWTTokenOptions = {
+      algorithm: "HS256",
+      expiresIn: this.cookieTokenOptions.maxAge,
+    };
+    this.JWTSecret = process.env.JWT_SECRET;
+    this.privateKey = this.JWTSecret;
   }
 
   sign(body) {
-    return jwt.sign({ ...body }, this.privateKey, this.algorithm);
+    return jwt.sign({ ...body }, this.privateKey, this.JWTTokenOptions);
   }
 
   decode(token) {
-    return jwt.verify(token, this.privateKey, this.algorithm);
+    return jwt.verify(token, this.privateKey, this.JWTTokenOptions);
   }
 
   isAuthenticated = (req, res, next) => {
-    const { SID } = req.cookies;
     const { authorization } = req.headers;
     const token = authorization?.split(" ")[1];
 
-    console.log(SID, authorization);
-    
-
-    if (token && SID) {
+    if (token) {
       try {
-        this.decode(SID);
         const decodedToken = this.decode(token);
         req.user = decodedToken;
         next();
-      } catch (error) {
-        this.handleUnauthorized(res);
-      }
-    } else if (SID) {
-      try {
-        this.decode(SID);
-        res.status(401).json({ error: "Not Authorized" });
       } catch (error) {
         this.handleUnauthorized(res);
       }
@@ -58,24 +53,18 @@ class AuthGuard implements IAuthGuard {
     }
   };
 
-  setSID(res, SID) {
-    const encryptedSID = this.sign(SID);
-    res.cookie("SID", encryptedSID, { maxAge: 99999999, httpOnly: true });
-  }
-
   setToken(res, token) {
     const encryptedToken = this.sign(token);
-    res.cookie("token", encryptedToken, { maxAge: 900000 });
+    res.cookie("token", encryptedToken, this.cookieTokenOptions);
   }
 
   destroyCookies(res) {
-    res.clearCookie("SID");
     res.clearCookie("token");
   }
 
   handleUnauthorized(res) {
     this.destroyCookies(res);
-    res.status(401).json({ error: "Not Authorized" });
+    res.status(401).json({ authorized: false });
   }
 }
 

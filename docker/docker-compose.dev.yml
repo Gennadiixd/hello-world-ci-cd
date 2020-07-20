@@ -45,6 +45,7 @@ services:
       - DB_PASSWORD=myapppassword
       - DB_HOST=db
       - DB_PORT=5432
+      - JWT_SECRET=ljdsljflanyvtv576w34meojfsl
       - TYPEORM_SYNC=true
       - NODE_ENV=development
       - WAIT_HOSTS=db:5432

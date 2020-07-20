@@ -18,38 +18,40 @@ class UsersController implements IUsersController {
   ) {}
 
   authorizeUser = async (req: Request, res: Response) => {
-    const { SID } = req.cookies;
+    const { token } = req.cookies;
 
-    if (SID) {
+    if (token) {
       try {
-        const decodedSID = this.authGuard.decode(SID);
-        const loginDTO = new AuthenticateUserDTO(decodedSID);
+        const decodedToken = this.authGuard.decode(token);
+        const loginDTO = new AuthenticateUserDTO(decodedToken);
         const user = await this.usersService.loginUser(loginDTO);
 
-        this.authGuard.setToken(res, user);
+        if (!user) throw new Error("unauthorized");
 
         res.status(200).json({ authorized: true });
       } catch (error) {
-        this.authGuard.destroyCookies(res);
-        res.status(401).json({ authorized: false });
+        this.authGuard.handleUnauthorized(res);
       }
     } else {
-      this.authGuard.destroyCookies(res);
-      res.status(401).json({ authorized: false });
+      this.authGuard.handleUnauthorized(res);
     }
   };
 
   loginUser = async (req: Request, res: Response) => {
     const loginDTO = new LoginUserDTO(req.body);
-    const user = await this.usersService.loginUser(loginDTO);
+    let user;
+
+    try {
+      user = await this.usersService.loginUser(loginDTO);
+    } catch (error) {
+      this.authGuard.handleUnauthorized(res);
+    }
 
     if (user) {
-      this.authGuard.setSID(res, user);
       this.authGuard.setToken(res, user);
-
       res.status(200).json({ authorized: true });
     } else {
-      res.status(401).json({ authorized: false });
+      this.authGuard.handleUnauthorized(res);
     }
   };
 }
