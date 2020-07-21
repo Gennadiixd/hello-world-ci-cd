@@ -8,10 +8,6 @@ const usersService = new UsersService({});
 const productsService = new ProductsService({});
 
 export default function AdminPage() {
-  const authorizeUser = (): void => {
-    usersService.authorizeUser();
-  };
-
   const loginUser = (): void => {
     usersService.loginUser({ name: "admin", password: "1234" });
   };
@@ -27,7 +23,6 @@ export default function AdminPage() {
   return (
     <div>
       <h1>Admin Page</h1>
-      <button onClick={authorizeUser}>authorize</button>
       <button onClick={loginUser}>login</button>
       <button onClick={createProduct}>createProduct</button>
       <h2>

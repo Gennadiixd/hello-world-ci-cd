@@ -5,10 +5,6 @@ export default class UsersService extends HttpService {
     super(options);
   }
 
-  authorizeUser(): Promise<{ data: any }> {
-    return this.get("user/authorize");
-  }
-
   loginUser(user): Promise<{ data: any }> {
     return this.post("user/login", user);
   }
