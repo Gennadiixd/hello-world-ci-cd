@@ -33,7 +33,7 @@ class AuthGuard implements IAuthGuard {
   }
 
   decode(claims) {
-    return jwt.verify(claims, this.JWTSecret, this.JWTTokenOptions);
+    return jwt.verify(claims, this.JWTSecret);
   }
 
   isAuthenticated = (req, res, next) => {
