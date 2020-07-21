@@ -12,6 +12,7 @@ export interface IAuthGuard {
 }
 
 const COOKIE_NAME = "claims";
+const ONE_DAY = 24 * 60 * 60 * 1000;
 
 @injectable()
 class AuthGuard implements IAuthGuard {
@@ -20,7 +21,7 @@ class AuthGuard implements IAuthGuard {
   JWTSecret: string;
 
   constructor() {
-    this.cookieClaimsOptions = { maxAge: 24 * 60 * 60 * 1000 };
+    this.cookieClaimsOptions = { maxAge: ONE_DAY };
     this.JWTTokenOptions = {
       expiresIn: "24h",
     };
