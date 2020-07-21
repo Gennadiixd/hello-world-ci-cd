@@ -5,13 +5,12 @@ export interface IAuthGuard {
   sign: (body: any) => any;
   isAuthenticated: (req: any, res: any, next: any) => void;
   decode: (token: string) => any;
-  destroyCookies: (res: any) => void;
-  setClaims: (res: any, token: any) => void;
+  setClaims: (res: any, claims: any) => void;
   handleUnauthorized: (res: any) => void;
   handleAuthorized: (res: any, user: any) => void;
 }
 
-const COOKIE_NAME = "claims";
+const TOKEN_NAME = "claims";
 const ONE_DAY = 24 * 60 * 60 * 1000;
 
 @injectable()
@@ -37,7 +36,7 @@ class AuthGuard implements IAuthGuard {
   }
 
   isAuthenticated = (req, res, next) => {
-    const token = req.cookies[COOKIE_NAME];
+    const token = req.cookies[TOKEN_NAME];
 
     if (token) {
       try {
@@ -53,11 +52,7 @@ class AuthGuard implements IAuthGuard {
 
   setClaims(res, claims) {
     const token = this.sign(claims);
-    res.cookie(COOKIE_NAME, token, this.cookieClaimsOptions);
-  }
-
-  destroyCookies(res) {
-    res.clearCookie(COOKIE_NAME);
+    res.cookie(TOKEN_NAME, token, this.cookieClaimsOptions);
   }
 
   handleAuthorized(res, user) {
@@ -67,7 +62,7 @@ class AuthGuard implements IAuthGuard {
   }
 
   handleUnauthorized(res) {
-    this.destroyCookies(res);
+    res.clearCookie(TOKEN_NAME);
     res.status(401).json({ authorized: false });
   }
 }

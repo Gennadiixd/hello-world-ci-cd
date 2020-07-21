@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/products", productsRoutes);
 app.use("/user", usersRoutes);
