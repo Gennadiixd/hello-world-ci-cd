@@ -18,9 +18,9 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use("/products", productsRoutes);
 app.use("/user", usersRoutes);
-app.get("/", (req, res) => res.send("Hello World!"));
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 export default app;

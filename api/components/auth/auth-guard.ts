@@ -37,12 +37,11 @@ class AuthGuard implements IAuthGuard {
   }
 
   isAuthenticated = (req, res, next) => {
-    const claims = req.cookies[COOKIE_NAME];
+    const token = req.cookies[COOKIE_NAME];
 
-    if (claims) {
+    if (token) {
       try {
-        const decodedToken = this.decode(claims);
-        req.user = decodedToken;
+        req.user = this.decode(token);
         next();
       } catch (error) {
         this.handleUnauthorized(res);
@@ -53,8 +52,8 @@ class AuthGuard implements IAuthGuard {
   };
 
   setClaims(res, claims) {
-    const encryptedClaims = this.sign(claims);
-    res.cookie(COOKIE_NAME, encryptedClaims, this.cookieClaimsOptions);
+    const token = this.sign(claims);
+    res.cookie(COOKIE_NAME, token, this.cookieClaimsOptions);
   }
 
   destroyCookies(res) {
