@@ -9,21 +9,11 @@ export default class HttpService {
   BASE_URL = "api";
 
   async get(endpoint, options = {}): Promise<{ data: any }> {
-    return axios.get(`${this.BASE_URL}/${endpoint}`, {
-      headers: {
-        Authorization: `Bearer ${this.getToken()}`,
-      },
-      ...options,
-    });
+    return axios.get(`${this.BASE_URL}/${endpoint}`, options);
   }
 
   async post(endpoint, data = {}, options = {}) {
-    return axios.post(`${this.BASE_URL}/${endpoint}`, data, {
-      headers: {
-        Authorization: `Bearer ${this.getToken()}`,
-      },
-      ...options,
-    });
+    return axios.post(`${this.BASE_URL}/${endpoint}`, data, options);
   }
 
   getCookie(name) {
@@ -37,7 +27,7 @@ export default class HttpService {
     return matches ? decodeURIComponent(matches[1]) : "";
   }
 
-  getToken() {
-    return this.getCookie("token");
+  getClaims() {
+    return this.getCookie("claims");
   }
 }

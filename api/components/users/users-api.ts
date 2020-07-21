@@ -24,9 +24,9 @@ container.register("IAuthGuard", {
   useClass: AuthGuard,
 });
 
-const productsRouter = Router();
+const usersRouter = Router();
 const usersController = container.resolve(UsersController);
 
-productsRouter.post("/login", usersController.loginUser);
+usersRouter.post("/login", usersController.loginUser);
 
-export default productsRouter;
+export default usersRouter;

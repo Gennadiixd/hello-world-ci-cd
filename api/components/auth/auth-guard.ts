@@ -6,46 +6,41 @@ export interface IAuthGuard {
   isAuthenticated: (req: any, res: any, next: any) => void;
   decode: (token: string) => any;
   destroyCookies: (res: any) => void;
-  setToken: (res: any, token: any) => void;
+  setClaims: (res: any, token: any) => void;
   handleUnauthorized: (res: any) => void;
   handleAuthorized: (res: any, user: any) => void;
 }
 
+const COOKIE_NAME = "claims";
+
 @injectable()
 class AuthGuard implements IAuthGuard {
-  privateKey: string;
   JWTTokenOptions: any;
-  keyPath: string;
-  cookieTokenOptions: any;
+  cookieClaimsOptions: any;
   JWTSecret: string;
 
   constructor() {
-    this.cookieTokenOptions = { maxAge: 99999999 };
+    this.cookieClaimsOptions = { maxAge: 24 * 60 * 60 * 1000 };
     this.JWTTokenOptions = {
-      algorithm: "HS256",
-      expiresIn: this.cookieTokenOptions.maxAge,
+      expiresIn: "24h",
     };
     this.JWTSecret = process.env.JWT_SECRET;
-    this.privateKey = this.JWTSecret;
   }
 
   sign(body) {
-    return jwt.sign({ ...body }, this.privateKey, this.JWTTokenOptions);
+    return jwt.sign({ ...body }, this.JWTSecret, this.JWTTokenOptions);
   }
 
-  decode(token) {
-    return jwt.verify(token, this.privateKey, this.JWTTokenOptions);
+  decode(claims) {
+    return jwt.verify(claims, this.JWTSecret, this.JWTTokenOptions);
   }
 
   isAuthenticated = (req, res, next) => {
-    const { authorization } = req.headers;
-    const token = authorization?.split(" ")[1];
+    const claims = req.cookies[COOKIE_NAME];
 
-    console.log(req.headers);
-
-    if (token) {
+    if (claims) {
       try {
-        const decodedToken = this.decode(token);
+        const decodedToken = this.decode(claims);
         req.user = decodedToken;
         next();
       } catch (error) {
@@ -56,18 +51,18 @@ class AuthGuard implements IAuthGuard {
     }
   };
 
-  setToken(res, token) {
-    const encryptedToken = this.sign(token);
-    res.cookie("token", encryptedToken, this.cookieTokenOptions);
+  setClaims(res, claims) {
+    const encryptedClaims = this.sign(claims);
+    res.cookie(COOKIE_NAME, encryptedClaims, this.cookieClaimsOptions);
   }
 
   destroyCookies(res) {
-    res.clearCookie("token");
+    res.clearCookie(COOKIE_NAME);
   }
 
   handleAuthorized(res, user) {
     const { id, role } = user;
-    this.setToken(res, { id, role });
+    this.setClaims(res, { id, role });
     res.status(200).json({ authorized: true, user });
   }
 
