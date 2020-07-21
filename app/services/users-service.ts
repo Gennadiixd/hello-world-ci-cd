@@ -6,10 +6,10 @@ export default class UsersService extends HttpService {
   }
 
   authorizeUser(): Promise<{ data: any }> {
-    return this.get("users/authorize");
+    return this.get("user/authorize");
   }
 
-  loginUser(product): Promise<{ data: any }> {
-    return this.post("users/login", product);
+  loginUser(user): Promise<{ data: any }> {
+    return this.post("user/login", user);
   }
 }

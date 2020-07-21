@@ -1,4 +1,5 @@
 import { injectable, inject } from "tsyringe";
+import { compareSync } from "bcrypt";
 
 import { IUsersRepository } from "./users-repository";
 
@@ -13,8 +14,15 @@ class UsersService implements IUsersService {
     public usersRepository: IUsersRepository
   ) {}
 
-  loginUser(loginDTO) {
-    return this.usersRepository.getUser(loginDTO);
+  async loginUser(loginUserDTO) {
+    const { name, password } = loginUserDTO;
+    const user = await this.usersRepository.getUser({ name });
+
+    if (compareSync(password, user.password)) {
+      return user;
+    } else {
+      throw new Error("unauthorized");
+    }
   }
 }
 

@@ -26,16 +26,61 @@
       "cookieAuth": {
         "type": "apiKey",
         "in": "cookie",
-        "name": "SID"
-      },
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "name": "token"
+      }
+    },
+    "schemas": {
+      "LoginUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
       }
     }
   },
   "paths": {
+    "/user/login": {
+      "post": {
+        "summary": "Login user by name and password",
+        "requestBody": {
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/LoginUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "summary": "Get all Products",
@@ -54,10 +99,11 @@
       },
       "post": {
         "summary": "Post new Product",
-        "security": {
-          "cookieAuth": [],
-          "bearerAuth": []
-        },
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -67,6 +113,12 @@
                   "$ref": "#/definitions/Product"
                 }
               }
+            }
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/Unauthorized"
             }
           }
         }
@@ -95,6 +147,25 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/Product"
+      }
+    },
+    "LoginUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Unauthorized": {
+      "type": "object",
+      "properties": {
+        "authorized": {
+          "type": "boolean"
+        }
       }
     }
   }

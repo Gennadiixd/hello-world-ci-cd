@@ -27,8 +27,6 @@ container.register("IAuthGuard", {
 const productsRouter = Router();
 const usersController = container.resolve(UsersController);
 
-productsRouter.get("/authorize", usersController.authorizeUser);
-
 productsRouter.post("/login", usersController.loginUser);
 
 export default productsRouter;

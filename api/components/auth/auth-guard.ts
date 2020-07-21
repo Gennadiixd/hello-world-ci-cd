@@ -8,6 +8,7 @@ export interface IAuthGuard {
   destroyCookies: (res: any) => void;
   setToken: (res: any, token: any) => void;
   handleUnauthorized: (res: any) => void;
+  handleAuthorized: (res: any, user: any) => void;
 }
 
 @injectable()
@@ -40,6 +41,8 @@ class AuthGuard implements IAuthGuard {
     const { authorization } = req.headers;
     const token = authorization?.split(" ")[1];
 
+    console.log(req.headers);
+
     if (token) {
       try {
         const decodedToken = this.decode(token);
@@ -60,6 +63,12 @@ class AuthGuard implements IAuthGuard {
 
   destroyCookies(res) {
     res.clearCookie("token");
+  }
+
+  handleAuthorized(res, user) {
+    const { id, role } = user;
+    this.setToken(res, { id, role });
+    res.status(200).json({ authorized: true, user });
   }
 
   handleUnauthorized(res) {

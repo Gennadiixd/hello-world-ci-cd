@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use("/products", productsRoutes);
-app.use("/users", usersRoutes);
+app.use("/user", usersRoutes);
 app.get("/", (req, res) => res.send("Hello World!"));
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

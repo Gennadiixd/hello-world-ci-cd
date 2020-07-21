@@ -1,7 +1,7 @@
 import * as Knex from "knex";
-import bcrypt  from "bcrypt";
+import { hashSync } from "bcrypt";
 
-bcrypt.hashSync('aaaa', 10);
+const saltRounds = parseInt(process.env.BCRYPT_ROUNDS, 10);
 
 export async function seed(knex: Knex): Promise<void> {
   await knex("users").del();
@@ -9,12 +9,12 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("users").insert([
     {
       name: "userOne",
-      password: "1234",
+      password: hashSync("1234", saltRounds),
       role: "customer",
     },
     {
       name: "admin",
-      password: "1234",
+      password: hashSync("1234", saltRounds),
       role: "admin",
     },
   ]);

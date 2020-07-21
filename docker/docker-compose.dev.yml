@@ -46,6 +46,7 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - JWT_SECRET=ljdsljflanyvtv576w34meojfsl
+      - BCRYPT_ROUNDS=10
       - TYPEORM_SYNC=true
       - NODE_ENV=development
       - WAIT_HOSTS=db:5432

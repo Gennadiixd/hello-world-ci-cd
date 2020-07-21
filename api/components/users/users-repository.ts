@@ -15,12 +15,10 @@ class UsersRepository extends Repository<any> {
     super();
   }
 
-  async getUser(loginDTO) {
+  async getUser(getUserDTO) {
     const connect = await this.dbConnection.getConnection();
     const repository = connect.getRepository(UserEntity);
-    const user = await repository.findOne(loginDTO);
-
-    delete user.password;
+    const user = await repository.findOne(getUserDTO);
 
     return user;
   }
