@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import ProductsService from "../../services/product-service";
+import ProductsService from "../../services/products-service";
 
 const productsService = new ProductsService({});
 

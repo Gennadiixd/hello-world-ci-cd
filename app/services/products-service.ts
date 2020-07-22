@@ -8,4 +8,8 @@ export default class ProductsService extends HttpService {
   getProducts(): Promise<{ data: any }> {
     return this.get("products");
   }
+
+  createProduct(product): Promise<{ data: any }> {
+    return this.post("products", product);
+  }
 }

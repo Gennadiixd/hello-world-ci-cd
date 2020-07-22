@@ -3,12 +3,21 @@ import axios from "axios";
 export default class HttpService {
   options: any;
   constructor(options) {
+    const { get, post } = axios.create({
+      baseURL: "api/",
+      responseType: "json",
+    });
+
     this.options = options;
+    this.post = post;
+    this.get = get;
   }
 
-  BASE_URL = "api";
-
   async get(endpoint, options = {}): Promise<{ data: any }> {
-    return axios.get(`${this.BASE_URL}/${endpoint}`, options);
+    return this.get(endpoint, options);
+  }
+
+  async post(endpoint, data = {}, options = {}) {
+    return this.post(endpoint, data, options);
   }
 }
