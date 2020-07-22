@@ -45,5 +45,7 @@ services:
     env_file: ../db/psql.env
     image: postgres:9.5
     container_name: db
+    volumes: 
+      - "./tmp/postgres:/var/lib/postgresql/data"
     ports:
       - "5431:5432"
