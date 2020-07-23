@@ -11,10 +11,11 @@ class ProductsStore extends BaseStore {
   fetchProducts = flow(function* () {
     if (this.products.length) return;
     console.log(this.products);
-    
-    const data = yield productsService.getProducts();
 
-    this.products.replace(data);
+    const data = yield productsService.getProducts();
+    
+    this.products = data;
+    console.log(this.products);
   }).bind(this);
 
   getProducts = () => {

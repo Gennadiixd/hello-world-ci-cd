@@ -15,6 +15,10 @@ export default function ProductsPage() {
   const www = useMemo(() => fetchProducts(), []);
   const products = useMemo(() => getProducts(), []);
 
+  console.log(www);
+  console.log(products);
+  
+
   // const { productsStore } = useStore();
 
   // const getProducts = () => {
