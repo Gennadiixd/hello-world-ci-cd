@@ -8,26 +8,21 @@ const productsService = new ProductsService({});
 class ProductsStore extends BaseStore {
   @observable products = [];
 
-  @action
   fetchProducts = flow(function* () {
-    if (this.products) {
-      return;
-    }
+    if (this.products.length) return;
+    console.log(this.products);
+    
+    const data = yield productsService.getProducts();
 
-    try {
-      const data = yield productsService.getProducts();
+    this.products.replace(data);
+  }).bind(this);
 
-      this.products = data;
-    } catch (error) {
-      throw error;
-    }
-  });
-
-  @action
   getProducts = () => {
     return this.products;
   };
-
 }
 
-export const getProductsStore = getOrCreateStore("productStore", ProductsStore);
+export const getProductsStore = getOrCreateStore(
+  "productsStore",
+  ProductsStore
+);

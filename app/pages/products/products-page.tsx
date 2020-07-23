@@ -6,14 +6,14 @@ import ProductCard from "./components/product-card";
 import React, { useMemo, useContext } from "react";
 import useMount from "../../hooks/useMount";
 import { MobXProviderContext } from "mobx-react";
+
 export default function ProductsPage() {
   const {
-    productsStore: { getProducts },
+    productsStore: { getProducts, fetchProducts },
   } = useContext(MobXProviderContext);
 
+  const www = useMemo(() => fetchProducts(), []);
   const products = useMemo(() => getProducts(), []);
-
-  console.log(products);
 
   // const { productsStore } = useStore();
 
@@ -35,7 +35,3 @@ export default function ProductsPage() {
     </MainLayout>
   );
 }
-
-ProductsPage.getInitialProps = async (...rest) => {
-  console.log(rest);
-};
