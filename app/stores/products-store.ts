@@ -1,25 +1,33 @@
-import { observable, action } from "mobx";
+import { BaseStore, getOrCreateStore } from "next-mobx-wrapper";
+import { observable, action, flow } from "mobx";
 
 import ProductsService from "../services/products-service";
 
 const productsService = new ProductsService({});
 
-export class ProductsStore {
+class ProductsStore extends BaseStore {
   @observable products = [];
 
   @action
-  async getProducts() {
-    const products = await productsService.getProducts();
-    this.setProducts(products);
-  }
+  fetchProducts = flow(function* () {
+    if (this.products) {
+      return;
+    }
+
+    try {
+      const data = yield productsService.getProducts();
+
+      this.products = data;
+    } catch (error) {
+      throw error;
+    }
+  });
 
   @action
-  setProducts(products) {
-    this.products = products;
-  }
+  getProducts = () => {
+    return this.products;
+  };
 
-  @action
-  createProduct(productData) {
-    productsService.createProduct(productData);
-  }
 }
+
+export const getProductsStore = getOrCreateStore("productStore", ProductsStore);

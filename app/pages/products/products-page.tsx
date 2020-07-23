@@ -1,33 +1,41 @@
-import { useMemo, useState } from "react";
-import { useObserver, useLocalStore } from "mobx-react";
+import { useObserver } from "mobx-react";
 
 import MainLayout from "../../components/complex/main-layout.js/main-layout";
 import CardGrid from "../../components/complex/card-grid";
 import ProductCard from "./components/product-card";
-import { useStore } from "../../stores/stores";
-
+import React, { useMemo, useContext } from "react";
+import useMount from "../../hooks/useMount";
+import { MobXProviderContext } from "mobx-react";
 export default function ProductsPage() {
-  const { productsStore } = useStore();
+  const {
+    productsStore: { getProducts },
+  } = useContext(MobXProviderContext);
 
-  // const [products, setProducts] = useState([]);
+  const products = useMemo(() => getProducts(), []);
 
-  // const products = useLocalStore(() => ({ name: 'John' }))
+  console.log(products);
 
-  const getProducts = () => {
-    productsStore.getProducts();
-  };
+  // const { productsStore } = useStore();
 
-  const { products } = productsStore;
+  // const getProducts = () => {
+  //   productsStore.getProducts();
+  // };
 
-  const productsSection = useMemo(
-    () => products.map((product) => <ProductCard product={product} />),
-    [products]
-  );
+  // useMount(() => {
+  //   getProducts();
+  // });
 
-  return useObserver(() => (
-    <MainLayout>
-      <button onClick={getProducts}></button>
-      <CardGrid>{productsSection}</CardGrid>
+  // const productCardsSection = useObserver(() =>
+  //   productsStore.products.map((product) => <ProductCard product={product} />)
+  // );
+
+  return (
+    <MainLayout title="Products Page">
+      {/* <CardGrid>{productCardsSection}</CardGrid> */}
     </MainLayout>
-  ));
+  );
 }
+
+ProductsPage.getInitialProps = async (...rest) => {
+  console.log(rest);
+};

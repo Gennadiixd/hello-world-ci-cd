@@ -1,10 +1,10 @@
 import Header from "../header";
 import Footer from "../footer";
 
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, title }) {
   return (
     <>
-      <Header />
+      <Header title={title} />
       <main>{children}</main>
       <Footer />
     </>

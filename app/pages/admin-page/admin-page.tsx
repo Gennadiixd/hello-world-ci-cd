@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import UsersService from "../../services/users-service";
 import ProductsService from "../../services/products-service";
+import MainLayout from "../../components/complex/main-layout.js/main-layout";
 
 const usersService = new UsersService({});
 const productsService = new ProductsService({});
@@ -21,8 +22,7 @@ export default function AdminPage() {
   };
 
   return (
-    <div>
-      <h1>Admin Page</h1>
+    <MainLayout title="Admin Page">
       <button onClick={loginUser}>login</button>
       <button onClick={createProduct}>createProduct</button>
       <h2>
@@ -30,6 +30,6 @@ export default function AdminPage() {
           <a>Back to home</a>
         </Link>
       </h2>
-    </div>
+    </MainLayout>
   );
 }

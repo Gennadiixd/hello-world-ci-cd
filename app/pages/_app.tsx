@@ -1,18 +1,19 @@
-import React from "react";
-import App, { Container } from "next/app";
-import { StoreProvider } from "../stores/stores";
+import { withMobx } from "next-mobx-wrapper";
+import { configure } from "mobx";
+import { Provider, useStaticRendering } from "mobx-react";
+import "../assets/styles/index.scss";
+import * as getStores from "../stores";
+const isServer = !process.browser;
 
-class CustomApp extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-    return (
-      <StoreProvider>
-        <Container>
-          <Component {...pageProps} />
-        </Container>
-      </StoreProvider>
-    );
-  }
+configure({ enforceActions: "observed" });
+useStaticRendering(isServer);
+
+function App({ Component, pageProps, store }) {
+  return (
+    <Provider {...store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
 }
 
-export default CustomApp;
+export default withMobx(getStores)(App);

@@ -7,7 +7,7 @@ export default function ProductsPage() {
   console.log(router);
 
   return (
-    <MainLayout>
+    <MainLayout title="Product">
       <div>d</div>
     </MainLayout>
   );
