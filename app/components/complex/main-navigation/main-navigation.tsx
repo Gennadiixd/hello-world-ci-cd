@@ -5,6 +5,11 @@ export default function MainNavigation() {
     <nav>
       <ul>
         <li>
+          <Link href="/ssg">
+            <a>ssg</a>
+          </Link>
+        </li>
+        <li>
           <Link href="/first-page">
             <a>first page!</a>
           </Link>

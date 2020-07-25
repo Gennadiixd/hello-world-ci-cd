@@ -1,23 +1,26 @@
 import { useObserver } from "mobx-react";
 
-import MainLayout from "../../components/complex/main-layout.js/main-layout";
+import MainLayout from "../../components/complex/main-layout";
 import CardGrid from "../../components/complex/card-grid";
 import ProductCard from "./components/product-card";
 import React, { useMemo, useContext } from "react";
 import useMount from "../../hooks/useMount";
 import { MobXProviderContext } from "mobx-react";
+import { initializeStore } from "../../ducks";
+import { initialState } from "./ducks/reducer";
+import { serverGetProductsAC } from "./ducks";
+import { setProductsAC } from "./ducks/action-creators";
 
-export default function ProductsPage() {
-  const {
-    productsStore: { getProducts, fetchProducts },
-  } = useContext(MobXProviderContext);
+export default function ProductsPage(props) {
+  // const {
+  //   productsStore: { getProducts, fetchProducts },
+  // } = useContext(MobXProviderContext);
 
-  const www = useMemo(() => fetchProducts(), []);
-  const products = useMemo(() => getProducts(), []);
+  // const www = useMemo(() => fetchProducts(), []);
+  // const products = useMemo(() => getProducts(), []);
 
-  console.log(www);
-  console.log(products);
-  
+  console.log(props);
+  // console.log(products);
 
   // const { productsStore } = useStore();
 
@@ -35,7 +38,17 @@ export default function ProductsPage() {
 
   return (
     <MainLayout title="Products Page">
+      {/* <ProductsContainer /> */}
       {/* <CardGrid>{productCardsSection}</CardGrid> */}
     </MainLayout>
   );
+}
+
+export async function getStaticProps(ctx) {
+  const reduxStore = initializeStore({});
+  const { dispatch } = reduxStore;
+
+  await dispatch(serverGetProductsAC());
+
+  return { props: { initialReduxState: reduxStore.getState() } };
 }
