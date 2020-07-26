@@ -1,0 +1,37 @@
+@import "variables";
+@import "mixins";
+
+header.main__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background-color: $silver-background;
+
+  .page__title {
+    padding: 10px;
+    color: $fade-black;
+  }
+
+  nav.main__navigation {
+    
+    ul {
+      display: flex;
+      list-style-type: none;
+
+      li {
+        padding: 10px;
+
+        a {
+          text-decoration: none;
+          color: $fade-black;
+          font-size: 14px;
+
+          &:hover {
+            transition: color .5s;
+            color: black;
+          }
+        }
+      }
+    }
+  }
+}

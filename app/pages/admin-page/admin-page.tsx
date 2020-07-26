@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import UsersService from "../../services/users-service";
 import ProductsService from "../../services/products-service";
-import MainLayout from "../../components/complex/main-layout.js/main-layout";
+import MainLayout from "../../components/complex/main-layout";
 
 const usersService = new UsersService({});
 const productsService = new ProductsService({});

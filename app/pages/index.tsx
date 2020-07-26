@@ -1,4 +1,4 @@
-import MainLayout from "../components/complex/main-layout.js";
+import MainLayout from "../components/complex/main-layout";
 
 export default function Index() {
   return (

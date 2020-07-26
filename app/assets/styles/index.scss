@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import "~normalize.css";
 
-@import "grid/index";
+@import "grid/grid";
+@import "header";
 
 * {
   margin: 0;

@@ -1,45 +1,27 @@
-import { useObserver } from "mobx-react";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { initializeStore } from "../../ducks";
 
 import MainLayout from "../../components/complex/main-layout";
 import CardGrid from "../../components/complex/card-grid";
 import ProductCard from "./components/product-card";
-import React, { useMemo, useContext } from "react";
-import useMount from "../../hooks/useMount";
-import { MobXProviderContext } from "mobx-react";
-import { initializeStore } from "../../ducks";
-import { initialState } from "./ducks/reducer";
 import { serverGetProductsAC } from "./ducks";
-import { setProductsAC } from "./ducks/action-creators";
+import { getProductsSelector } from "./ducks/selectors";
 
-export default function ProductsPage(props) {
-  // const {
-  //   productsStore: { getProducts, fetchProducts },
-  // } = useContext(MobXProviderContext);
+export default function ProductsPage({}) {
+  const products = useSelector(getProductsSelector);
 
-  // const www = useMemo(() => fetchProducts(), []);
-  // const products = useMemo(() => getProducts(), []);
-
-  console.log(props);
-  // console.log(products);
-
-  // const { productsStore } = useStore();
-
-  // const getProducts = () => {
-  //   productsStore.getProducts();
-  // };
-
-  // useMount(() => {
-  //   getProducts();
-  // });
-
-  // const productCardsSection = useObserver(() =>
-  //   productsStore.products.map((product) => <ProductCard product={product} />)
-  // );
+  const productCardsSection = useMemo(
+    () =>
+      products.map((product) => (
+        <ProductCard product={product} key={product.id} />
+      )),
+    [products]
+  );
 
   return (
     <MainLayout title="Products Page">
-      {/* <ProductsContainer /> */}
-      {/* <CardGrid>{productCardsSection}</CardGrid> */}
+      <CardGrid>{productCardsSection}</CardGrid>
     </MainLayout>
   );
 }

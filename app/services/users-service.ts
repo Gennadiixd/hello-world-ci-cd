@@ -5,7 +5,7 @@ export default class UsersService extends HttpService {
     super(options);
   }
 
-  loginUser(user): Promise<{ data: any }> {
-    return this.post("user/login", user);
+  loginUser(userData): Promise<{ data: any }> {
+    return this.post("user/login", userData);
   }
 }

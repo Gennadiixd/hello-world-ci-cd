@@ -2,9 +2,9 @@ import MainNavigation from "../main-navigation";
 
 export default function Header({ title }) {
   return (
-    <div>
-      <h1>{title}</h1>
+    <header className="main__header grid-12">
+      <h1 className="page__title">{title}</h1>
       <MainNavigation />
-    </div>
+    </header>
   );
 }
