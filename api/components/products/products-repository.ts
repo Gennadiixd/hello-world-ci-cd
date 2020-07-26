@@ -7,6 +7,7 @@ import { IDBConnection } from "../../connection";
 export interface IProductsRepository {
   getProducts: () => any;
   createProduct: (any) => any;
+  getProduct: (any) => any;
 }
 
 @injectable()
@@ -25,6 +26,12 @@ class ProductsRepository extends Repository<any> {
     const connectionManager = await this.getConnectManager();
     const products = await connectionManager.find(ProductEntity);
     return products;
+  }
+
+  async getProduct(id) {
+    const connectionManager = await this.getConnectManager();
+    const product = await connectionManager.findOne(ProductEntity, id);
+    return product;
   }
 
   async createProduct(createProductDTO) {

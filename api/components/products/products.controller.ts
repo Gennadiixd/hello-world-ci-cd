@@ -7,6 +7,7 @@ import { CreateProductDTO } from "./dto/create-product.dto";
 export interface IProductsController {
   getProducts: (_: any, res: Response) => void;
   createProduct: (req: Request, res: Response) => void;
+  getProduct: (req: Request, res: Response) => void;
 }
 
 @injectable()
@@ -17,6 +18,12 @@ class ProductsController implements IProductsController {
 
   getProducts = async (_: any, res: Response) => {
     const products = await this.productsService.getProducts();
+    res.json(products);
+  };
+
+  getProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const products = await this.productsService.getProduct(id);
     res.json(products);
   };
 

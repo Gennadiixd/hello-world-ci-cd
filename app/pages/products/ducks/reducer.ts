@@ -2,6 +2,7 @@ import * as AT from "./action-types";
 
 export const initialState = {
   products: [],
+  currentProduct: {},
 };
 
 export const productsReducer = (state = initialState, { type, payload }) => {
@@ -10,6 +11,11 @@ export const productsReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         products: payload,
+      };
+    case AT.SET_CURRENT_PRODUCT:
+      return {
+        ...state,
+        currentProduct: payload,
       };
     default:
       return state;

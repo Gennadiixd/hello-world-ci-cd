@@ -26,6 +26,7 @@ const productsRouter = Router();
 const productsController = container.resolve(ProductsController);
 
 productsRouter.get("/", productsController.getProducts);
+productsRouter.get("/:id", productsController.getProduct);
 
 productsRouter.post("/", isAuthenticated, productsController.createProduct);
 

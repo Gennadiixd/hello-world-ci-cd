@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { initializeStore } from "../../ducks";
 
-import MainLayout from "../../components/complex/main-layout";
-import CardGrid from "../../components/complex/card-grid";
+import { initializeStore } from "@/ducks/index";
+import MainLayout from "@/components/complex/main-layout";
+import CardGrid from "@/components/complex/card-grid";
+
 import ProductCard from "./components/product-card";
 import { serverGetProductsAC } from "./ducks";
 import { getProductsSelector } from "./ducks/selectors";

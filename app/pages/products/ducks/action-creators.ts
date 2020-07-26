@@ -21,3 +21,12 @@ export const serverGetProductsAC = () => async (dispatch) => {
     payload: products,
   });
 };
+
+export const serverGetProductByIdAC = (id) => async (dispatch) => {
+  const products = await productsService.getProductById(id);
+
+  return dispatch({
+    type: AT.SET_CURRENT_PRODUCT,
+    payload: products,
+  });
+};
