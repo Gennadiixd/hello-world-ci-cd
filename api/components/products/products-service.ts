@@ -5,7 +5,7 @@ import { IProductsRepository } from "./products-repository";
 export interface IProductsService {
   getProducts: () => any;
   createProduct: (any: any) => any;
-  getProduct: (id) => void;
+  getProduct: (id) => any;
 }
 
 @injectable()
