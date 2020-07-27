@@ -1,4 +1,4 @@
-import ProductsPage, { getStaticProps } from "./products-page";
+import ProductsPage, { getServerSideProps } from "./products-page";
 
 export default ProductsPage;
-export { getStaticProps };
+export { getServerSideProps };

@@ -27,7 +27,7 @@ export default function ProductsPage({}) {
   );
 }
 
-export async function getStaticProps(ctx) {
+export async function getServerSideProps(ctx) {
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
