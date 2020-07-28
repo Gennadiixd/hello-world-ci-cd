@@ -31,7 +31,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "ts-node server.ts",
+    "start": "npx knex migrate:latest && knex seed:run && ts-node server.ts",
     "start:dev": "echo '>>> MIGRATIONS_START' && npx knex migrate:latest && knex seed:run && echo '>>> MIGRATIONS_END' && NODE_ENV=development nodemon server.ts",
     "start:dev:local": "NODE_ENV=test nodemon server.ts",
     "tsc": "tsc",

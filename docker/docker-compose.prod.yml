@@ -34,7 +34,7 @@ services:
     restart: always
     environment:
       - DB_NAME=myappdb
-      - DB_USER=myappuser
+      - DB_USERNAME=myappuser
       - DB_PASSWORD=myapppassword
       - DB_HOST=db
       - DB_PORT=5432
