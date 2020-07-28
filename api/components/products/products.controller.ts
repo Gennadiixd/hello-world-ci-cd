@@ -27,8 +27,15 @@ class ProductsController implements IProductsController {
     res.json(products);
   };
 
-  createProduct = async (req: Request, res: Response) => {
-    const createProductDTO = new CreateProductDTO(req.body);
+  createProduct = async (req: any, res: Response) => {
+    const { title, description, price } = req.body;
+    const { filename } = req.file;
+    const createProductDTO = new CreateProductDTO({
+      title,
+      description,
+      price,
+      filename,
+    });
     const product = await this.productsService.createProduct(createProductDTO);
     res.json(product);
   };

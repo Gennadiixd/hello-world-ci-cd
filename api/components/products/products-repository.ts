@@ -35,13 +35,14 @@ class ProductsRepository extends Repository<any> {
   }
 
   async createProduct(createProductDTO) {
-    const { title, description, price } = createProductDTO;
+    const { title, description, price, image } = createProductDTO;
 
     const product = new ProductEntity();
 
     product.title = title;
     product.description = description;
     product.price = price;
+    product.image = image;
 
     await product.save();
 

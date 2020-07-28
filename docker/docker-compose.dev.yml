@@ -7,6 +7,7 @@ services:
     volumes:
       - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
       - "../certs:/etc/nginx/certs"
+      - "./../tmp/images:/public/images"
     ports:
       - "443:443"
     links:
@@ -56,6 +57,7 @@ services:
       - db:db
     volumes:
       - ./../api:/api
+      - ./../tmp/images:/api/public/images
     working_dir: /api
     entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:

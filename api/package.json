@@ -21,6 +21,7 @@
     "knex": "^0.21.2",
     "knex-migrate": "^1.7.4",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.1.4",
@@ -56,6 +57,7 @@
     "@types/config": "0.0.36",
     "@types/cookie-parser": "^1.4.2",
     "@types/morgan": "^1.9.1",
+    "@types/multer": "^1.4.3",
     "nodemon": "^2.0.4"
   }
 }

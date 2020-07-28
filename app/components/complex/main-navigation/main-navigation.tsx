@@ -5,7 +5,12 @@ export default function MainNavigation() {
     <nav className="main__navigation">
       <ul>
         <li>
-          <Link href="/admin-page">
+          <Link href="/admin/create-product">
+            <a>Create product page</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/admin">
             <a>Admin page</a>
           </Link>
         </li>

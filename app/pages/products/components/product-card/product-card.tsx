@@ -3,8 +3,7 @@ import { useRouter } from "next/router";
 import CardButtons from "../card-buttons/card-buttons";
 
 export default function ProductCard({ product }) {
-  const { push, asPath } = useRouter();
-
+  const { push } = useRouter();
   const { id, title, description, image, price } = product;
   const onClickLookCloser = () => {
     push(`/product/[id]`, `/product/${id}`);

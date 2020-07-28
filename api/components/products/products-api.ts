@@ -1,6 +1,8 @@
 import "reflect-metadata";
 import { Router } from "express";
 import { container } from "tsyringe";
+import multer from "multer";
+import path from "path";
 
 import ProductsController from "./products.controller";
 import ProductsService from "./products-service";
@@ -9,6 +11,17 @@ import DBConnection from "../../connection";
 import AuthGuard from "../auth/auth-guard";
 
 const { isAuthenticated } = new AuthGuard();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/images/products");
+  },
+  filename: function (req, file, cb) {
+    cb(null, "product_image_" + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage });
 
 container.register("IProductsService", {
   useClass: ProductsService,
@@ -28,6 +41,11 @@ const productsController = container.resolve(ProductsController);
 productsRouter.get("/", productsController.getProducts);
 productsRouter.get("/:id", productsController.getProduct);
 
-productsRouter.post("/", isAuthenticated, productsController.createProduct);
+productsRouter.post(
+  "/",
+  isAuthenticated,
+  upload.single("image"),
+  productsController.createProduct
+);
 
 export default productsRouter;
