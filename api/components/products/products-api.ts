@@ -14,7 +14,7 @@ const { isAuthenticated } = new AuthGuard();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/images/products");
+    cb(null, "public/images/product");
   },
   filename: function (req, file, cb) {
     cb(null, "product_image_" + Date.now() + path.extname(file.originalname));

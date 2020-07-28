@@ -15,7 +15,7 @@ export default function ProductCard({ product }) {
       <div className="product__card">
         <div className="product__card--title">{title}</div>
         <div className="product__card--image">
-          <Img src={image} type="products" />
+          <Img src={image} type="product" />
         </div>
         <div className="product__card--description">{description}</div>
         <div className="product__card--price">{price} $</div>

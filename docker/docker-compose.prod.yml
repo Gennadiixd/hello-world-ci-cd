@@ -7,6 +7,7 @@ services:
     volumes:
      - "../config/nginx/nginx.prod.conf:/etc/nginx/nginx.conf"
      - "/etc/letsencrypt:/etc/nginx/certs"
+     - "./../tmp/images:/public/images"
     ports:
       - "80:80" 
       - "443:443" 
@@ -39,6 +40,8 @@ services:
       - NODE_ENV=production
     links:
       - db:db
+    volumes:
+      - ./../tmp/images:/api/public/images
     ports:
       - "3000:3000"
   db:

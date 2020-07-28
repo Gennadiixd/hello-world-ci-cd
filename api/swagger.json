@@ -99,6 +99,9 @@
       },
       "post": {
         "summary": "Post new Product",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "security": [
           {
             "cookieAuth": []
@@ -107,6 +110,36 @@
         "responses": {
           "200": {
             "description": "OK",
+            "parameters": [
+              {
+                "name": "image",
+                "in": "formData",
+                "required": true,
+                "description": "image for product",
+                "type": "file"
+              },
+              {
+                "name": "title",
+                "in": "formData",
+                "required": true,
+                "description": "title for product",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "in": "formData",
+                "required": true,
+                "description": "description for product",
+                "type": "string"
+              },
+              {
+                "name": "price",
+                "in": "formData",
+                "required": true,
+                "description": "price for product",
+                "type": "string"
+              }
+            ],
             "content": {
               "application/json": {
                 "schema": {
@@ -123,48 +156,87 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "Product": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number"
-        },
-        "title": {
+    },
+    "/products/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "id for searching product",
           "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "price": {
-          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Get product with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "product with id",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          },
+          "404": {
+            "description": "Failed. product not found."
+          }
         }
       }
     },
-    "Products": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/Product"
-      }
-    },
-    "LoginUser": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
+    "definitions": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "image": {
+            "type": "file"
+          }
         }
-      }
-    },
-    "Unauthorized": {
-      "type": "object",
-      "properties": {
-        "authorized": {
-          "type": "boolean"
+      },
+      "Products": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Product"
+        }
+      },
+      "LoginUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "authorized": {
+            "type": "boolean"
+          }
         }
       }
     }
