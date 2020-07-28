@@ -22,6 +22,7 @@ services:
       - NODE_ENV=production
       - PORT=5000 # port inside container
       - HOST=0.0.0.0 # host to bind inside container
+      - API_BASE=https://test-project.online/api
     ports:
       - "5000:5000" # For docker to now where to redirect HMR queries
     stdin_open: true
