@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import productsReducer from "../pages/products/ducks";
-import userReducer from "../pages/user/ducks";
+import productsReducer from "../views/products/ducks";
+import userReducer from "../views/user/ducks";
 
 export default combineReducers({
   products: productsReducer,
