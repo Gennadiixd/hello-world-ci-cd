@@ -10,7 +10,7 @@ const productsService = new ProductsService({});
 
 export default function AdminPage() {
   const loginUser = (): void => {
-    usersService.loginUser({ name: "admin", password: "1234" });
+    usersService.loginUser({ name: "root", password: "root" });
   };
 
   const createProduct = (): void => {
