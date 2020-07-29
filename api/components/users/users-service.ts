@@ -24,9 +24,10 @@ class UsersService implements IUsersService {
       if (compareSync(password, user.password)) {
         return user;
       } else {
-        throw new Error("unauthorized passwords does not much");
+        throw new Error("passwords does not much");
       }
     } catch (error) {
+      console.log(error);
       throw new DBConnectionError(error?.message + " db request problem");
     }
   }
