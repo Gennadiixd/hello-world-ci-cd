@@ -24,7 +24,7 @@ class UsersController implements IUsersController {
       this.authGuard.handleAuthorized(res, user);
     } catch (error) {
       console.log(error);
-      this.authGuard.handleUnauthorized(res, { ...error });
+      this.authGuard.handleUnauthorized(res, { error: error.stack });
     }
   };
 }
