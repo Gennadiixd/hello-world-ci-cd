@@ -44,6 +44,6 @@ jobs:
       deploy:
         - provider: script
           skip_cleanup: true
-          script: ssh -p22 gennadiixd@84.201.137.129 "cd my_app/docker && sudo docker image prune --all -y && sudo TAG=$TRAVIS_TAG docker-compose -f docker-compose.prod.yml up -d"
+          script: ssh -p22 gennadiixd@84.201.137.129 "cd my_app/docker && sudo docker image prune --all -f && sudo TAG=$TRAVIS_TAG docker-compose -f docker-compose.prod.yml up -d"
           on:
             all_branches: true
