@@ -43,10 +43,10 @@ class AuthGuard implements IAuthGuard {
         req.user = this.decode(token);
         next();
       } catch (error) {
-        this.handleUnauthorized(res);
+        this.handleUnauthorized(res, "token is invalid");
       }
     } else {
-      this.handleUnauthorized(res);
+      this.handleUnauthorized(res, "no token found");
     }
   };
 
@@ -61,9 +61,9 @@ class AuthGuard implements IAuthGuard {
     res.status(200).json({ authorized: true, user });
   }
 
-  handleUnauthorized(res, reason = "unauthorized") {
+  handleUnauthorized(res, reason = "because") {
     res.clearCookie(TOKEN_NAME);
-    res.status(401).json({ authorized: reason });
+    res.status(401).json({ authorized: false, reason });
   }
 }
 

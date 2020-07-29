@@ -23,7 +23,7 @@ class UsersController implements IUsersController {
       const user = await this.usersService.loginUser(loginUserDTO);
       this.authGuard.handleAuthorized(res, user);
     } catch (error) {
-      this.authGuard.handleUnauthorized(res, error);
+      this.authGuard.handleUnauthorized(res, error.message + " " + error.info);
     }
   };
 }

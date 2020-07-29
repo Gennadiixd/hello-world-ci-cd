@@ -2,6 +2,7 @@ import { injectable, inject } from "tsyringe";
 import { compareSync } from "bcrypt";
 
 import { IUsersRepository } from "./users-repository";
+import { DBConnectionError } from "../errors/db-connection-error";
 
 export interface IUsersService {
   loginUser: (any) => any;
@@ -16,17 +17,17 @@ class UsersService implements IUsersService {
 
   async loginUser(loginUserDTO) {
     const { name, password } = loginUserDTO;
-    const user = await this.usersRepository.getUser({ name });
-    
-    console.log('FOUND IN DB');
-    console.log(user);
 
-    if (compareSync(password, user.password)) {
-      console.log('COMPARED -> OK');
+    try {
+      const user = await this.usersRepository.getUser({ name });
 
-      return user;
-    } else {
-      throw new Error("unauthorized");
+      if (compareSync(password, user.password)) {
+        return user;
+      } else {
+        throw new Error("unauthorized passwords does not much");
+      }
+    } catch (error) {
+      throw new DBConnectionError(error?.message + " db request problem");
     }
   }
 }
