@@ -17,8 +17,13 @@ class UsersService implements IUsersService {
   async loginUser(loginUserDTO) {
     const { name, password } = loginUserDTO;
     const user = await this.usersRepository.getUser({ name });
+    
+    console.log('FOUND IN DB');
+    console.log(user);
 
     if (compareSync(password, user.password)) {
+      console.log('COMPARED -> OK');
+
       return user;
     } else {
       throw new Error("unauthorized");

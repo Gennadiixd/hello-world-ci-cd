@@ -6,7 +6,7 @@ export interface IAuthGuard {
   isAuthenticated: (req: any, res: any, next: any) => void;
   decode: (token: string) => any;
   setClaims: (res: any, claims: any) => void;
-  handleUnauthorized: (res: any) => void;
+  handleUnauthorized: (res: any, reason: any) => void;
   handleAuthorized: (res: any, user: any) => void;
 }
 
@@ -61,9 +61,9 @@ class AuthGuard implements IAuthGuard {
     res.status(200).json({ authorized: true, user });
   }
 
-  handleUnauthorized(res) {
+  handleUnauthorized(res, reason = "unauthorized") {
     res.clearCookie(TOKEN_NAME);
-    res.status(401).json({ authorized: false });
+    res.status(401).json({ authorized: reason });
   }
 }
 
