@@ -1,13 +1,15 @@
 import axios from "axios";
 
+const isServer = () => typeof window === "undefined";
+
 export default class HttpService {
   options: any;
   constructor(options) {
     const { get, post } = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_BASE || process.env.API_BASE,
+      baseURL: isServer() ? process.env.API_BASE : "/api",
       responseType: "json",
     });
-    
+
     this.options = options;
     this.post = post;
     this.get = get;
