@@ -1,0 +1,22 @@
+@import "variables";
+@import "mixins";
+
+.user-page--container {
+  .user__login__form--container {
+    .user__login__form {
+      padding: 5px;
+      border: none;
+
+      .input {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+
+        input,
+        textarea {
+          margin: 5px;
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { initializeStore } from "@/ducks/index";
 import MainLayout from "@/components/complex/main-layout";
-import Img from "@/components/atomic/img";
 
 import { getCurrentProductSelector } from "../products/ducks/selectors";
 import { serverGetProductByIdAC } from "../products/ducks/action-creators";
@@ -16,7 +15,7 @@ export default function ProductPage() {
       <div className="product__page--container">
         <div className="product__page--title">{title}</div>
         <div className="product__page--image">
-          <Img src={image} type="product" />
+          <img src={image} />
         </div>
         <div className="product__page--description">{description}</div>
         <div className="product__page--price">{price} $</div>

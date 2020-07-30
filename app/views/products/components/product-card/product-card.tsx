@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Img from "@/components/atomic/img";
 
 import CardButtons from "../card-buttons/card-buttons";
 
@@ -15,7 +14,7 @@ export default function ProductCard({ product }) {
       <div className="product__card">
         <div className="product__card--title">{title}</div>
         <div className="product__card--image">
-          <Img src={image} type="product" />
+          <img src={image} />
         </div>
         <div className="product__card--description">{description}</div>
         <div className="product__card--price">{price} $</div>

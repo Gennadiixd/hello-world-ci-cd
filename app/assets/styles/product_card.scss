@@ -8,25 +8,25 @@
     margin: 5px;
     border: 1px black solid;
 
-    .product__card--title {
+    &--title {
       margin: 5px;
       font-size: 16px;
     }
 
-    .product__card--description {
+    &--description {
       margin-top: 5px;
       font-size: 14px;
       padding: 5px;
     }
 
-    .product__card--price {
+    &--price {
       margin: 5px 0;
       font-size: 14px;
       font-weight: bold;
       font-style: italic;
     }
 
-    .product__card--buttons {
+    &--buttons {
       border-top: 1px black solid;
 
       button {
@@ -38,7 +38,7 @@
       }
     }
 
-    .product__card--image {
+    &--image {
       max-width: 400px;
 
       img {
