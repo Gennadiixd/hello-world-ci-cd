@@ -1,4 +1,3 @@
-import UserPage, { getStaticProps } from "./user-page";
+import UserPage from "./user-page";
 
 export default UserPage;
-export { getStaticProps };
