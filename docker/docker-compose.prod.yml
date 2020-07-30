@@ -39,8 +39,8 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - NODE_ENV=production
-      - API_BASE=https://test-project.online/api
-      - JWT_SECRET=woqpwopqowpqowqow
+      - JWT_SECRET="${JWT_SECRET}"
+      - API_BASE="${API_BASE}"
     links:
       - db:db
     volumes:

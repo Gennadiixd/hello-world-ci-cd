@@ -18,8 +18,8 @@ export async function seed(knex: Knex): Promise<void> {
       role: "admin",
     },
     {
-      name: "root",
-      password: hashSync("root", SALT_ROUNDS),
+      name: "www",
+      password: hashSync("www", SALT_ROUNDS),
       role: "admin",
     },
   ]);
