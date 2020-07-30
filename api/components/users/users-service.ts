@@ -2,7 +2,6 @@ import { injectable, inject } from "tsyringe";
 import { compareSync } from "bcrypt";
 
 import { IUsersRepository } from "./users-repository";
-import { DBConnectionError } from "../errors/db-connection-error";
 
 export interface IUsersService {
   loginUser: (any) => any;
@@ -27,8 +26,7 @@ class UsersService implements IUsersService {
         throw new Error("passwords does not much");
       }
     } catch (error) {
-      console.log(error);
-      throw new DBConnectionError(error?.message + " db request problem");
+      throw new Error(error?.message + " db request problem");
     }
   }
 }
