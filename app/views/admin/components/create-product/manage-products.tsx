@@ -18,8 +18,9 @@ export default function CreateProduct() {
   };
 
   return (
-    <MainLayout title="Create product">
+    <MainLayout title="Manage products">
       <div className="grid-8 create__product__form--container">
+        <h3>Create Product Form</h3>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid-8 create__product__form"

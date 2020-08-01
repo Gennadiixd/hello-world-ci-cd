@@ -4,9 +4,11 @@
 @import "grid/grid";
 @import "header";
 @import "card_grid";
-@import "product_card";
+@import "card";
 @import "create_product";
 @import "user_page";
+@import "product_page";
+@import "admin_page";
 
 * {
   margin: 0;

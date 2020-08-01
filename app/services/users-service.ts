@@ -5,7 +5,15 @@ export default class UsersService extends HttpService {
     super(options);
   }
 
-  loginUser(userData): Promise<{ data: any }> {
-    return this.post("user/login", userData);
+  async loginUser(userData): Promise<{ data: any }> {
+    const { data } = await this.post("user/login", userData);
+
+    return data;
+  }
+
+  async loginUserByCookie(): Promise<{ data: any }> {
+    const { data } = await this.post("user/login");
+
+    return data;
   }
 }

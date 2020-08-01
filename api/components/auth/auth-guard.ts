@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import { injectable } from "tsyringe";
 
+import { TOKEN_NAME, ONE_DAY } from "../../constants";
+
 export interface IAuthGuard {
   sign: (body: any) => any;
   isAuthenticated: (req: any, res: any, next: any) => void;
@@ -9,9 +11,6 @@ export interface IAuthGuard {
   handleUnauthorized: (res: any, reason: any) => void;
   handleAuthorized: (res: any, user: any) => void;
 }
-
-const TOKEN_NAME = "claims";
-const ONE_DAY = 24 * 60 * 60 * 1000;
 
 @injectable()
 class AuthGuard implements IAuthGuard {
@@ -56,9 +55,9 @@ class AuthGuard implements IAuthGuard {
   }
 
   handleAuthorized(res, user) {
-    const { id, role } = user;
-    this.setClaims(res, { id, role });
-    res.status(200).json({ authorized: true, user });
+    const { id, role, name } = user;
+    this.setClaims(res, { id, role, name });
+    res.status(200).json({ authorized: true, ...user });
   }
 
   handleUnauthorized(res, reason = "because") {

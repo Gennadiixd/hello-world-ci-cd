@@ -1,0 +1,42 @@
+@import "variables";
+@import "mixins";
+
+.product__page--container {
+  .product__page {
+    &--info {
+      display: flex;
+      justify-content: space-around;
+      border: none;
+    }
+
+    &--image-container {
+      max-width: 400px;
+      border: none;
+
+      img {
+        max-width: 90%;
+        height: auto;
+        padding: 5px;
+        object-fit: contain;
+      }
+    }
+
+    &--description-container {
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    &--commerce-container {
+      h3 {
+        font-style: italic;
+      }
+
+      button {
+        @include button();
+      }
+    }
+  }
+}

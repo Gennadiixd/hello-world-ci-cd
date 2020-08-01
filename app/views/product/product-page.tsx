@@ -12,14 +12,24 @@ export default function ProductPage() {
 
   return (
     <MainLayout title="Product">
-      <div className="product__page--container">
-        <div className="product__page--title">{title}</div>
-        <div className="product__page--image">
-          <img src={image} />
+      <div className="grid-12 product__page--container">
+        <div className="product__page--title">
+          <h1>{title}</h1>
         </div>
-        <div className="product__page--description">{description}</div>
-        <div className="product__page--price">{price} $</div>
-        <button>Add to cart</button>
+        <div className="grid-12 product__page--info">
+          <div className="grid-5 product__page--image-container">
+            <img src={image} />
+          </div>
+          <div className="grid-6 product__page--description-container">
+            {description}
+            <div className="product__page--commerce-container">
+              <div className="product__page--price">
+                <h3>{price} $</h3>
+              </div>
+              <button>Add to cart</button>
+            </div>
+          </div>
+        </div>
       </div>
     </MainLayout>
   );
@@ -32,5 +42,9 @@ export async function getServerSideProps({ query }) {
 
   await dispatch(serverGetProductByIdAC(id));
 
-  return { props: { initialReduxState: reduxStore.getState() } };
+  const { products } = reduxStore.getState();
+
+  return {
+    props: { initialReduxState: { products } },
+  };
 }

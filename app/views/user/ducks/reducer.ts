@@ -9,7 +9,7 @@ export const userReducer = (state = initialState, { type, payload }) => {
     case AT.SET_CURRENT_USER:
       return {
         ...state,
-        products: payload,
+        currentUser: payload || initialState.currentUser,
       };
     default:
       return state;

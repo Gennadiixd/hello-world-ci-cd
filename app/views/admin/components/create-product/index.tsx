@@ -1,3 +1,3 @@
-import CreateProduct from "./create-product";
+import ManageProducts from "./manage-products";
 
-export default CreateProduct;
+export default ManageProducts;

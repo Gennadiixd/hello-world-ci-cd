@@ -1,12 +1,12 @@
 @import "variables";
 @import "mixins";
 
-.product__card--container {
+.card--container {
   border: none;
 
-  .product__card {
+  .card {
     margin: 5px;
-    border: 1px black solid;
+    border: $border;
 
     &--title {
       margin: 5px;
@@ -26,15 +26,15 @@
       font-style: italic;
     }
 
-    &--buttons {
+    &--actions {
       border-top: 1px black solid;
 
       button {
-        border: 1 none;
-        margin: 5px 2px;
-        max-width: 100%;
-        font-size: 16px;
-        padding: 2px;
+        @include button();
+      }
+
+      a {
+        text-decoration: none;
       }
     }
 
@@ -42,10 +42,16 @@
       max-width: 400px;
 
       img {
-        max-width: 90%;
-        height: auto;
-        padding: 5px;
-        object-fit: contain;
+        @include image();
+      }
+    }
+
+    &--icon {
+      max-width: 150px;
+      margin: auto;
+
+      img {
+        @include image(grayscale(100%));
       }
     }
   }

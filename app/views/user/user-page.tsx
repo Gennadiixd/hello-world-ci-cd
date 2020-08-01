@@ -1,16 +1,17 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import UsersService from "@/services/users-service";
 import MainLayout from "@/components/complex/main-layout";
 import TextInput from "@/components/atomic/text-input";
 
-const usersService = new UsersService({});
+import { loginCurrentUserAC } from "./ducks";
 
 export default function UserPage() {
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (userData) => {
-    usersService.loginUser(userData);
+    dispatch(loginCurrentUserAC(userData));
   };
 
   return (
@@ -19,8 +20,9 @@ export default function UserPage() {
         <div className="grid-12 user__login__form--container">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="user__login__form"
+            className="grid-4 grid-sm-6 grid-xs-8 user__login__form"
           >
+            <h2>Login</h2>
             <TextInput
               name="name"
               label="User name"

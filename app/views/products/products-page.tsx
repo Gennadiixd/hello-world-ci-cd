@@ -33,5 +33,9 @@ export async function getServerSideProps(ctx) {
 
   await dispatch(serverGetProductsAC());
 
-  return { props: { initialReduxState: reduxStore.getState() } };
+  const { products } = reduxStore.getState();
+
+  return {
+    props: { initialReduxState: { products } },
+  };
 }

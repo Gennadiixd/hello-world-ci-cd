@@ -12,9 +12,11 @@ export default function TextInput({ label, id, name, fieldRef, textArea }) {
   );
 
   return (
-    <div className="text__input input">
-      <label htmlFor={id}>{label}</label>
-      {inputSection}
+    <div className="text__input--container input">
+      <div className="text__input--label">
+        <label htmlFor={id}>{label}</label>
+      </div>
+      <div className="text__input--input">{inputSection}</div>
     </div>
   );
 }

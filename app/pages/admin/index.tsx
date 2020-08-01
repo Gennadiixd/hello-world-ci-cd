@@ -1,3 +1,4 @@
-import AdminPage from "../../views/admin";
+import AdminPage from "@/views/admin";
+import AdminRoute from "@/components/security/admin-route";
 
-export default AdminPage;
+export default AdminRoute(AdminPage);

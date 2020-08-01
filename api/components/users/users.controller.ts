@@ -4,6 +4,7 @@ import { Response, Request } from "express";
 import { IUsersService } from "./users-service";
 import { IAuthGuard } from "../auth/auth-guard";
 import { LoginUserDTO } from "./dto/login-user-dto";
+import { TOKEN_NAME } from '../../constants/index';
 
 export interface IUsersController {
   loginUser: (req: Request, res: Response) => void;
@@ -17,11 +18,20 @@ class UsersController implements IUsersController {
   ) {}
 
   loginUser = async (req: Request, res: Response) => {
-    const loginUserDTO = new LoginUserDTO(req.body);
-
+    const token = req.cookies[TOKEN_NAME];
+    
     try {
-      const user = await this.usersService.loginUser(loginUserDTO);
-      this.authGuard.handleAuthorized(res, user);
+      if (token) {
+        const claims = this.authGuard.decode(token);
+        
+        const user = await this.usersService.loginUserByCookie(claims);
+        this.authGuard.handleAuthorized(res, user);
+      } else {
+        const loginUserDTO = new LoginUserDTO(req.body);
+
+        const user = await this.usersService.loginUser(loginUserDTO);
+        this.authGuard.handleAuthorized(res, user);
+      }
     } catch (error) {
       this.authGuard.handleUnauthorized(res, { error: error.stack });
     }
