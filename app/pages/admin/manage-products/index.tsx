@@ -1,3 +1,4 @@
-import CreateProduct from "../../../views/admin/components/create-product";
+import CreateProduct from "@/views/admin/components/manage-products";
+import AdminRoute from "@/components/security/admin-route";
 
-export default CreateProduct;
+export default AdminRoute(CreateProduct);

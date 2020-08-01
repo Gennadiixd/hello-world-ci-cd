@@ -2,9 +2,8 @@ import useAllowed from "./use-allowed";
 
 export default function AdminRoute(Component) {
   return (...args) => {
-
-    useAllowed({ forRole: "admin", redirectTo: "user" });
-
-    return <Component {...args} />;
+    const isAllowed = useAllowed({ forRole: "admin", redirectTo: "user" });
+    
+    return isAllowed ? <Component {...args} /> : null;
   };
 }

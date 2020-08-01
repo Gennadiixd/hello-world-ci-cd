@@ -1,5 +1,6 @@
+import UsersService from "@/services/users-service";
+
 import * as AT from "./action-types";
-import UsersService from "../../../services/users-service";
 
 const usersService = new UsersService({});
 

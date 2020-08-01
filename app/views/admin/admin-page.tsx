@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import Link from "next/link";
 
 import MainLayout from "@/components/complex/main-layout";
 import CardGrid from "@/components/complex/card-grid";
