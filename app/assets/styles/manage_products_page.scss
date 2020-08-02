@@ -45,6 +45,14 @@
         }
       }
     }
+
+    .--focus {
+      border: $focus-border;
+      
+      &:hover {
+        border: $focus-border;
+      }
+    }
   }
 
   .create__product__form--container {

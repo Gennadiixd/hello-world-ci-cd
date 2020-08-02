@@ -49,13 +49,14 @@ export default function EditableText({ content, className, onCommit, name }) {
   );
 
   return (
-    <div className={`${className} --editable`}>
+    <div className={`${className} --editable ${isEditMode ? "--focus" : ""}`}>
       <div className="edit__icons">{iconsSection}</div>
       <div
         className="input"
         contentEditable={isEditMode}
         onKeyDown={onKeyDown}
         ref={inputRef}
+        spellCheck={false}
       >
         {inputRef.current?.innerText}
       </div>
