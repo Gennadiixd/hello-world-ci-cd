@@ -13,7 +13,7 @@ export const getProductsAC = (payload) => ({
   payload,
 });
 
-export const serverGetProductsAC = () => async (dispatch) => {
+export const fetchProductsAC = () => async (dispatch) => {
   const products = await productsService.getProducts();
 
   return dispatch({

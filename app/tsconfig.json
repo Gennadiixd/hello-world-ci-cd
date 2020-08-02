@@ -6,7 +6,9 @@
       "@/ducks/*": ["ducks/*"],
       "@/services/*": ["services/*"],
       "@/hooks/*": ["hooks/*"],
-      "@/views/*": ["views/*"]
+      "@/views/*": ["views/*"],
+      "@/utils/*": ["utils/*"],
+      "@/assets/*": ["assets/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

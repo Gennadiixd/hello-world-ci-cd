@@ -8,11 +8,12 @@ export default function useAllowed({ forRole, redirectTo }) {
   const dispatch = useDispatch();
   const claims = useClaims();
 
-  const handleLogoutUser = () => {
-    dispatch(setCurrentUserAC(null));
-  };
   const handleRedirect = () => {
     Router.push(`/${redirectTo}`);
+  };
+  const handleLogoutUser = () => {
+    dispatch(setCurrentUserAC(null));
+    handleRedirect();
   };
 
   useLayoutEffect(() => {

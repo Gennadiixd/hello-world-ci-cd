@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const isServer = () => typeof window === "undefined";
+import { isServer } from "@/utils/index";
 
 export default class HttpService {
   options: any;

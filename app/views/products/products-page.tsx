@@ -6,7 +6,7 @@ import MainLayout from "@/components/complex/main-layout";
 import CardGrid from "@/components/complex/card-grid";
 
 import ProductCard from "./components/product-card";
-import { serverGetProductsAC } from "./ducks";
+import { fetchProductsAC } from "./ducks";
 import { getProductsSelector } from "./ducks/selectors";
 
 export default function ProductsPage({}) {
@@ -31,7 +31,7 @@ export async function getServerSideProps(ctx) {
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
-  await dispatch(serverGetProductsAC());
+  await dispatch(fetchProductsAC());
 
   const { products } = reduxStore.getState();
 

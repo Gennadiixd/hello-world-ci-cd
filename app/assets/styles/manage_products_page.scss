@@ -3,13 +3,53 @@
 
 .manage__products--container {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   button {
     @include button();
   }
 
+  .update__product__form--container {
+    .edit__icons {
+      display: flex;
+      justify-content: flex-end;
+
+      &--icon {
+        cursor: pointer;
+
+        &:hover {
+          color: $accent-color;
+        }
+      }
+    }
+
+    .--editable {
+      cursor: default;
+
+      .edit__icons > * {
+        opacity: 0;
+      }
+
+      &:hover {
+        border: $border;
+
+        .edit__icons > * {
+          opacity: 1;
+        }
+      }
+
+      .edit__icons {
+        &--actions {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
   .create__product__form--container {
+    margin-bottom: 10px;
+
     img {
       border: none;
       padding: 5px;
