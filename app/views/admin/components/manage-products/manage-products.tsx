@@ -13,8 +13,8 @@ export default function ManageProducts() {
   const watchImage = watch("image");
   const image = useImage(watchImage);
 
-  const onSubmit = (productData, e) => {
-    productsService.createProduct(new FormData(e.target));
+  const onSubmit = (_, event) => {
+    productsService.createProduct(new FormData(event.target));
   };
 
   return (

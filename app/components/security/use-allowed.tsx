@@ -7,16 +7,21 @@ import Router from "next/router";
 export default function useAllowed({ forRole, redirectTo }) {
   const dispatch = useDispatch();
   const claims = useClaims();
-  const handleUserLogout = () => {
+
+  const handleLogoutUser = () => {
     dispatch(setCurrentUserAC(null));
+  };
+  const handleRedirect = () => {
+    Router.push(`/${redirectTo}`);
   };
 
   useLayoutEffect(() => {
-    if (!claims) {
-      handleUserLogout();
-    }
-    if (claims?.role !== forRole) {
-      Router.push(`/${redirectTo}`);
+    if (claims) {
+      if (claims.role !== forRole) {
+        handleRedirect();
+      }
+    } else {
+      handleLogoutUser();
     }
   }, [claims]);
 
