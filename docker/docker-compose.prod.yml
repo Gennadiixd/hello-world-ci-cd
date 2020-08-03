@@ -23,7 +23,6 @@ services:
       - PORT=5000 # port inside container
       - HOST=0.0.0.0 # host to bind inside container
       - API_BASE=https://test-project.online/api
-      - JWT_SECRET="${JWT_SECRET}"
     ports:
       - "5000:5000" # For docker to now where to redirect HMR queries
     stdin_open: true
@@ -36,7 +35,7 @@ services:
     environment:
       - DB_NAME=myappdb
       - DB_USERNAME=myappuser
-      - DB_PASSWORD=myapppassword
+      - DB_PASSWORD="${DB_PASSWORD}"
       - DB_HOST=db
       - DB_PORT=5432
       - NODE_ENV=production
@@ -54,7 +53,7 @@ services:
     container_name: db
     environment:
       - POSTGRES_USER=myappuser
-      - POSTGRES_PASSWORD=myapppassword
+      - POSTGRES_PASSWORD="${DB_PASSWORD}"
       - POSTGRES_DB=myappdb
     volumes: 
       - "./../tmp/postgres:/var/lib/postgresql/data"

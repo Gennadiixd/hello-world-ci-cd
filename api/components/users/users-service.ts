@@ -5,7 +5,7 @@ import { IUsersRepository } from "./users-repository";
 
 export interface IUsersService {
   loginUser: (any) => any;
-  loginUserByCookie: (any) => any;
+  findUserByName: (any) => any;
 }
 
 @injectable()
@@ -25,17 +25,15 @@ class UsersService implements IUsersService {
         delete user.password;
 
         return user;
-      } else {
-        throw new Error("passwords does not much");
       }
+      
+      throw new Error("passwords does not much");
     } catch (error) {
       throw new Error(error?.message + " db request problem");
     }
   }
 
-  async loginUserByCookie(claims) {
-    const { name } = claims;
-
+  async findUserByName({ name }) {
     try {
       return this.usersRepository.getUser({ name });
     } catch (error) {

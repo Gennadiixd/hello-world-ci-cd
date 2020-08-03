@@ -27,7 +27,6 @@ services:
       - PORT=5000 # port inside container
       - HOST=0.0.0.0 # host to bind inside container
       - API_BASE=https://myprojectdomain.dev/api
-      - JWT_SECRET="${JWT_SECRET}"
     volumes: # For webpack dev server to use our local files
       - "./../app:/app"
       - "../certs/minica.pem:/certs/minica.pem"

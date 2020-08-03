@@ -1,3 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-export default func => useEffect(func, []);
+const useMount = (func) => useEffect(func, []);
+
+export default useMount;

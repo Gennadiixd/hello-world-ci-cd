@@ -47,10 +47,10 @@
     }
 
     .--focus {
-      border: $focus-border;
-      
+      border: $focused-border;
+
       &:hover {
-        border: $focus-border;
+        border: $focused-border;
       }
     }
   }
