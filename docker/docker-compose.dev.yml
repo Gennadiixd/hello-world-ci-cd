@@ -7,6 +7,7 @@ services:
     volumes:
       - "../config/nginx/nginx.dev.conf:/etc/nginx/nginx.conf"
       - "../certs:/etc/nginx/certs"
+      - "./../tmp/images:/public/images"
     ports:
       - "443:443"
     links:
@@ -25,6 +26,7 @@ services:
       - NODE_ENV=development
       - PORT=5000 # port inside container
       - HOST=0.0.0.0 # host to bind inside container
+      - API_BASE=https://myprojectdomain.dev/api
     volumes: # For webpack dev server to use our local files
       - "./../app:/app"
       - "../certs/minica.pem:/certs/minica.pem"
@@ -45,17 +47,18 @@ services:
       - DB_PASSWORD=myapppassword
       - DB_HOST=db
       - DB_PORT=5432
-      - JWT_SECRET=ljdsljflanyvtv576w34meojfsl
       - TYPEORM_SYNC=true
       - NODE_ENV=development
       - WAIT_HOSTS=db:5432
       - WAIT_HOSTS_TIMEOUT=300
       - WAIT_SLEEP_INTERVAL=30
       - WAIT_HOST_CONNECT_TIMEOUT=30
+      - JWT_SECRET="${JWT_SECRET}"
     links:
       - db:db
     volumes:
       - ./../api:/api
+      - ./../tmp/images:/api/public/images
     working_dir: /api
     entrypoint: /bin/sh -c "npm i && npm run start:dev"
     ports:

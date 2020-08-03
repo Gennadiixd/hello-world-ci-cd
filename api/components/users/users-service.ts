@@ -5,6 +5,7 @@ import { IUsersRepository } from "./users-repository";
 
 export interface IUsersService {
   loginUser: (any) => any;
+  findUserByName: (any) => any;
 }
 
 @injectable()
@@ -16,12 +17,27 @@ class UsersService implements IUsersService {
 
   async loginUser(loginUserDTO) {
     const { name, password } = loginUserDTO;
-    const user = await this.usersRepository.getUser({ name });
 
-    if (compareSync(password, user.password)) {
-      return user;
-    } else {
-      throw new Error("unauthorized");
+    try {
+      const user = await this.usersRepository.getUser({ name });
+
+      if (compareSync(password, user.password)) {
+        delete user.password;
+
+        return user;
+      }
+      
+      throw new Error("passwords does not much");
+    } catch (error) {
+      throw new Error(error?.message + " db request problem");
+    }
+  }
+
+  async findUserByName({ name }) {
+    try {
+      return this.usersRepository.getUser({ name });
+    } catch (error) {
+      throw new Error(error?.message + " db request problem");
     }
   }
 }

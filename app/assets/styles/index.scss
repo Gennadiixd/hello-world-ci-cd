@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import "~normalize.css";
+
+@import "grid/grid";
+@import "header";
+@import "card_grid";
+@import "card";
+@import "row";
+
+@import "manage_products_page";
+@import "user_page";
+@import "product_page";
+@import "admin_page";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+}

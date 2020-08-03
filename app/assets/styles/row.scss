@@ -1,0 +1,52 @@
+@import "variables";
+@import "mixins";
+
+.rows__view {
+  border: none;
+
+  .row--container {
+    border: $border;
+    margin: 10px 5px;
+
+    .row {
+      display: flex;
+
+      &--info {
+        border: none;
+      }
+
+      &--title {
+        margin: 5px;
+        font-size: 16px;
+      }
+
+      &--description {
+        margin-top: 5px;
+        font-size: 14px;
+        padding: 5px;
+      }
+
+      &--price {
+        margin: 5px 0;
+        font-size: 14px;
+        font-weight: bold;
+        font-style: italic;
+        padding: 5px;
+      }
+
+      &--image {
+        max-width: 150px;
+        border: none;
+        cursor: pointer;
+
+        img {
+          @include image();
+        }
+
+        &:hover {
+          border: $border;
+        }
+      }
+    }
+  }
+}

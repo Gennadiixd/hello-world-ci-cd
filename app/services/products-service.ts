@@ -5,11 +5,19 @@ export default class ProductsService extends HttpService {
     super(options);
   }
 
-  getProducts(): Promise<{ data: any }> {
-    return this.get("products");
+  async getProducts(): Promise<{ data: any }> {
+    const { data } = await this.get("products");
+
+    return data;
   }
 
-  createProduct(product): Promise<{ data: any }> {
-    return this.post("products", product);
+  async getProductById(id): Promise<{ data: any }> {
+    const { data } = await this.get(`products/${id}`);
+
+    return data;
+  }
+
+  createProduct(productData): Promise<{ data: any }> {
+    return this.post("products", productData);
   }
 }

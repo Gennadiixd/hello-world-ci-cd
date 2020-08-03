@@ -10,9 +10,13 @@ export class CreateProductDTO {
   @IsNotEmpty()
   price: string;
 
-  constructor({ title, description, price }) {
+  @IsNotEmpty()
+  image: string;
+
+  constructor({ title, description, price, filename }) {
     this.title = title;
     this.description = description;
     this.price = price;
+    this.image = filename;
   }
 }

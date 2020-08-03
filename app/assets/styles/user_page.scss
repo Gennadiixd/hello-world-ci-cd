@@ -1,0 +1,31 @@
+@import "variables";
+@import "mixins";
+
+.user-page--container {
+  .user__login__form--container {
+    display: flex;
+    justify-content: center;
+    border: none;
+    
+    .user__login__form {
+      padding: 5px;
+      border: $border;
+
+      .input {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        input,
+        textarea {
+          margin: 5px;
+        }
+      }
+
+      button {
+        @include button();
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@mixin button() {
+  border: 1 none;
+  margin: 5px 2px;
+  max-width: 100%;
+  font-size: 16px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+@mixin image($filter: none) {
+  max-width: 90%;
+  height: auto;
+  padding: 5px;
+  object-fit: contain;
+  filter: $filter;
+}

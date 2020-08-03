@@ -1,0 +1,47 @@
+$grid-columns: 12;
+
+@for $i from 1 through $grid-columns {
+  .grid-#{$i} {
+    width: percentage($i / $grid-columns);
+  }
+}
+
+[class^='grid-'] {
+  border: 1px solid;
+  box-sizing: border-box;
+  float: left;
+  padding: 1em 0;
+  text-align: center;
+}
+
+@media (min-width: 768px) and (max-width: 990px) {
+  @for $i from 1 through $grid-columns {
+    .grid-sm-#{$i} {
+      width: percentage($i / $grid-columns);
+    }
+  }
+  
+  [class^='grid-sm-'] {
+    border: 1px solid;
+    box-sizing: border-box;
+    float: left;
+    padding: 1em 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  @for $i from 1 through $grid-columns {
+    .grid-xs-#{$i} {
+      width: percentage($i / $grid-columns);
+    }
+  }
+  
+  [class^='grid-xs-'] {
+    border: 1px solid;
+    box-sizing: border-box;
+    float: left;
+    padding: 1em 0;
+    text-align: center;
+  }
+}

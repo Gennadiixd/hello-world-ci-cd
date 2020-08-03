@@ -1,0 +1,58 @@
+@import "variables";
+@import "mixins";
+
+.card--container {
+  border: none;
+
+  .card {
+    margin: 5px;
+    border: $border;
+
+    &--title {
+      margin: 5px;
+      font-size: 16px;
+    }
+
+    &--description {
+      margin-top: 5px;
+      font-size: 14px;
+      padding: 5px;
+    }
+
+    &--price {
+      margin: 5px 0;
+      font-size: 14px;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    &--actions {
+      border-top: 1px black solid;
+
+      button {
+        @include button();
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    &--image {
+      max-width: 400px;
+
+      img {
+        @include image();
+      }
+    }
+
+    &--icon {
+      max-width: 150px;
+      margin: auto;
+
+      img {
+        @include image(grayscale(100%));
+      }
+    }
+  }
+}

@@ -1,10 +1,11 @@
 import axios from "axios";
+import { isServer } from "@/utils/index";
 
 export default class HttpService {
   options: any;
   constructor(options) {
     const { get, post } = axios.create({
-      baseURL: "api/",
+      baseURL: isServer() ? process.env.API_BASE : "api/",
       responseType: "json",
     });
 

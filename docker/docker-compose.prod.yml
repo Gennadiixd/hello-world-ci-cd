@@ -7,6 +7,7 @@ services:
     volumes:
      - "../config/nginx/nginx.prod.conf:/etc/nginx/nginx.conf"
      - "/etc/letsencrypt:/etc/nginx/certs"
+     - "./../tmp/images:/public/images"
     ports:
       - "80:80" 
       - "443:443" 
@@ -21,6 +22,7 @@ services:
       - NODE_ENV=production
       - PORT=5000 # port inside container
       - HOST=0.0.0.0 # host to bind inside container
+      - API_BASE=https://test-project.online/api
     ports:
       - "5000:5000" # For docker to now where to redirect HMR queries
     stdin_open: true
@@ -32,13 +34,17 @@ services:
     restart: always
     environment:
       - DB_NAME=myappdb
-      - DB_USER=myappuser
-      - DB_PASSWORD=myapppassword
+      - DB_USERNAME=myappuser
+      - DB_PASSWORD="${DB_PASSWORD}"
       - DB_HOST=db
       - DB_PORT=5432
       - NODE_ENV=production
+      - JWT_SECRET="${JWT_SECRET}"
     links:
       - db:db
+    volumes:
+      - ./../tmp/images:/api/public/images
+      - ./../tmp/logs:/root/.npm/_logs
     ports:
       - "3000:3000"
   db:
@@ -46,7 +52,7 @@ services:
     container_name: db
     environment:
       - POSTGRES_USER=myappuser
-      - POSTGRES_PASSWORD=myapppassword
+      - POSTGRES_PASSWORD="${DB_PASSWORD}"
       - POSTGRES_DB=myappdb
     volumes: 
       - "./../tmp/postgres:/var/lib/postgresql/data"

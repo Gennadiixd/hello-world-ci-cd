@@ -21,6 +21,7 @@
     "knex": "^0.21.2",
     "knex-migrate": "^1.7.4",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.1.4",
@@ -30,7 +31,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "ts-node server.ts",
+    "start": "npx knex migrate:latest && knex seed:run && ts-node server.ts",
     "start:dev": "echo '>>> MIGRATIONS_START' && npx knex migrate:latest && knex seed:run && echo '>>> MIGRATIONS_END' && NODE_ENV=development nodemon server.ts",
     "start:dev:local": "NODE_ENV=test nodemon server.ts",
     "tsc": "tsc",
@@ -56,6 +57,7 @@
     "@types/config": "0.0.36",
     "@types/cookie-parser": "^1.4.2",
     "@types/morgan": "^1.9.1",
+    "@types/multer": "^1.4.3",
     "nodemon": "^2.0.4"
   }
 }

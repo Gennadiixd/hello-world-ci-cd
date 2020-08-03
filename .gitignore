@@ -2,3 +2,4 @@ node_modules
 certs
 .next
 tmp
+.env
