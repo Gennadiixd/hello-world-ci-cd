@@ -4,4 +4,9 @@
 .cards__grid {
   padding: 10px;
   text-align: center;
+
+  &--cards-row {
+    border: none;
+    display: flex;
+  }
 }

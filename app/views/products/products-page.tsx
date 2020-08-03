@@ -3,26 +3,30 @@ import { useSelector } from "react-redux";
 
 import { initializeStore } from "@/ducks/index";
 import MainLayout from "@/components/complex/main-layout";
-import CardGrid from "@/components/complex/card-grid";
+import { chunk } from "@/utils/index";
 
 import ProductCard from "./components/product-card";
 import { fetchProductsAC } from "./ducks";
 import { getProductsSelector } from "./ducks/selectors";
 
 export default function ProductsPage({}) {
-  const products = useSelector(getProductsSelector);
+  const chunkedProducts = chunk(useSelector(getProductsSelector), 4);
 
   const productCardsSection = useMemo(
     () =>
-      products.map((product) => (
-        <ProductCard product={product} key={product.id} />
+      chunkedProducts.map((chunk, index) => (
+        <div className="grid-12 cards__grid--cards-row">
+          {chunk.map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))}
+        </div>
       )),
-    [products]
+    [chunkedProducts]
   );
 
   return (
     <MainLayout title="Products Page">
-      <CardGrid>{productCardsSection}</CardGrid>
+      <div className="grid-12 cards__grid">{productCardsSection}</div>;
     </MainLayout>
   );
 }
