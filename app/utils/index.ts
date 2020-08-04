@@ -14,3 +14,20 @@ export const chunk = (arr, n) => {
 
   return chunked;
 };
+
+export const getPageNumbers = (current: number, num: number) => {
+  const pages = [];
+  let leftNumbers = Math.ceil(num / 2);
+  let rightNumbers = Math.ceil(num / 2);
+
+  for (let i = current - 1; i > current - leftNumbers; i--) {
+    if (i > 0) pages.push(i);
+    else rightNumbers++;
+  }
+
+  for (let i = current; i < current + rightNumbers; i++) {
+    pages.push(i);
+  }
+
+  return pages.sort((a, b) => a - b);
+};

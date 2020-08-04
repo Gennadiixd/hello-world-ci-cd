@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div>
+    <footer className="grid-12 main__footer">
       "Sed ut perspiciatis unde omnis iste natus error sit voluptatem
       accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
       illo inventore veritatis et quasi architecto beatae vitae dicta sunt
@@ -14,6 +14,6 @@ export default function Footer() {
       Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
       nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
       nulla pariatur?"
-    </div>
+    </footer>
   );
 }

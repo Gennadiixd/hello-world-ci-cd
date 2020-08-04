@@ -14,3 +14,14 @@
   object-fit: contain;
   filter: $filter;
 }
+
+@mixin pagination_button($is_active) {
+  @include button();
+  min-width: 30px;
+
+  @if $is_active {
+    background-color: #616161;
+    color: #eeeeee;
+    border: 1px solid #616161;
+  }
+}

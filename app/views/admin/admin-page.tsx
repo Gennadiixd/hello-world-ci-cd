@@ -26,7 +26,7 @@ export default function AdminPage() {
 
   return (
     <MainLayout title="Admin Page">
-      <div className="grid-12 cards__grid">{adminOptionsSection}</div>;
+      <div className="grid-12 cards__grid">{adminOptionsSection}</div>
     </MainLayout>
   );
 }
