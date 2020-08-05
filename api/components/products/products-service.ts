@@ -6,6 +6,7 @@ export interface IProductsService {
   getProducts: () => any;
   createProduct: (any: any) => any;
   getProduct: (id) => any;
+  getProductsPage: (id) => any;
 }
 
 @injectable()
@@ -14,6 +15,10 @@ class ProductsService implements IProductsService {
     @inject("IProductsRepository")
     public productsRepository: IProductsRepository
   ) {}
+
+  getProductsPage({ offset, perPage }) {
+    return this.productsRepository.getProductsPage({ offset, perPage });
+  }
 
   getProducts() {
     return this.productsRepository.getProducts();

@@ -5,6 +5,14 @@ export default class ProductsService extends HttpService {
     super(options);
   }
 
+  async getProductsPage(offset, perPage): Promise<{ data: any }> {
+    const { data } = await this.get("products/page", {
+      params: { offset, perPage },
+    });
+
+    return data;
+  }
+
   async getProducts(): Promise<{ data: any }> {
     const { data } = await this.get("products");
 

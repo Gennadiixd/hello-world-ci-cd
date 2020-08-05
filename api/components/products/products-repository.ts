@@ -8,6 +8,7 @@ export interface IProductsRepository {
   getProducts: () => any;
   createProduct: (any) => any;
   getProduct: (any) => any;
+  getProductsPage: (any) => any;
 }
 
 @injectable()
@@ -20,6 +21,22 @@ class ProductsRepository extends Repository<any> {
   async getConnectManager() {
     const { manager } = await this.dbConnection.getConnection();
     return manager;
+  }
+
+  async getRepository() {
+    const connection = await this.dbConnection.getConnection();
+    const repository = connection.getRepository(ProductEntity);
+    return repository;
+  }
+
+  async getProductsPage({ offset, perPage }) {
+    const repository = await this.getRepository();
+    const productsPage = await repository.find({
+      skip: offset * perPage,
+      take: perPage,
+    });
+
+    return productsPage;
   }
 
   async getProducts() {

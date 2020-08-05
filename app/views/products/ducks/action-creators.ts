@@ -1,5 +1,7 @@
+import ProductsService from "@/services/products-service";
+import { PRODUCTS_PER_PAGE } from "@/constants/pagination";
+
 import * as AT from "./action-types";
-import ProductsService from "../../../services/products-service";
 
 const productsService = new ProductsService({});
 
@@ -28,5 +30,17 @@ export const serverGetProductByIdAC = (id) => async (dispatch) => {
   return dispatch({
     type: AT.SET_CURRENT_PRODUCT,
     payload: products,
+  });
+};
+
+export const getProductsPageAC = (
+  offset,
+  perPage = PRODUCTS_PER_PAGE
+) => async (dispatch) => {
+  const productsPage = await productsService.getProductsPage(offset, perPage);
+
+  return dispatch({
+    type: AT.SET_PRODUCTS_PAGE,
+    payload: { pageNumber: offset, productsPage },
   });
 };

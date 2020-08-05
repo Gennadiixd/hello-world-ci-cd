@@ -10,7 +10,7 @@
     border: $border;
     display: flex;
     flex-flow: column nowrap;
-    
+
     &--title {
       margin: 5px;
       font-size: 16px;
@@ -31,10 +31,7 @@
 
     &--actions {
       border-top: 1px black solid;
-      margin-top:auto;
-      // position: absolute;
-      // bottom: 0;
-      // height: 100px;
+      margin-top: auto;
 
       button {
         @include button();

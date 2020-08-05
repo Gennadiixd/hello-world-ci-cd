@@ -15,19 +15,26 @@ export const chunk = (arr, n) => {
   return chunked;
 };
 
-export const getPageNumbers = (current: number, num: number) => {
-  const pages = [];
-  let leftNumbers = Math.ceil(num / 2);
-  let rightNumbers = Math.ceil(num / 2);
+export const getPageNumbers = (
+  currentNumber,
+  buttonsQuantity,
+  totalPages = Infinity
+): any => {
+  if (currentNumber > totalPages) return [1];
+  let leftNumbers = Math.ceil(buttonsQuantity / 2);
+  let rightNumbers = Math.ceil(buttonsQuantity / 2);
+  const pagesLeft = [];
+  const pagesRight = [];
 
-  for (let i = current - 1; i > current - leftNumbers; i--) {
-    if (i > 0) pages.push(i);
+  for (let i = currentNumber - 1; i > currentNumber - leftNumbers; i--) {
+    if (i > 0) pagesLeft.unshift(i);
     else rightNumbers++;
   }
 
-  for (let i = current; i < current + rightNumbers; i++) {
-    pages.push(i);
+  for (let i = currentNumber + 1; i < currentNumber + rightNumbers; i++) {
+    if (i <= totalPages) pagesRight.push(i);
+    else pagesLeft.unshift(pagesLeft[0] - 1);
   }
 
-  return pages.sort((a, b) => a - b);
+  return { pagesLeft, pagesRight };
 };

@@ -8,12 +8,16 @@ import useQuery from "@/hooks/use-query";
 import Paginator from "@/components/complex/paginator";
 
 import ProductCard from "./components/product-card";
-import { fetchProductsAC } from "./ducks";
-import { getProductsSelector } from "./ducks/selectors";
+import { getProductsPageAC } from "./ducks";
+import { getProductsPageSelector } from "./ducks/selectors";
 
 export default function ProductsPage({}) {
-  const pageNumberParam = useQuery({ param: "page", action: console.log });
-  const chunkedProducts = chunk(useSelector(getProductsSelector), 4);
+  const pageNumberParam = useQuery({ param: "page" });
+
+  const chunkedProducts = chunk(
+    useSelector((state) => getProductsPageSelector(pageNumberParam, state)),
+    4
+  );
 
   const productCardsSection = useMemo(
     () =>
@@ -41,11 +45,12 @@ export default function ProductsPage({}) {
   );
 }
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps({ query }) {
+  const { page } = query;
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
-  await dispatch(fetchProductsAC());
+  await dispatch(getProductsPageAC(page));
 
   const { products } = reduxStore.getState();
 

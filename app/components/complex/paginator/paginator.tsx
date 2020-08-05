@@ -2,39 +2,76 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 
 import { getPageNumbers } from "@/utils/index";
+import { PAGINATOR_BUTTONS_QUANTITY } from "@/constants/pagination";
+
+const PaginatorButton = ({
+  children,
+  onClick,
+  isActive = false,
+  isDisabled = false,
+}) => (
+  <button
+    onClick={onClick}
+    className={`main__pagination--button${isActive ? "--active" : ""}`}
+    disabled={isActive || isDisabled}
+  >
+    {children}
+  </button>
+);
 
 export default function Paginator({ currentPageNumber = 1 }) {
   const { push } = useRouter();
 
   const handlePageRequest = (number) => {
-    push({
-      query: { page: number },
-    });
+    if (number) {
+      push({
+        query: { page: number },
+      });
+    }
   };
 
-  const pageNumbers = useMemo(() => getPageNumbers(currentPageNumber, 5), [
-    currentPageNumber,
-  ]);
+  const { pagesLeft, pagesRight } = useMemo(
+    () => getPageNumbers(currentPageNumber, PAGINATOR_BUTTONS_QUANTITY, 15),
+    [currentPageNumber]
+  );
 
   const numbersSection = useMemo(
     () =>
-      pageNumbers.map((number) => (
-        <button
+      [...pagesLeft, currentPageNumber, ...pagesRight].map((number) => (
+        <PaginatorButton
           onClick={() => handlePageRequest(number)}
+          isActive={number === currentPageNumber}
           key={number}
-          className={`main__pagination--button${
-            number === currentPageNumber ? "--active" : ""
-          }`}
         >
           {number}
-        </button>
+        </PaginatorButton>
       )),
-    [pageNumbers]
+    [pagesLeft, currentPageNumber, pagesRight]
   );
 
   return (
     <div className="main__pagination--container">
-      <div className="main__pagination--actions">{numbersSection}</div>
+      <div className="main__pagination--actions">
+        <PaginatorButton
+          onClick={() => handlePageRequest(1)}
+          isDisabled={!pagesLeft[pagesLeft.length - 1]}
+        >
+          {`<<<`}
+        </PaginatorButton>
+        <PaginatorButton
+          onClick={() => handlePageRequest(pagesLeft[pagesLeft.length - 1])}
+          isDisabled={!pagesLeft[pagesLeft.length - 1]}
+        >
+          {`<`}
+        </PaginatorButton>
+        {numbersSection}
+        <PaginatorButton
+          onClick={() => handlePageRequest(pagesRight[0])}
+          isDisabled={!pagesRight[0]}
+        >
+          {`>`}
+        </PaginatorButton>
+      </div>
     </div>
   );
 }
