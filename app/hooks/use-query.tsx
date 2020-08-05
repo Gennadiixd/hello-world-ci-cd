@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useLayoutEffect } from "react";
+import { useMemo } from "react";
 import { useRouter } from "next/router";
 
 export default function useQuery({ param }): any {
