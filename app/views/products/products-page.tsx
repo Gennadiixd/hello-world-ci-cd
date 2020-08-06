@@ -10,13 +10,14 @@ import Paginator from "@/components/complex/paginator";
 import ProductCard from "./components/product-card";
 import { getProductsPageAC } from "./ducks";
 import { getProductsPageSelector } from "./ducks/selectors";
+import { GRID_CARDS_IN_ROW } from "@/constants";
 
 export default function ProductsPage({}) {
   const pageNumberParam = useQuery({ param: "page" });
 
   const chunkedProducts = chunk(
     useSelector((state) => getProductsPageSelector(pageNumberParam, state)),
-    4
+    GRID_CARDS_IN_ROW
   );
 
   const productCardsSection = useMemo(

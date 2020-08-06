@@ -1,3 +1,5 @@
+import { PAGINATOR_BUTTONS_QUANTITY } from "@/constants";
+
 export const isServer = () => typeof window === "undefined";
 
 export const chunk = (arr, n) => {
@@ -17,8 +19,8 @@ export const chunk = (arr, n) => {
 
 export const getPageNumbers = (
   currentNumber,
-  buttonsQuantity,
-  totalPages = Infinity
+  totalPages = Infinity,
+  buttonsQuantity = PAGINATOR_BUTTONS_QUANTITY
 ): any => {
   if (currentNumber > totalPages) return [1];
   let leftNumbers = Math.ceil(buttonsQuantity / 2);

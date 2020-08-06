@@ -30,8 +30,11 @@ export default function Paginator({ currentPageNumber = 1 }) {
     }
   };
 
+  // researching how to get actual info about it
+  // TODO: remove hardcoded TOTAL_PAGES = 15
+  const TOTAL_PAGES = 15;
   const { pagesLeft, pagesRight } = useMemo(
-    () => getPageNumbers(currentPageNumber, PAGINATOR_BUTTONS_QUANTITY, 15),
+    () => getPageNumbers(currentPageNumber, TOTAL_PAGES),
     [currentPageNumber]
   );
 
