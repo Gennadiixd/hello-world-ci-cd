@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 
 import { getPageNumbers } from "@/utils";
-import { PAGINATOR_BUTTONS_QUANTITY } from "@/constants";
 
 const PaginatorButton = ({
   children,
