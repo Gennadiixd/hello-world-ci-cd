@@ -24,10 +24,9 @@ export const fetchProductByIdAC = (id) => async (dispatch) => {
   });
 };
 
-export const fetchProductsAC = (
-  offset,
-  perPage = PRODUCTS_PER_PAGE
-) => async (dispatch) => {
+export const fetchProductsAC = (offset?: number, perPage?: number) => async (
+  dispatch
+) => {
   const productsPage = await productsService.getProducts({ offset, perPage });
 
   return dispatch({

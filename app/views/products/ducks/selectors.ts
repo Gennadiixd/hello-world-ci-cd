@@ -1,7 +1,7 @@
 export const getProductsSelector = (state) => state.products;
 
 export const getProductsPageSelector = (page, state) =>
-  getProductsSelector(state).pages[page];
+  getProductsSelector(state).pages[page] || [];
 
 export const getCurrentProductSelector = (state) =>
   getProductsSelector(state).currentProduct;

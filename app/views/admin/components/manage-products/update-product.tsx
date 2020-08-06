@@ -12,9 +12,9 @@ export default function UpdateProduct() {
   const products = useSelector((state) => getProductsPageSelector(1, state));
   const dispatch = useDispatch();
 
-  useMount(() => {
-    dispatch(fetchProductsAC({ offset: 1 }));
-  });
+  // useMount(() => {
+  //   dispatch(fetchProductsAC(1));
+  // });
 
   const productRowsSection = useMemo(() => {
     return products.map((product) => (

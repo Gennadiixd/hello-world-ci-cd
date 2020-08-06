@@ -1,4 +1,6 @@
 import MainLayout from "@/components/complex/main-layout";
+import { initializeStore } from "@/ducks/index";
+import { fetchProductsAC } from "@/views/products/ducks";
 
 import CreateProduct from "./create-product";
 import UpdateProduct from "./update-product";
@@ -12,4 +14,17 @@ export default function ManageProducts() {
       </div>
     </MainLayout>
   );
+}
+
+export async function getServerSideProps() {
+  const reduxStore = initializeStore({});
+  const { dispatch } = reduxStore;
+  
+  await dispatch(fetchProductsAC(1));
+
+  const { products } = reduxStore.getState();
+
+  return {
+    props: { initialReduxState: { products } },
+  };
 }

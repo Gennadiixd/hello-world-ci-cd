@@ -13,7 +13,7 @@ import {
   getProductsPageSelector,
   getProductsPaginationSelector,
 } from "./ducks/selectors";
-import { GRID_CARDS_IN_ROW } from "@/constants";
+import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
@@ -58,7 +58,7 @@ export async function getServerSideProps({ query }) {
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
-  await dispatch(fetchProductsAC(page));
+  await dispatch(fetchProductsAC(page, PRODUCTS_PER_PAGE));
 
   const { products } = reduxStore.getState();
 
