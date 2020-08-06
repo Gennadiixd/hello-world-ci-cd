@@ -83,7 +83,23 @@
     },
     "/products": {
       "get": {
-        "summary": "Get all Products",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "requested offset",
+            "type": "string"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "description": "requested limit",
+            "type": "string"
+          }
+        ],
+        "summary": "Get Products",
         "responses": {
           "200": {
             "description": "OK",
