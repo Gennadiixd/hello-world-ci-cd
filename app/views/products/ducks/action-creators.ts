@@ -15,16 +15,7 @@ export const getProductsAC = (payload) => ({
   payload,
 });
 
-export const fetchProductsAC = () => async (dispatch) => {
-  const products = await productsService.getProducts();
-
-  return dispatch({
-    type: AT.SET_PRODUCTS,
-    payload: products,
-  });
-};
-
-export const serverGetProductByIdAC = (id) => async (dispatch) => {
+export const fetchProductByIdAC = (id) => async (dispatch) => {
   const products = await productsService.getProductById(id);
 
   return dispatch({
@@ -33,14 +24,14 @@ export const serverGetProductByIdAC = (id) => async (dispatch) => {
   });
 };
 
-export const getProductsPageAC = (
+export const fetchProductsAC = (
   offset,
   perPage = PRODUCTS_PER_PAGE
 ) => async (dispatch) => {
-  const productsPage = await productsService.getProductsPage(offset, perPage);
+  const productsPage = await productsService.getProducts({ offset, perPage });
 
   return dispatch({
     type: AT.SET_PRODUCTS_PAGE,
-    payload: { pageNumber: offset, productsPage },
+    payload: { pageNumber: offset, ...productsPage },
   });
 };

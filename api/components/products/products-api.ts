@@ -39,7 +39,6 @@ const productsRouter = Router();
 const productsController = container.resolve(ProductsController);
 
 productsRouter.get("/", productsController.getProducts);
-productsRouter.get("/page", productsController.getProductsPage);
 productsRouter.get("/:id", productsController.getProduct);
 
 productsRouter.post(

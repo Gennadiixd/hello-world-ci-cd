@@ -2,9 +2,10 @@ import * as AT from "./action-types";
 import cloneDeep from "lodash/cloneDeep";
 
 export const initialState = {
-  products: [],
   currentProduct: {},
   pages: {},
+  totalCount: 0,
+  totalPages: 0,
 };
 
 export const productsReducer = (state = initialState, { type, payload }) => {
@@ -20,9 +21,12 @@ export const productsReducer = (state = initialState, { type, payload }) => {
         currentProduct: payload,
       };
     case AT.SET_PRODUCTS_PAGE:
-      const { pageNumber, productsPage } = payload;
+      const { pageNumber, products, totalCount, totalPages } = payload;
       const pagesState = cloneDeep(state);
-      pagesState.pages[pageNumber] = productsPage;
+      
+      pagesState.pages[pageNumber] = products;
+      pagesState.totalCount = totalCount;
+      pagesState.totalPages = totalPages;
 
       return {
         ...state,

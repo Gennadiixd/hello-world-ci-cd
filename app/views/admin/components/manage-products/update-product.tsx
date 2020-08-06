@@ -1,16 +1,19 @@
 import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getProductsSelector, fetchProductsAC } from "@/views/products/ducks";
+import {
+  getProductsPageSelector,
+  fetchProductsAC,
+} from "@/views/products/ducks";
 import useMount from "@/hooks/use-mount";
 import ProductRow from "@/components/complex/product-row";
 
 export default function UpdateProduct() {
-  const products = useSelector(getProductsSelector);
+  const products = useSelector((state) => getProductsPageSelector(1, state));
   const dispatch = useDispatch();
 
   useMount(() => {
-    dispatch(fetchProductsAC());
+    dispatch(fetchProductsAC({ offset: 1 }));
   });
 
   const productRowsSection = useMemo(() => {

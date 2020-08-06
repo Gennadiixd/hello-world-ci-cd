@@ -8,12 +8,16 @@ import useQuery from "@/hooks/use-query";
 import Paginator from "@/components/complex/paginator";
 
 import ProductCard from "./components/product-card";
-import { getProductsPageAC } from "./ducks";
-import { getProductsPageSelector } from "./ducks/selectors";
+import { fetchProductsAC } from "./ducks";
+import {
+  getProductsPageSelector,
+  getProductsPaginationSelector,
+} from "./ducks/selectors";
 import { GRID_CARDS_IN_ROW } from "@/constants";
 
-export default function ProductsPage({}) {
+export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
+  const { totalPages } = useSelector(getProductsPaginationSelector);
 
   const chunkedProducts = chunk(
     useSelector((state) => getProductsPageSelector(pageNumberParam, state)),
@@ -39,7 +43,10 @@ export default function ProductsPage({}) {
   return (
     <MainLayout title="Products Page">
       <div className="grid-12 cards__grid">
-        <Paginator currentPageNumber={currentPageNumber} />
+        <Paginator
+          currentPageNumber={currentPageNumber}
+          totalPages={totalPages}
+        />
         {productCardsSection}
       </div>
     </MainLayout>
@@ -51,7 +58,7 @@ export async function getServerSideProps({ query }) {
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
-  await dispatch(getProductsPageAC(page));
+  await dispatch(fetchProductsAC(page));
 
   const { products } = reduxStore.getState();
 

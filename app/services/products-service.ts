@@ -1,20 +1,22 @@
 import HttpService from "./core/http-service";
 
+type getProductsArgs = {
+  offset?: number;
+  perPage?: number;
+};
+
 export default class ProductsService extends HttpService {
   constructor(options) {
     super(options);
   }
 
-  async getProductsPage(offset, perPage): Promise<{ data: any }> {
-    const { data } = await this.get("products/page", {
+  async getProducts({
+    offset,
+    perPage,
+  }: getProductsArgs): Promise<{ data: any }> {
+    const { data } = await this.get("products", {
       params: { offset, perPage },
     });
-
-    return data;
-  }
-
-  async getProducts(): Promise<{ data: any }> {
-    const { data } = await this.get("products");
 
     return data;
   }

@@ -3,10 +3,9 @@ import { injectable, inject } from "tsyringe";
 import { IProductsRepository } from "./products-repository";
 
 export interface IProductsService {
-  getProducts: () => any;
+  getProducts: (any: any) => any;
   createProduct: (any: any) => any;
   getProduct: (id) => any;
-  getProductsPage: (id) => any;
 }
 
 @injectable()
@@ -16,12 +15,8 @@ class ProductsService implements IProductsService {
     public productsRepository: IProductsRepository
   ) {}
 
-  getProductsPage({ offset, perPage }) {
-    return this.productsRepository.getProductsPage({ offset, perPage });
-  }
-
-  getProducts() {
-    return this.productsRepository.getProducts();
+  getProducts(GetProductsDTO) {
+    return this.productsRepository.getProducts(GetProductsDTO);
   }
 
   getProduct(id) {
