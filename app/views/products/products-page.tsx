@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import { initializeStore } from "@/ducks/index";
 import MainLayout from "@/components/complex/main-layout";
-import { chunk } from "@/utils/index";
+import { chunk } from "@/utils";
 import useQuery from "@/hooks/use-query";
 import Paginator from "@/components/complex/paginator";
 

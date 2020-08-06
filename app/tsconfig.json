@@ -7,9 +7,9 @@
       "@/services/*": ["services/*"],
       "@/hooks/*": ["hooks/*"],
       "@/views/*": ["views/*"],
-      "@/utils/*": ["utils/*"],
+      "@/utils": ["utils.ts"],
       "@/assets/*": ["assets/*"],
-      "@/constants/*": ["constants/*"]
+      "@/constants": ["constants.ts"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

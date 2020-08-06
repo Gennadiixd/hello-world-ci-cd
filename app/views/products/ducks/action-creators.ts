@@ -1,5 +1,5 @@
 import ProductsService from "@/services/products-service";
-import { PRODUCTS_PER_PAGE } from "@/constants/pagination";
+import { PRODUCTS_PER_PAGE } from "@/constants";
 
 import * as AT from "./action-types";
 
