@@ -19,13 +19,10 @@ class ProductsController implements IProductsController {
 
   getProducts = async (req: Request, res: Response) => {
     const { offset, perPage } = req.query as any;
-    console.log(offset, perPage);
-    
     const getProductsDTO = new GetProductsDTO({
       skip: parseInt(offset, 10) * parseInt(perPage, 10),
       take: perPage,
     });
-
     const productsPage = await this.productsService.getProducts(getProductsDTO);
 
     res.send(productsPage);
@@ -34,6 +31,7 @@ class ProductsController implements IProductsController {
   getProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
     const products = await this.productsService.getProduct(id);
+
     res.json(products);
   };
 
@@ -47,6 +45,7 @@ class ProductsController implements IProductsController {
       filename,
     });
     const product = await this.productsService.createProduct(createProductDTO);
+    
     res.json(product);
   };
 }
