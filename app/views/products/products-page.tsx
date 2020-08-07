@@ -6,6 +6,7 @@ import MainLayout from "@/components/complex/main-layout";
 import { chunk } from "@/utils";
 import useQuery from "@/hooks/use-query";
 import Paginator from "@/components/complex/paginator";
+import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
 
 import ProductCard from "./components/product-card";
 import { fetchProductsAC } from "./ducks";
@@ -13,7 +14,6 @@ import {
   getProductsPageSelector,
   getProductsPaginationSelector,
 } from "./ducks/selectors";
-import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
