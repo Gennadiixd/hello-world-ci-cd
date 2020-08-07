@@ -1,5 +1,0 @@
-db:
-  host: 'localhost'
-  username: 'myapppassword'
-  password: 'myapppassword'
-  synchronize: true

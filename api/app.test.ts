@@ -18,7 +18,7 @@ container.register("IProductsRepository", {
 describe("App", () => {
   it("should return success", async (done) => {
     const productsService = container.resolve(ProductsService);
-    expect(productsService.getProducts()).toBe("success");
+    expect(productsService.getProducts({})).toBe("success");
     done();
   });
 });

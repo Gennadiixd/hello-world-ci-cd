@@ -5,7 +5,7 @@ import { ProductEntity } from "./product.entity";
 import { IDBConnection } from "../../connection";
 
 export interface IProductsRepository {
-  getProducts: () => any;
+  getProducts: (any) => any;
   createProduct: (any) => any;
   getProduct: (any) => any;
 }
@@ -22,10 +22,27 @@ class ProductsRepository extends Repository<any> {
     return manager;
   }
 
-  async getProducts() {
-    const connectionManager = await this.getConnectManager();
-    const products = await connectionManager.find(ProductEntity);
-    return products;
+  async getRepository() {
+    const connection = await this.dbConnection.getConnection();
+    return connection.getRepository(ProductEntity);
+  }
+
+  async getProducts(GetProductsDTO) {
+    const repository = await this.getRepository();
+    const { skip, take } = GetProductsDTO;
+
+    const count = await repository
+      .createQueryBuilder("products")
+      .select()
+      .getCount();
+
+    const products = await repository.find({ skip, take });
+
+    return {
+      products,
+      totalCount: count,
+      totalPages: Math.floor(count / take) || 1,
+    };
   }
 
   async getProduct(id) {

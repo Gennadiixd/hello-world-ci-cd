@@ -1,5 +1,11 @@
 import { useMemo, useState, useCallback, useRef } from "react";
 import useMount from "@/hooks/use-mount";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faEdit,
+  faWindowClose,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function EditableText({ content, className, onCommit, name }) {
   const [isEditMode, setEditMode] = useState(false);
@@ -32,25 +38,27 @@ export default function EditableText({ content, className, onCommit, name }) {
   const iconsSection = useMemo(
     () =>
       isEditMode ? (
-        <div className="edit__icons--actions">
+        <>
           <span onClick={handleCommit} className="edit__icons--icon">
-            <i className="fas fa-check" />
+            <FontAwesomeIcon icon={faCheck} />
           </span>
           <span onClick={handleCancel} className="edit__icons--icon">
-            <i className="far fa-window-close" />
+            <FontAwesomeIcon icon={faWindowClose} />
           </span>
-        </div>
+        </>
       ) : (
         <span onClick={handleEdit} className="edit__icons--icon">
-          <i className="fas fa-edit" />
+          <FontAwesomeIcon icon={faEdit} />
         </span>
       ),
     [isEditMode, handleEdit, handleCancel, handleCommit]
   );
 
   return (
-    <div className={`${className} --editable ${isEditMode ? "--focus" : ""}`}>
-      <div className="edit__icons">{iconsSection}</div>
+    <div className={`${className} editable${isEditMode ? "--focus" : ""}`}>
+      <div className="edit__icons--actions">
+        <div className="edit__icons">{iconsSection}</div>
+      </div>
       <div
         className="input"
         contentEditable={isEditMode}

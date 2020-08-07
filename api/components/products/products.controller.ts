@@ -3,6 +3,7 @@ import { Response, Request } from "express";
 
 import { IProductsService } from "./products-service";
 import { CreateProductDTO } from "./dto/create-product.dto";
+import { GetProductsDTO } from "./dto/get-products.dto";
 
 export interface IProductsController {
   getProducts: (_: any, res: Response) => void;
@@ -16,14 +17,21 @@ class ProductsController implements IProductsController {
     @inject("IProductsService") public productsService: IProductsService
   ) {}
 
-  getProducts = async (_: any, res: Response) => {
-    const products = await this.productsService.getProducts();
-    res.json(products);
+  getProducts = async (req: Request, res: Response) => {
+    const { offset, perPage } = req.query as any;
+    const getProductsDTO = new GetProductsDTO({
+      skip: parseInt(offset, 10) * parseInt(perPage, 10),
+      take: perPage,
+    });
+    const productsPage = await this.productsService.getProducts(getProductsDTO);
+
+    res.send(productsPage);
   };
 
   getProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
     const products = await this.productsService.getProduct(id);
+
     res.json(products);
   };
 
@@ -37,6 +45,7 @@ class ProductsController implements IProductsController {
       filename,
     });
     const product = await this.productsService.createProduct(createProductDTO);
+    
     res.json(product);
   };
 }

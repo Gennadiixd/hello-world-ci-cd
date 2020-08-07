@@ -3,14 +3,15 @@
 
 @import "grid/grid";
 @import "header";
+@import "footer";
 @import "card_grid";
 @import "card";
 @import "row";
+@import "pagination";
 
 @import "manage_products_page";
 @import "user_page";
 @import "product_page";
-@import "admin_page";
 
 * {
   margin: 0;

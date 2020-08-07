@@ -1,0 +1,17 @@
+@import "variables";
+@import "mixins";
+
+.main__pagination {
+  &--container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &--button {
+    @include pagination_button(false);
+
+    &--active {
+      @include pagination_button(true);
+    }
+  }
+}

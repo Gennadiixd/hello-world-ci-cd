@@ -1,5 +1,7 @@
+import ProductsService from "@/services/products-service";
+import { PRODUCTS_PER_PAGE } from "@/constants";
+
 import * as AT from "./action-types";
-import ProductsService from "../../../services/products-service";
 
 const productsService = new ProductsService({});
 
@@ -13,20 +15,22 @@ export const getProductsAC = (payload) => ({
   payload,
 });
 
-export const fetchProductsAC = () => async (dispatch) => {
-  const products = await productsService.getProducts();
-
-  return dispatch({
-    type: AT.SET_PRODUCTS,
-    payload: products,
-  });
-};
-
-export const serverGetProductByIdAC = (id) => async (dispatch) => {
+export const fetchProductByIdAC = (id) => async (dispatch) => {
   const products = await productsService.getProductById(id);
 
   return dispatch({
     type: AT.SET_CURRENT_PRODUCT,
     payload: products,
+  });
+};
+
+export const fetchProductsAC = (offset?: number, perPage?: number) => async (
+  dispatch
+) => {
+  const productsPage = await productsService.getProducts({ offset, perPage });
+
+  return dispatch({
+    type: AT.SET_PRODUCTS_PAGE,
+    payload: { pageNumber: offset, ...productsPage },
   });
 };

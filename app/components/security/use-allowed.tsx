@@ -1,8 +1,10 @@
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
-import useClaims from "./use-claims";
-import { setCurrentUserAC } from "../../views/user/ducks";
 import Router from "next/router";
+
+import { setCurrentUserAC } from "@/views/user/ducks";
+
+import useClaims from "./use-claims";
 
 export default function useAllowed({ forRole, redirectTo }) {
   const dispatch = useDispatch();

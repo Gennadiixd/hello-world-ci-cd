@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 
 import MainLayout from "@/components/complex/main-layout";
-import CardGrid from "@/components/complex/card-grid";
 import OptionCard from "@/components/complex/option-card";
 
 const adminOptions = [
@@ -27,7 +26,7 @@ export default function AdminPage() {
 
   return (
     <MainLayout title="Admin Page">
-      <CardGrid>{adminOptionsSection}</CardGrid>
+      <div className="grid-12 cards__grid">{adminOptionsSection}</div>
     </MainLayout>
   );
 }

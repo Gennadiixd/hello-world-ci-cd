@@ -1,5 +1,5 @@
 import axios from "axios";
-import { isServer } from "@/utils/index";
+import { isServer } from "@/utils";
 
 export default class HttpService {
   options: any;

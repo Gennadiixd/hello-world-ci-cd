@@ -1,4 +1,6 @@
-import CreateProduct from "@/views/admin/components/manage-products";
-import AdminRoute from "@/components/security/admin-route";
+import ManageProducts, {
+  getServerSideProps,
+} from "@/views/admin/components/manage-products";
 
-export default AdminRoute(CreateProduct);
+export default ManageProducts;
+export { getServerSideProps };

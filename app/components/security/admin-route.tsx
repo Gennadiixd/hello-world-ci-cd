@@ -1,5 +1,6 @@
-import useAllowed from "./use-allowed";
 import useCSR from "@/hooks/use-csr";
+
+import useAllowed from "./use-allowed";
 
 export default function AdminRoute(Component) {
   return (...args) => {

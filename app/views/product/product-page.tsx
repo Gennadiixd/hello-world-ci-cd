@@ -3,7 +3,7 @@ import { initializeStore } from "@/ducks/index";
 import MainLayout from "@/components/complex/main-layout";
 
 import { getCurrentProductSelector } from "../products/ducks/selectors";
-import { serverGetProductByIdAC } from "../products/ducks/action-creators";
+import { fetchProductByIdAC } from "../products/ducks/action-creators";
 
 export default function ProductPage() {
   const { image, title, description, price } = useSelector(
@@ -40,7 +40,7 @@ export async function getServerSideProps({ query }) {
   const { dispatch } = reduxStore;
   const { id } = query;
 
-  await dispatch(serverGetProductByIdAC(id));
+  await dispatch(fetchProductByIdAC(id));
 
   const { products } = reduxStore.getState();
 

@@ -1,4 +1,4 @@
 import AdminPage from "@/views/admin";
-import AdminRoute from "@/components/security/admin-route";
+import { privateRoute } from "@/components/security/private-route";
 
-export default AdminRoute(AdminPage);
+export default privateRoute(AdminPage);

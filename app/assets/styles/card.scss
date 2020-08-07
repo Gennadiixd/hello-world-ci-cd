@@ -3,10 +3,13 @@
 
 .card--container {
   border: none;
+  display: flex;
 
   .card {
     margin: 5px;
     border: $border;
+    display: flex;
+    flex-flow: column nowrap;
 
     &--title {
       margin: 5px;
@@ -28,6 +31,7 @@
 
     &--actions {
       border-top: 1px black solid;
+      margin-top: auto;
 
       button {
         @include button();
