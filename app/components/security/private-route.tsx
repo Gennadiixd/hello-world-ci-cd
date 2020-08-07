@@ -5,13 +5,12 @@ import { isServer } from "@/utils";
 export function privateRoute(WrappedComponent: any) {
   return class extends Component {
     static async getInitialProps(ctx: any) {
-      console.log(ctx);
       if (!isServer()) return {};
       const token = ServerCookie(ctx)["claims"];
       const initialProps = { token };
       if (!token) {
         ctx.res.writeHead(302, {
-          Location: "/",
+          Location: "/user",
         });
         ctx.res.end();
       }
