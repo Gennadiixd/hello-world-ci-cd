@@ -20,7 +20,9 @@ export default function ProductsPage() {
   const { totalPages } = useSelector(getProductsPaginationSelector);
 
   const chunkedProducts = chunk(
-    useSelector((state) => getProductsPageSelector(pageNumberParam, state)),
+    useSelector((state) =>
+      getProductsPageSelector(pageNumberParam || 1, state)
+    ),
     GRID_CARDS_IN_ROW
   );
 
@@ -58,7 +60,7 @@ export async function getServerSideProps({ query }) {
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
-  await dispatch(fetchProductsAC(page, PRODUCTS_PER_PAGE));
+  await dispatch(fetchProductsAC(page || 1, PRODUCTS_PER_PAGE));
 
   const { products } = reduxStore.getState();
 

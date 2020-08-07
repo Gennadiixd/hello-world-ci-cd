@@ -36,15 +36,12 @@ class ProductsRepository extends Repository<any> {
       .select()
       .getCount();
 
-    const products = await repository.find({
-      skip: skip || 0,
-      take: take || null,
-    });
+    const products = await repository.find({ skip, take });
 
     return {
       products,
       totalCount: count,
-      totalPages: Math.floor(count / take),
+      totalPages: Math.floor(count / take) || 1,
     };
   }
 

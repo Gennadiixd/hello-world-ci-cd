@@ -1,3 +1,4 @@
-import AdminPage from "@/views/admin";
+import AdminPage, { getServerSideProps } from "@/views/admin";
 
 export default AdminPage;
+export { getServerSideProps };
