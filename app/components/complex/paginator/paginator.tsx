@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useRouter } from "next/router";
 
 import { getPageNumbers } from "@/utils";
+import { PAGINATOR_BUTTONS_QUANTITY } from "@/constants";
 
 const PaginatorButton = ({
   children,
@@ -30,7 +31,8 @@ export default function Paginator({ currentPageNumber = 1, totalPages }) {
   };
 
   const { pagesLeft, pagesRight } = useMemo(
-    () => getPageNumbers(currentPageNumber, totalPages),
+    () =>
+      getPageNumbers(currentPageNumber, totalPages, PAGINATOR_BUTTONS_QUANTITY),
     [currentPageNumber]
   );
 

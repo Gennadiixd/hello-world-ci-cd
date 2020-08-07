@@ -14,9 +14,8 @@ export default class ProductsService extends HttpService {
     offset,
     perPage,
   }: getProductsArgs): Promise<{ data: any }> {
-    const { data } = await this.get("products", {
-      params: { offset, perPage },
-    });
+    const params = offset && perPage ? { offset, perPage } : {};
+    const { data } = await this.get("products", { params });
 
     return data;
   }
