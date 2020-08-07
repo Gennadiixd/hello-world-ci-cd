@@ -10,7 +10,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <div className="grid-3 grid-xs-12 card--container">
+    <div className="grid-12 card--container">
       <div className="card">
         <div className="card--title">{title}</div>
         <div className="card--image">

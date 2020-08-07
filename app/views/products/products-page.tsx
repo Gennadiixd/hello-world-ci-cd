@@ -14,16 +14,18 @@ import {
   getProductsPageSelector,
   getProductsPaginationSelector,
 } from "./ducks/selectors";
+import useMedia from "../../hooks/use-media";
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
   const { totalPages } = useSelector(getProductsPaginationSelector);
+  const columnCount = useMedia([1, 2], 3);
 
   const chunkedProducts = chunk(
     useSelector((state) =>
       getProductsPageSelector(pageNumberParam || 1, state)
     ),
-    GRID_CARDS_IN_ROW
+    columnCount
   );
 
   const productCardsSection = useMemo(

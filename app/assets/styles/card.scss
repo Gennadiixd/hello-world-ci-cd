@@ -44,7 +44,8 @@
 
     &--image {
       max-width: 400px;
-
+      margin: auto;
+      
       img {
         @include image();
       }
