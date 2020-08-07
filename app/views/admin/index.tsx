@@ -1,4 +1,3 @@
-import AdminPage, { getServerSideProps } from "./admin-page";
+import AdminPage from "./admin-page";
 
 export default AdminPage;
-export { getServerSideProps };

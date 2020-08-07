@@ -2,7 +2,6 @@ import { useMemo } from "react";
 
 import MainLayout from "@/components/complex/main-layout";
 import OptionCard from "@/components/complex/option-card";
-import { initializeStore } from "@/ducks/index";
 
 const adminOptions = [
   {
@@ -30,14 +29,4 @@ export default function AdminPage() {
       <div className="grid-12 cards__grid">{adminOptionsSection}</div>
     </MainLayout>
   );
-}
-
-export async function getServerSideProps(ctx) {
-  // const reduxStore = initializeStore({});
-  // const { dispatch } = reduxStore;
-  console.log(ctx);
-  
-  return {
-    props: {},
-  };
 }
