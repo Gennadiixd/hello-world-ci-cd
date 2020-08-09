@@ -29,7 +29,7 @@ class ProductsRepository extends Repository<any> {
 
   async getProducts(GetProductsDTO) {
     const repository = await this.getRepository();
-    const { take, title } = GetProductsDTO;
+    const { take } = GetProductsDTO;
 
     const count = await repository
       .createQueryBuilder("products")
@@ -38,13 +38,7 @@ class ProductsRepository extends Repository<any> {
 
     const result = {} as any;
 
-    const params = Object.keys(GetProductsDTO).reduce((accum, param) => {
-      const currentParam = GetProductsDTO[param];
-      if (currentParam) accum[param] = currentParam;
-      return accum;
-    }, {});
-
-    result.products = await repository.find(params);
+    result.products = await repository.find(GetProductsDTO.params);
     result.totalCount = count;
     result.totalPages = Math.floor(count / take) || 1;
 

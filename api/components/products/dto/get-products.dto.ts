@@ -15,4 +15,12 @@ export class GetProductsDTO {
     this.title = title ? Like(`%${title}%`) : undefined;
     this.order = filterBy ? { [filterBy]: orderBy } : undefined;
   }
+
+  get params() {
+    return Object.keys(this).reduce((accum, param) => {
+      const currentParam = this[param];
+      if (currentParam) accum[param] = currentParam;
+      return accum;
+    }, {});
+  }
 }
