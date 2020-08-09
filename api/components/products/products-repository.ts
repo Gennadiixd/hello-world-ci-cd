@@ -27,9 +27,9 @@ class ProductsRepository extends Repository<any> {
     return connection.getRepository(ProductEntity);
   }
 
-  async getProducts(GetProductsDTO) {
+  async getProducts(getProductsDTO) {
     const repository = await this.getRepository();
-    const { take } = GetProductsDTO;
+    const { take } = getProductsDTO;
 
     const count = await repository
       .createQueryBuilder("products")
@@ -38,7 +38,7 @@ class ProductsRepository extends Repository<any> {
 
     const result = {} as any;
 
-    result.products = await repository.find(GetProductsDTO.params);
+    result.products = await repository.find(getProductsDTO.params);
     result.totalCount = count;
     result.totalPages = Math.floor(count / take) || 1;
 
