@@ -2,14 +2,15 @@ import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
-import { initializeStore } from "@/ducks/index";
-import MainLayout from "@/components/complex/main-layout";
 import { chunk } from "@/utils";
-import useQuery from "@/hooks/use-query";
-import Paginator from "@/components/complex/paginator";
 import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
-import useMedia from "@/hooks/use-media";
 import SearchBar from "@/components/complex/search-bar";
+import Filters from "@/components/complex/filters";
+import MainLayout from "@/components/complex/main-layout";
+import Paginator from "@/components/complex/paginator";
+import { initializeStore } from "@/ducks/index";
+import useQuery from "@/hooks/use-query";
+import useMedia from "@/hooks/use-media";
 import {
   fetchProductsByAC,
   getProductsSearchStateSelector,
@@ -21,6 +22,8 @@ import {
   getProductsPageSelector,
   getProductsPaginationSelector,
 } from "./ducks/selectors";
+
+const searchCriterias = ["price", "rate"];
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
@@ -71,6 +74,7 @@ export default function ProductsPage() {
             onSearch={handleProductSearch}
             onSelectSuggest={handleSelectSuggest}
           />
+          <Filters searchCriterias={searchCriterias} />
           <Paginator
             currentPageNumber={currentPageNumber}
             totalPages={totalPages}
@@ -83,11 +87,18 @@ export default function ProductsPage() {
 }
 
 export async function getServerSideProps({ query }) {
-  const { page } = query;
+  const { page, filterBy, orderBy } = query;
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
-  await dispatch(fetchProductsAC(page || 1, PRODUCTS_PER_PAGE));
+  await dispatch(
+    fetchProductsAC({
+      page: page || 1,
+      perPage: PRODUCTS_PER_PAGE,
+      filterBy,
+      orderBy,
+    })
+  );
 
   const { products } = reduxStore.getState();
 

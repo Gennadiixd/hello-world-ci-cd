@@ -18,11 +18,14 @@ class ProductsController implements IProductsController {
   ) {}
 
   getProducts = async (req: Request, res: Response) => {
-    const { offset, perPage, title } = req.query as any;
+    const { offset, perPage, title, filterBy, orderBy } = req.query as any;
+    
     const getProductsDTO = new GetProductsDTO({
       skip: parseInt(offset, 10) * parseInt(perPage, 10),
       take: perPage,
       title,
+      filterBy,
+      orderBy,
     });
     const productsPage = await this.productsService.getProducts(getProductsDTO);
 

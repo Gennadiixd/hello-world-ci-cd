@@ -38,7 +38,7 @@ export const generateProducts = (num = 100) => {
     product.price = generateProductField("number", 300, 100);
     product.image =
       "https://increasify.com.au/wp-content/uploads/2016/08/default-image.png";
-    product.rate = generateProductField("number", 0, 5);
+    product.rate = generateProductField("number", 5, 0);
     product.category = generateProductField("category");
     products.push(product);
   }

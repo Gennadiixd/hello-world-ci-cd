@@ -29,19 +29,25 @@ class ProductsRepository extends Repository<any> {
 
   async getProducts(GetProductsDTO) {
     const repository = await this.getRepository();
-    const { skip, take, title } = GetProductsDTO;
+    const { take, title } = GetProductsDTO;
 
     const count = await repository
       .createQueryBuilder("products")
       .select()
       .getCount();
 
-    let result = {} as any;
+    const result = {} as any;
+
+    const params = Object.keys(GetProductsDTO).reduce((accum, param) => {
+      const currentParam = GetProductsDTO[param];
+      if (currentParam) accum[param] = currentParam;
+      return accum;
+    }, {});
 
     if (title) {
       result.products = await repository.find({ title: Like(`%${title}%`) });
     } else {
-      result.products = await repository.find({ skip, take });
+      result.products = await repository.find(params);
       result.totalCount = count;
       result.totalPages = Math.floor(count / take) || 1;
     }

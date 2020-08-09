@@ -3,29 +3,15 @@ import { useRouter } from "next/router";
 
 import { getPageNumbers } from "@/utils";
 import { PAGINATOR_BUTTONS_QUANTITY } from "@/constants";
-
-const PaginatorButton = ({
-  children,
-  onClick,
-  isActive = false,
-  isDisabled = false,
-}) => (
-  <button
-    onClick={onClick}
-    className={`main__pagination--button${isActive ? "--active" : ""}`}
-    disabled={isActive || isDisabled}
-  >
-    {children}
-  </button>
-);
+import Button from "@/components/atomic/button";
 
 export default function Paginator({ currentPageNumber = 1, totalPages }) {
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   const handlePageRequest = (number) => {
     if (number) {
       push({
-        query: { page: number },
+        query: { ...query, page: number },
       });
     }
   };
@@ -39,39 +25,43 @@ export default function Paginator({ currentPageNumber = 1, totalPages }) {
   const numbersSection = useMemo(
     () =>
       [...pagesLeft, currentPageNumber, ...pagesRight].map((number) => (
-        <PaginatorButton
+        <Button
           onClick={() => handlePageRequest(number)}
           isActive={number === currentPageNumber}
           key={number}
+          className="main__pagination--button"
         >
           {number}
-        </PaginatorButton>
+        </Button>
       )),
-    [pagesLeft, currentPageNumber, pagesRight]
+    [pagesLeft, currentPageNumber, pagesRight, query]
   );
 
   return (
     <div className="main__pagination--container">
       <div className="main__pagination--actions">
-        <PaginatorButton
+        <Button
           onClick={() => handlePageRequest(1)}
           isDisabled={!pagesLeft[pagesLeft.length - 1]}
+          className="main__pagination--button"
         >
           {`<<<`}
-        </PaginatorButton>
-        <PaginatorButton
+        </Button>
+        <Button
           onClick={() => handlePageRequest(pagesLeft[pagesLeft.length - 1])}
           isDisabled={!pagesLeft[pagesLeft.length - 1]}
+          className="main__pagination--button"
         >
           {`<`}
-        </PaginatorButton>
+        </Button>
         {numbersSection}
-        <PaginatorButton
+        <Button
           onClick={() => handlePageRequest(pagesRight[0])}
           isDisabled={!pagesRight[0]}
+          className="main__pagination--button"
         >
           {`>`}
-        </PaginatorButton>
+        </Button>
       </div>
     </div>
   );
