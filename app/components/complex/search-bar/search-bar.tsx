@@ -7,7 +7,7 @@ import TextInput from "@/components/atomic/text-input/text-input";
 import useDebounce from "@/hooks/use-debounce";
 
 export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
-  const { register, watch } = useForm();
+  const { register, watch, setValue } = useForm();
   const watchSearchInputValue = watch("search-bar");
   const debouncedSearchValue = useDebounce(watchSearchInputValue, 500);
   const [isSearchInFocus, setSearchInFocus] = useState(false);
@@ -40,6 +40,7 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
 
   const handleSuggestsClose = () => {
     setSearchInFocus(false);
+    setValue("search-bar", "");
   };
 
   return (

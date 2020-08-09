@@ -44,13 +44,9 @@ class ProductsRepository extends Repository<any> {
       return accum;
     }, {});
 
-    if (title) {
-      result.products = await repository.find({ title: Like(`%${title}%`) });
-    } else {
-      result.products = await repository.find(params);
-      result.totalCount = count;
-      result.totalPages = Math.floor(count / take) || 1;
-    }
+    result.products = await repository.find(params);
+    result.totalCount = count;
+    result.totalPages = Math.floor(count / take) || 1;
 
     return result;
   }
