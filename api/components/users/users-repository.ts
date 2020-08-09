@@ -15,9 +15,13 @@ class UsersRepository extends Repository<any> {
     super();
   }
 
+  async getRepository() {
+    const connection = await this.dbConnection.getConnection();
+    return connection.getRepository(UserEntity);
+  }
+
   async getUser(getUserDTO) {
-    const connect = await this.dbConnection.getConnection();
-    const repository = connect.getRepository(UserEntity);
+    const repository = await this.getRepository();
     const user = await repository.findOne(getUserDTO);
 
     return user;

@@ -7,6 +7,8 @@ import { chunk } from "@/utils";
 import useQuery from "@/hooks/use-query";
 import Paginator from "@/components/complex/paginator";
 import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
+import useMedia from "@/hooks/use-media";
+import SearchBar from "@/components/complex/search-bar";
 
 import ProductCard from "./components/product-card";
 import { fetchProductsAC } from "./ducks";
@@ -14,12 +16,11 @@ import {
   getProductsPageSelector,
   getProductsPaginationSelector,
 } from "./ducks/selectors";
-import useMedia from "../../hooks/use-media";
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
   const { totalPages } = useSelector(getProductsPaginationSelector);
-  const columnCount = useMedia([1, 2], 3);
+  const columnCount = useMedia([1, 2], GRID_CARDS_IN_ROW);
 
   const chunkedProducts = chunk(
     useSelector((state) =>
@@ -47,10 +48,13 @@ export default function ProductsPage() {
   return (
     <MainLayout title="Products Page">
       <div className="grid-12 cards__grid">
-        <Paginator
-          currentPageNumber={currentPageNumber}
-          totalPages={totalPages}
-        />
+        <div className="grid-12 cards__grid--actions">
+          <SearchBar />
+          <Paginator
+            currentPageNumber={currentPageNumber}
+            totalPages={totalPages}
+          />
+        </div>
         {productCardsSection}
       </div>
     </MainLayout>

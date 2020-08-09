@@ -8,6 +8,7 @@
 @import "card";
 @import "row";
 @import "pagination";
+@import "search_bar";
 
 @import "manage_products_page";
 @import "user_page";
@@ -23,12 +24,17 @@ html,
 body {
   height: 100%;
   margin: 0;
-
-  display: flex;
-  flex-direction: column;
 }
 
 body {
   font-family: "Roboto", sans-serif;
   font-size: 12px;
+}
+
+#__next {
+  height: 100%;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
 }

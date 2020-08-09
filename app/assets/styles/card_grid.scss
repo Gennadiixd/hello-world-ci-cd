@@ -5,6 +5,13 @@
   padding: 10px;
   text-align: center;
 
+  &--actions {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    padding: 0;
+  }
+
   &--cards-row {
     border: none;
     display: flex;

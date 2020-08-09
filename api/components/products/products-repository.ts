@@ -1,4 +1,4 @@
-import { Repository, EntityRepository } from "typeorm";
+import { Repository, EntityRepository, Like } from "typeorm";
 import { injectable, inject } from "tsyringe";
 
 import { ProductEntity } from "./product.entity";
@@ -29,20 +29,24 @@ class ProductsRepository extends Repository<any> {
 
   async getProducts(GetProductsDTO) {
     const repository = await this.getRepository();
-    const { skip, take } = GetProductsDTO;
+    const { skip, take, title } = GetProductsDTO;
 
     const count = await repository
       .createQueryBuilder("products")
       .select()
       .getCount();
 
-    const products = await repository.find({ skip, take });
+    let result = {} as any;
 
-    return {
-      products,
-      totalCount: count,
-      totalPages: Math.floor(count / take) || 1,
-    };
+    if (title) {
+      result.products = await repository.find({ title: Like(`%${title}%`) });
+    } else {
+      result.products = await repository.find({ skip, take });
+      result.totalCount = count;
+      result.totalPages = Math.floor(count / take) || 1;
+    }
+
+    return result;
   }
 
   async getProduct(id) {

@@ -18,10 +18,11 @@ class ProductsController implements IProductsController {
   ) {}
 
   getProducts = async (req: Request, res: Response) => {
-    const { offset, perPage } = req.query as any;
+    const { offset, perPage, title } = req.query as any;
     const getProductsDTO = new GetProductsDTO({
       skip: parseInt(offset, 10) * parseInt(perPage, 10),
       take: perPage,
+      title,
     });
     const productsPage = await this.productsService.getProducts(getProductsDTO);
 
@@ -45,7 +46,7 @@ class ProductsController implements IProductsController {
       filename,
     });
     const product = await this.productsService.createProduct(createProductDTO);
-    
+
     res.json(product);
   };
 }

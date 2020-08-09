@@ -34,3 +34,18 @@ export const fetchProductsAC = (offset?: number, perPage?: number) => async (
     payload: { pageNumber: offset, ...productsPage },
   });
 };
+
+export const fetchProductsByAC = (searchCriteria) => async (dispatch) => {
+  let productsSearchState;
+
+  if (searchCriteria) {
+    productsSearchState = await productsService.getProducts(searchCriteria);
+  } else {
+    productsSearchState = [];
+  }
+
+  return dispatch({
+    type: AT.SET_SEARCH_STATE,
+    payload: productsSearchState,
+  });
+};

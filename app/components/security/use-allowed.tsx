@@ -4,11 +4,11 @@ import Router from "next/router";
 
 import { setCurrentUserAC } from "@/views/user/ducks";
 
-import useClaims from "./use-claims";
+import getClaims from "./get-claims";
 
 export default function useAllowed({ forRole, redirectTo }) {
   const dispatch = useDispatch();
-  const claims = useClaims();
+  const { claims } = getClaims({});
 
   const handleRedirect = () => {
     Router.push(`/${redirectTo}`);

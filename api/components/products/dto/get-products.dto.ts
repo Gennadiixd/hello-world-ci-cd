@@ -3,8 +3,11 @@ export class GetProductsDTO {
 
   take: number;
 
-  constructor({ skip, take }) {
+  title: string;
+
+  constructor({ skip, take, title }) {
     this.skip = skip;
     this.take = take;
+    this.title = title;
   }
 }

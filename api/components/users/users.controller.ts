@@ -1,3 +1,4 @@
+import { GetUserDTO } from "./dto/get-user.dto";
 import { injectable, inject } from "tsyringe";
 import { Response, Request } from "express";
 
@@ -18,13 +19,14 @@ class UsersController implements IUsersController {
   ) {}
 
   loginUser = async (req: Request, res: Response) => {
-    const token = req.cookies[TOKEN_NAME];
+    // TODO: make auth cookie-based only
+    const token = req.cookies[TOKEN_NAME] || req.body.token;
 
     try {
       if (token) {
         const claims = this.authGuard.decode(token);
-        const { name } = claims;
-        const user = await this.usersService.findUserByName(name);
+        const getUserDTO = new GetUserDTO(claims);
+        const user = await this.usersService.findUserByName(getUserDTO);
 
         this.authGuard.handleAuthorized(res, user);
       } else {

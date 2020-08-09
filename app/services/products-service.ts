@@ -3,6 +3,7 @@ import HttpService from "./core/http-service";
 type getProductsArgs = {
   offset?: number;
   perPage?: number;
+  title?: string;
 };
 
 export default class ProductsService extends HttpService {
@@ -13,8 +14,9 @@ export default class ProductsService extends HttpService {
   async getProducts({
     offset,
     perPage,
+    ...rest
   }: getProductsArgs): Promise<{ data: any }> {
-    const params = offset && perPage ? { offset, perPage } : {};
+    const params = offset && perPage ? { offset, perPage } : { ...rest };
     const { data } = await this.get("products", { params });
 
     return data;

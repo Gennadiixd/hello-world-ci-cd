@@ -33,9 +33,9 @@ class UsersService implements IUsersService {
     }
   }
 
-  async findUserByName({ name }) {
+  async findUserByName(getUserDTO) {
     try {
-      return this.usersRepository.getUser({ name });
+      return this.usersRepository.getUser(getUserDTO);
     } catch (error) {
       throw new Error(error?.message + " db request problem");
     }

@@ -1,4 +1,5 @@
 import HttpService from "./core/http-service";
+import { isServer } from "../utils";
 
 export default class UsersService extends HttpService {
   constructor(options) {
@@ -11,8 +12,9 @@ export default class UsersService extends HttpService {
     return data;
   }
 
-  async loginUserByCookie(): Promise<{ data: any }> {
-    const { data } = await this.post("user/login");
+  async loginUserByCookie(token): Promise<{ data: any }> {
+    // TODO: research how to send cookie from server side
+    const { data } = await this.post("user/login", { token });
 
     return data;
   }
