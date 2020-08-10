@@ -47,8 +47,7 @@ class ProductsRepository extends Repository<any> {
 
   async getProduct(id) {
     const connectionManager = await this.getConnectManager();
-    const product = await connectionManager.findOne(ProductEntity, id);
-    return product;
+    return connectionManager.findOne(ProductEntity, id);
   }
 
   async createProduct(createProductDTO) {

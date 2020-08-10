@@ -17,7 +17,7 @@ export default function Filters({ searchCriterias }) {
     () =>
       searchCriterias.map((criteria) => (
         <div key={criteria} className="main__filters--actions">
-          search by
+          filter by
           <Button
             className="main__filters--button"
             onClick={() => handleFilter(criteria)}

@@ -22,16 +22,23 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
 
   const suggestsSection = useMemo(
     () =>
-      searchItems.length ? (
-        searchItems.map(({ id, title }) => (
-          <li className="search__bar--suggest" key={id} data-id={id}>
-            {title}
-          </li>
-        ))
-      ) : (
-        <li className="search__bar--suggest">No matches found.</li>
-      ),
-    [searchItems]
+      debouncedSearchValue?.length ? (
+        <ul
+          className={`search__bar--suggests ${isSearchInFocus ? "" : "hidden"}`}
+          onClick={onSelectSuggest}
+        >
+          {searchItems.length ? (
+            searchItems.map(({ id, title }) => (
+              <li className="search__bar--suggest" key={id} data-id={id}>
+                {title}
+              </li>
+            ))
+          ) : (
+            <li className="search__bar--suggest">No matches found.</li>
+          )}
+        </ul>
+      ) : null,
+    [searchItems, debouncedSearchValue]
   );
 
   const handleSuggestsOpen = (event) => {
@@ -54,12 +61,7 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
         />
         <FontAwesomeIcon icon={faSearch} className="search__bar--icon" />
       </div>
-      <ul
-        className={`search__bar--suggests ${isSearchInFocus ? "" : "hidden"}`}
-        onClick={onSelectSuggest}
-      >
-        {suggestsSection}
-      </ul>
+      {suggestsSection}
       <div
         className={`search__bar--layout ${isSearchInFocus ? "" : "hidden"}`}
         onClick={handleSuggestsClose}
