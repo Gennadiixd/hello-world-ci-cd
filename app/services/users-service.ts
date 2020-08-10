@@ -13,8 +13,7 @@ export default class UsersService extends HttpService {
   }
 
   async loginUserByCookie(token): Promise<{ data: any }> {
-    // TODO: research how to send cookie from server side
-    const { data } = await this.post("user/login", { token });
+    const { data } = await this.post("user/login");
 
     return data;
   }

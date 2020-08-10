@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useRouter } from "next/router";
 
 import Button from "@/components/atomic/button";
-import { ASCENDING, DESCENDING } from '@/constants';
+import { ASCENDING, DESCENDING } from "@/constants";
 
 export default function Filters({ searchCriterias }) {
   const { push, query } = useRouter();
@@ -29,17 +29,21 @@ export default function Filters({ searchCriterias }) {
           <Button
             className="main__filters--button"
             onClick={() => handleFilter(criteria, ASCENDING)}
-            isActive={ASCENDING === query.orderBy && criteria === query.filterBy}
+            isActive={
+              ASCENDING === query.orderBy && criteria === query.filterBy
+            }
           >
-            ASC
+            &#8593;
           </Button>
           \
           <Button
             className="main__filters--button"
             onClick={() => handleFilter(criteria, DESCENDING)}
-            isActive={DESCENDING === query.orderBy && criteria === query.filterBy}
+            isActive={
+              DESCENDING === query.orderBy && criteria === query.filterBy
+            }
           >
-            DESC
+            &#8595;
           </Button>
         </div>
       )),

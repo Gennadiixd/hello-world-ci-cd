@@ -19,8 +19,7 @@ class UsersController implements IUsersController {
   ) {}
 
   loginUser = async (req: Request, res: Response) => {
-    // TODO: make auth cookie-based only
-    const token = req.cookies[TOKEN_NAME] || req.body.token;
+    const token = req.cookies[TOKEN_NAME];
 
     try {
       if (token) {
