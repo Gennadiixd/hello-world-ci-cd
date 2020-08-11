@@ -30,7 +30,9 @@ export const loginCurrentUserAC = (userData) => async (dispatch) => {
   }
 };
 
-export const loginCurrentUserByCookieAC = (token) => async (dispatch) => {
+export const loginCurrentUserByCookieAC = (token?: string) => async (
+  dispatch
+) => {
   try {
     const user = await usersService.loginUserByCookie(token);
 

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 
 import MainLayout from "@/components/complex/main-layout";
 import OptionCard from "@/components/complex/option-card";
+import componentGuard from "@/components/security/component-guard";
 
 const adminOptions = [
   {
@@ -29,4 +30,10 @@ export default function AdminPage() {
       <div className="grid-12 cards__grid">{adminOptionsSection}</div>
     </MainLayout>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  componentGuard(ctx.res, "admin");
+
+  return { props: {} };
 }
