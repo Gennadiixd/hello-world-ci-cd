@@ -19,8 +19,8 @@ export default function ManageProducts() {
 export async function getServerSideProps() {
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
-  
-  await dispatch(fetchProductsAC(1));
+
+  // await dispatch(fetchProductsAC());
 
   const { products } = reduxStore.getState();
 

@@ -11,7 +11,7 @@ export default class UsersService extends HttpService {
     return data;
   }
 
-  async loginUserByCookie(): Promise<{ data: any }> {
+  async loginUserByCookie(token): Promise<{ data: any }> {
     const { data } = await this.post("user/login");
 
     return data;

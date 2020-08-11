@@ -2,6 +2,8 @@ const dictionary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
   " "
 );
 
+const categories = ["domestic", "garden", "clothing", "furniture", "music"];
+
 const getRandomNumber = (max, min) => Math.floor(Math.random() * max) + min;
 
 const getRandomNumbers = (n) => {
@@ -12,7 +14,7 @@ const getRandomNumbers = (n) => {
   return numbers;
 };
 
-const generateProductField = (fieldType, max, min) => {
+const generateProductField = (fieldType, max = 0, min = 0) => {
   if (fieldType === "string") {
     const numbers = getRandomNumbers(getRandomNumber(max, min));
     const fieldValue = [];
@@ -20,6 +22,8 @@ const generateProductField = (fieldType, max, min) => {
       fieldValue.push(dictionary[numbers[i]]);
     }
     return fieldValue.join(" ");
+  } else if (fieldType === "category") {
+    return categories[getRandomNumber(categories.length, 0)];
   } else {
     return getRandomNumber(max, min);
   }
@@ -34,6 +38,8 @@ export const generateProducts = (num = 100) => {
     product.price = generateProductField("number", 300, 100);
     product.image =
       "https://increasify.com.au/wp-content/uploads/2016/08/default-image.png";
+    product.rate = generateProductField("number", 5, 0);
+    product.category = generateProductField("category");
     products.push(product);
   }
   return products;

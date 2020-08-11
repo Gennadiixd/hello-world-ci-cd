@@ -1,3 +1,4 @@
+import { GetUserDTO } from "./dto/get-user.dto";
 import { injectable, inject } from "tsyringe";
 import { Response, Request } from "express";
 
@@ -23,8 +24,8 @@ class UsersController implements IUsersController {
     try {
       if (token) {
         const claims = this.authGuard.decode(token);
-        const { name } = claims;
-        const user = await this.usersService.findUserByName(name);
+        const getUserDTO = new GetUserDTO(claims);
+        const user = await this.usersService.findUserByName(getUserDTO.name);
 
         this.authGuard.handleAuthorized(res, user);
       } else {

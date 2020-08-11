@@ -1,11 +1,20 @@
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
-import { initializeStore } from "@/ducks/index";
-import MainLayout from "@/components/complex/main-layout";
 import { chunk } from "@/utils";
-import useQuery from "@/hooks/use-query";
+import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
+import SearchBar from "@/components/complex/search-bar";
+import Filters from "@/components/complex/filters";
+import MainLayout from "@/components/complex/main-layout";
 import Paginator from "@/components/complex/paginator";
+import { initializeStore } from "@/ducks/index";
+import useQuery from "@/hooks/use-query";
+import useMedia from "@/hooks/use-media";
+import {
+  fetchProductsByAC,
+  getProductsSearchStateSelector,
+} from "@/views/products/ducks";
 
 import ProductCard from "./components/product-card";
 import { fetchProductsAC } from "./ducks";
@@ -13,17 +22,22 @@ import {
   getProductsPageSelector,
   getProductsPaginationSelector,
 } from "./ducks/selectors";
-import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
+
+const searchCriterias = ["price", "rate"];
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
   const { totalPages } = useSelector(getProductsPaginationSelector);
+  const columnCount = useMedia([1, 2], GRID_CARDS_IN_ROW);
+  const productsSearchState = useSelector(getProductsSearchStateSelector);
+  const dispatch = useDispatch();
+  const { push } = useRouter();
 
   const chunkedProducts = chunk(
     useSelector((state) =>
       getProductsPageSelector(pageNumberParam || 1, state)
     ),
-    GRID_CARDS_IN_ROW
+    columnCount
   );
 
   const productCardsSection = useMemo(
@@ -42,13 +56,30 @@ export default function ProductsPage() {
     pageNumberParam,
   ]);
 
+  const handleProductSearch = (searchCriteria) => {
+    dispatch(fetchProductsByAC(searchCriteria));
+  };
+
+  const handleSelectSuggest = (event) => {
+    const { id } = event.target.dataset;
+    if (id) push(`/product/[id]`, `/product/${id}`);
+  };
+
   return (
     <MainLayout title="Products Page">
       <div className="grid-12 cards__grid">
-        <Paginator
-          currentPageNumber={currentPageNumber}
-          totalPages={totalPages}
-        />
+        <div className="grid-12 cards__grid--actions">
+          <SearchBar
+            searchItems={productsSearchState}
+            onSearch={handleProductSearch}
+            onSelectSuggest={handleSelectSuggest}
+          />
+          <Filters searchCriterias={searchCriterias} />
+          <Paginator
+            currentPageNumber={currentPageNumber}
+            totalPages={totalPages}
+          />
+        </div>
         {productCardsSection}
       </div>
     </MainLayout>
@@ -56,11 +87,18 @@ export default function ProductsPage() {
 }
 
 export async function getServerSideProps({ query }) {
-  const { page } = query;
+  const { page, filterBy, orderBy } = query;
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
-  await dispatch(fetchProductsAC(page || 1, PRODUCTS_PER_PAGE));
+  await dispatch(
+    fetchProductsAC({
+      page: page || 1,
+      perPage: PRODUCTS_PER_PAGE,
+      filterBy,
+      orderBy,
+    })
+  );
 
   const { products } = reduxStore.getState();
 

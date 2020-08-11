@@ -1,23 +1,25 @@
-import ServerCookie from "next-cookies";
 import React, { Component } from "react";
-import { isServer } from "@/utils";
+
+import { loginCurrentUserByCookieAC } from "@/views/user/ducks";
+import { initializeStore } from "@/ducks/index";
+
+import getClaims from "./get-claims";
+import useRedirect from "./use-redirect";
 
 export function privateRoute(WrappedComponent: any) {
   return class extends Component {
     static async getInitialProps(ctx: any) {
-      if (!isServer()) return {};
-      const token = ServerCookie(ctx)["claims"];
-      const initialProps = { token };
-      if (!token) {
-        ctx.res.writeHead(302, {
-          Location: "/user",
-        });
-        ctx.res.end();
-      }
-      if (WrappedComponent.getInitialProps)
-        return WrappedComponent.getInitialProps(initialProps);
+      const reduxStore = initializeStore({});
+      const { dispatch } = reduxStore;
 
-      return initialProps;
+      const { token } = getClaims(ctx);
+      if (!token) useRedirect(ctx);
+
+      await dispatch(loginCurrentUserByCookieAC(token));
+
+      const { user } = reduxStore.getState();
+
+      return { initialReduxState: { user } };
     }
 
     render() {

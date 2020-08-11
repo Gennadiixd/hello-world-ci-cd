@@ -1,5 +1,4 @@
 import ProductsService from "@/services/products-service";
-import { PRODUCTS_PER_PAGE } from "@/constants";
 
 import * as AT from "./action-types";
 
@@ -24,13 +23,33 @@ export const fetchProductByIdAC = (id) => async (dispatch) => {
   });
 };
 
-export const fetchProductsAC = (offset?: number, perPage?: number) => async (
+export const fetchProductsAC = ({ page, perPage, filterBy, orderBy }) => async (
   dispatch
 ) => {
-  const productsPage = await productsService.getProducts({ offset, perPage });
+  const productsPage = await productsService.getProducts({
+    offset: page,
+    perPage,
+    filterBy,
+    orderBy,
+  });
 
   return dispatch({
     type: AT.SET_PRODUCTS_PAGE,
-    payload: { pageNumber: offset, ...productsPage },
+    payload: { pageNumber: page, ...productsPage },
+  });
+};
+
+export const fetchProductsByAC = (searchCriteria) => async (dispatch) => {
+  let productsSearchState;
+
+  if (searchCriteria) {
+    productsSearchState = await productsService.getProducts(searchCriteria);
+  } else {
+    productsSearchState = [];
+  }
+
+  return dispatch({
+    type: AT.SET_SEARCH_STATE,
+    payload: productsSearchState,
   });
 };

@@ -5,6 +5,18 @@
   padding: 10px;
   text-align: center;
 
+  &--actions {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    padding: 0;
+
+    @media (max-width: 990px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
   &--cards-row {
     border: none;
     display: flex;

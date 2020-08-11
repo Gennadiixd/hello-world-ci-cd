@@ -5,8 +5,11 @@ export const getProductsPageSelector = (page, state) =>
 
 export const getCurrentProductSelector = (state) =>
   getProductsSelector(state).currentProduct;
-  
+
 export const getProductsPaginationSelector = (state) => ({
   totalPages: getProductsSelector(state).totalPages,
   totalCount: getProductsSelector(state).totalCount,
 });
+
+export const getProductsSearchStateSelector = (state) =>
+  getProductsSelector(state).searchState;

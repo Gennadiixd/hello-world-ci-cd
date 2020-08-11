@@ -30,9 +30,9 @@ export const loginCurrentUserAC = (userData) => async (dispatch) => {
   }
 };
 
-export const loginCurrentUserByCookieAC = () => async (dispatch) => {
+export const loginCurrentUserByCookieAC = (token) => async (dispatch) => {
   try {
-    const user = await usersService.loginUserByCookie();
+    const user = await usersService.loginUserByCookie(token);
 
     return dispatch({
       type: AT.SET_CURRENT_USER,
@@ -40,7 +40,7 @@ export const loginCurrentUserByCookieAC = () => async (dispatch) => {
     });
   } catch (err) {
     return dispatch({
-      type: AT.SET_CURRENT_USER_ERROR,
+      type: AT.SET_CURRENT_USER,
       payload: err,
     });
   }
