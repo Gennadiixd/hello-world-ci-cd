@@ -1,5 +1,4 @@
 import HttpService from "./core/http-service";
-import { isServer } from "../utils";
 
 export default class UsersService extends HttpService {
   constructor(options) {

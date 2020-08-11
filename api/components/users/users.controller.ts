@@ -25,7 +25,7 @@ class UsersController implements IUsersController {
       if (token) {
         const claims = this.authGuard.decode(token);
         const getUserDTO = new GetUserDTO(claims);
-        const user = await this.usersService.findUserByName(getUserDTO);
+        const user = await this.usersService.findUserByName(getUserDTO.name);
 
         this.authGuard.handleAuthorized(res, user);
       } else {

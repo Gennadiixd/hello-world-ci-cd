@@ -20,9 +20,9 @@ class UsersRepository extends Repository<any> {
     return connection.getRepository(UserEntity);
   }
 
-  async getUser(getUserDTO) {
+  async getUser(name) {
     const repository = await this.getRepository();
-    const user = await repository.findOne(getUserDTO);
+    const user = await repository.findOne({ name });
 
     return user;
   }
