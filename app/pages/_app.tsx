@@ -11,7 +11,7 @@ import { isServer } from "@/utils";
 
 export default function App({ Component, pageProps }) {
   const { initialReduxState, initialUserState } = pageProps;
-  
+
   const store = useStore({
     ...(initialReduxState || {}),
     ...(initialUserState || {}),
@@ -30,7 +30,7 @@ App.getInitialProps = async function ({ ctx }) {
 
   const { token } = getClaims(ctx);
 
-  if (token) {
+  if (token && isServer()) {
     await dispatch(loginCurrentUserByCookieAC(token));
   }
 
