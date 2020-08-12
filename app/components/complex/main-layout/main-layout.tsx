@@ -18,7 +18,7 @@ export default function MainLayout({ children, title }) {
 
   return (
     <>
-      <Header title={title}>{userInfoSection}</Header>
+      <Header title={title} userRole={role}>{userInfoSection}</Header>
       <main>{children}</main>
       <Footer />
     </>

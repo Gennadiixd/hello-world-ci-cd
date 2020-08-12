@@ -9,6 +9,7 @@ import { TOKEN_NAME } from "../../constants";
 
 export interface IUsersController {
   loginUser: (req: Request, res: Response) => void;
+  logoutUser: (req: Request, res: Response) => void;
 }
 
 @injectable()
@@ -17,6 +18,10 @@ class UsersController implements IUsersController {
     @inject("IUsersService") public usersService: IUsersService,
     @inject("IAuthGuard") public authGuard: IAuthGuard
   ) {}
+
+  logoutUser = (_, res: Response) => {
+    this.authGuard.handleUnauthorized(res, "successfully log out!", 200);
+  };
 
   loginUser = async (req: Request, res: Response) => {
     const token = req.cookies[TOKEN_NAME];

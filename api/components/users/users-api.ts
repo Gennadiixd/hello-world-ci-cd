@@ -28,5 +28,6 @@ const usersRouter = Router();
 const usersController = container.resolve(UsersController);
 
 usersRouter.post("/login", usersController.loginUser);
+usersRouter.post("/logout", usersController.logoutUser);
 
 export default usersRouter;

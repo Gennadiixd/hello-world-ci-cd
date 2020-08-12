@@ -6,6 +6,10 @@ export default class UsersService extends HttpService {
     super(options);
   }
 
+  async logoutUser() {
+    return this.post("user/logout");
+  }
+
   async loginUser(userData): Promise<{ data: any }> {
     const { data } = await this.post("user/login", userData);
 
