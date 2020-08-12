@@ -7,10 +7,15 @@ import { useStore } from "../ducks";
 import { initializeStore } from "@/ducks/index";
 import { loginCurrentUserByCookieAC } from "@/views/user/ducks";
 import getClaims from "@/components/security/get-claims";
-import { isServer } from "../utils";
+import { isServer } from "@/utils";
 
 export default function App({ Component, pageProps }) {
-  const store = useStore(pageProps?.initialReduxState);
+  const { initialReduxState, initialUserState } = pageProps;
+  
+  const store = useStore({
+    ...(initialReduxState || {}),
+    ...(initialUserState || {}),
+  });
 
   return (
     <Provider store={store}>
@@ -32,5 +37,5 @@ App.getInitialProps = async function ({ ctx }) {
   const { user } = reduxStore.getState();
   if (isServer()) ctx.res.locals = { user };
 
-  return { pageProps: { initialReduxState: { user } } };
+  return { pageProps: { initialUserState: { user } } };
 };

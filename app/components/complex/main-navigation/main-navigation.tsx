@@ -1,8 +1,16 @@
 import Link from "next/link";
 import { useMemo } from "react";
+import { useDispatch } from "react-redux";
+import { logoutCurrentUserAC } from "@/views/user/ducks/action-creators";
 
 export default function MainNavigation({ userRole }) {
-  const adminLinksSection = useMemo(
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutCurrentUserAC());
+  };
+
+  const adminSection = useMemo(
     () =>
       userRole === "admin" ? (
         <li>
@@ -14,15 +22,27 @@ export default function MainNavigation({ userRole }) {
     [userRole]
   );
 
+  const authenticationUserSection = useMemo(
+    () =>
+      userRole ? (
+        <li>
+          <a onClick={handleLogout}>Log out</a>
+        </li>
+      ) : (
+        <li>
+          <Link href="/login">
+            <a>login</a>
+          </Link>
+        </li>
+      ),
+    [userRole]
+  );
+
   return (
     <nav className="main__navigation">
       <ul>
-        {adminLinksSection}
-        <li>
-          <Link href="/user">
-            <a>User page</a>
-          </Link>
-        </li>
+        {authenticationUserSection}
+        {adminSection}
         <li>
           <Link href="/products">
             <a>Products page</a>

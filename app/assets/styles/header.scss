@@ -25,6 +25,7 @@ header.main__header {
           text-decoration: none;
           color: $fade-black;
           font-size: 14px;
+          cursor: pointer;
 
           &:hover {
             transition: color .5s;
