@@ -5,7 +5,7 @@ export default class HttpService {
   options: any;
   constructor(options) {
     const { get, post } = axios.create({
-      baseURL: process.env.API_BASE,
+      baseURL: 'https://test-project.online/api',
       responseType: "json",
     });
 
