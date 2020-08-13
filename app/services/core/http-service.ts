@@ -19,7 +19,6 @@ export default class HttpService {
   }
 
   async post(endpoint, data = {}, options = {}) {
-    console.log(process.env.API_BASE);
     return this.post(endpoint, data, options);
   }
 }
