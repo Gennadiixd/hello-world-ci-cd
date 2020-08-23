@@ -4,16 +4,19 @@
 .card--container {
   border: none;
   display: flex;
+  height: 450px;
 
+  
   .card {
     margin: 5px;
     border: $border;
     display: flex;
     flex-flow: column nowrap;
-
+    
     &--title {
       margin: 5px;
       font-size: 16px;
+      transition: .5s
     }
 
     &--description {

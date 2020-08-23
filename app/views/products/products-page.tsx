@@ -2,15 +2,13 @@ import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
-import { chunk } from "@/utils";
-import { GRID_CARDS_IN_ROW, PRODUCTS_PER_PAGE } from "@/constants";
+import { PRODUCTS_PER_PAGE } from "@/constants";
 import SearchBar from "@/components/complex/search-bar";
 import Filters from "@/components/complex/filters";
 import MainLayout from "@/components/complex/main-layout";
 import Paginator from "@/components/complex/paginator";
 import { initializeStore } from "@/ducks/index";
 import useQuery from "@/hooks/use-query";
-import useMedia from "@/hooks/use-media";
 import {
   fetchProductsByAC,
   getProductsSearchStateSelector,
@@ -28,28 +26,23 @@ const searchCriterias = ["price", "rate"];
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
   const { totalPages } = useSelector(getProductsPaginationSelector);
-  const columnCount = useMedia([1, 2], GRID_CARDS_IN_ROW);
   const productsSearchState = useSelector(getProductsSearchStateSelector);
   const dispatch = useDispatch();
   const { push } = useRouter();
 
-  const chunkedProducts = chunk(
-    useSelector((state) =>
-      getProductsPageSelector(pageNumberParam || 1, state)
-    ),
-    columnCount
+  const products = useSelector((state) =>
+    getProductsPageSelector(pageNumberParam || 1, state)
   );
 
   const productCardsSection = useMemo(
-    () =>
-      chunkedProducts.map((chunk, index) => (
-        <div className="grid-12 cards__grid--cards-row" key={index}>
-          {chunk.map((product) => (
-            <ProductCard product={product} key={product.id} />
-          ))}
-        </div>
-      )),
-    [chunkedProducts]
+    () => (
+      <div className="grid-12 cards__grid--cards">
+        {products.map((product) => (
+          <ProductCard product={product} key={product.id} />
+        ))}
+      </div>
+    ),
+    [products]
   );
 
   const currentPageNumber = useMemo(() => parseInt(pageNumberParam) || 1, [
@@ -68,18 +61,18 @@ export default function ProductsPage() {
   return (
     <MainLayout title="Products Page">
       <div className="grid-12 cards__grid">
-        <div className="grid-12 cards__grid--actions">
+        <div className="cards__grid--actions">
+          <Filters searchCriterias={searchCriterias} />
           <SearchBar
             searchItems={productsSearchState}
             onSearch={handleProductSearch}
             onSelectSuggest={handleSelectSuggest}
           />
-          <Filters searchCriterias={searchCriterias} />
-          <Paginator
-            currentPageNumber={currentPageNumber}
-            totalPages={totalPages}
-          />
         </div>
+        <Paginator
+          currentPageNumber={currentPageNumber}
+          totalPages={totalPages}
+        />
         {productCardsSection}
       </div>
     </MainLayout>

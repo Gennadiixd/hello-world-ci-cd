@@ -14,7 +14,7 @@ export const getCurrentUserAC = (payload) => ({
   payload,
 });
 
-const userFlow = async (getUser, dispatch) => {
+const setCurrentUserFlow = async (getUser, dispatch) => {
   try {
     const user = await getUser();
 
@@ -31,15 +31,15 @@ const userFlow = async (getUser, dispatch) => {
 };
 
 export const loginCurrentUserAC = (userData) => async (dispatch) => {
-  return userFlow(() => usersService.loginUser(userData), dispatch);
+  return setCurrentUserFlow(() => usersService.loginUser(userData), dispatch);
 };
 
 export const loginCurrentUserByCookieAC = (token?: string) => async (
   dispatch
 ) => {
-  return userFlow(() => usersService.loginUserByCookie(token), dispatch);
+  return setCurrentUserFlow(() => usersService.loginUserByCookie(token), dispatch);
 };
 
 export const logoutCurrentUserAC = () => async (dispatch) => {
-  return userFlow(() => usersService.logoutUser(), dispatch);
+  return setCurrentUserFlow(() => usersService.logoutUser(), dispatch);
 };

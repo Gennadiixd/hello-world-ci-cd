@@ -16,7 +16,7 @@ export default function Filters({ searchCriterias }) {
   const filtersSection = useMemo(
     () =>
       searchCriterias.map((criteria) => (
-        <div key={criteria} className="main__filters--actions">
+        <div key={criteria} className="main__filters--action">
           filter by
           <Button
             className="main__filters--button"

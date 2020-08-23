@@ -8,17 +8,18 @@
   &--actions {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border: none;
     padding: 0;
 
-    @media (max-width: 990px) {
+    @media (max-width: 768px) {
       flex-direction: column;
       align-items: center;
     }
   }
 
-  &--cards-row {
+  &--cards {
     border: none;
-    display: flex;
+    padding: 0;
   }
 }

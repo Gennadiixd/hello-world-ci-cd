@@ -1,10 +1,13 @@
-import Link from "next/link";
+// import Link from "next/link";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { logoutCurrentUserAC } from "@/views/user/ducks/action-creators";
+import Link from "@/components/atomic/link";
+import { useRouter } from "next/router";
 
 export default function MainNavigation({ userRole }) {
   const dispatch = useDispatch();
+  const { route } = useRouter();
 
   const handleLogout = () => {
     dispatch(logoutCurrentUserAC());
@@ -14,9 +17,7 @@ export default function MainNavigation({ userRole }) {
     () =>
       userRole === "admin" ? (
         <li>
-          <Link href="/admin">
-            <a>Admin page</a>
-          </Link>
+          <Link href="/admin">Admin page</Link>
         </li>
       ) : null,
     [userRole]
@@ -30,9 +31,7 @@ export default function MainNavigation({ userRole }) {
         </li>
       ) : (
         <li>
-          <Link href="/login">
-            <a>login</a>
-          </Link>
+          <Link href="/login">Login</Link>
         </li>
       ),
     [userRole]
@@ -41,17 +40,13 @@ export default function MainNavigation({ userRole }) {
   return (
     <nav className="main__navigation">
       <ul>
-        {authenticationUserSection}
         {adminSection}
+        {authenticationUserSection}
         <li>
-          <Link href="/products">
-            <a>Products page</a>
-          </Link>
+          <Link href="/products">Products page</Link>
         </li>
         <li>
-          <Link href="/">
-            <a>Main page</a>
-          </Link>
+          <Link href="/">Main page</Link>
         </li>
       </ul>
     </nav>

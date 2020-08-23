@@ -33,7 +33,7 @@ export default function AdminPage() {
 }
 
 export async function getServerSideProps(ctx) {
-  componentGuard(ctx.res, "admin");
+  componentGuard(ctx.res, ["admin"]);
 
   return { props: {} };
 }
