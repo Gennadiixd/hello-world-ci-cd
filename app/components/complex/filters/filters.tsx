@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Button from "@/components/atomic/button";
 import { ASCENDING, DESCENDING } from "@/constants";
 
-export default function Filters({ searchCriterias }) {
+export default function Filters({ orderCriterias }) {
   const { push, query } = useRouter();
 
   const handleFilter = (filterBy, orderBy = DESCENDING) => {
@@ -13,9 +13,9 @@ export default function Filters({ searchCriterias }) {
     });
   };
 
-  const filtersSection = useMemo(
+  const ordersSection = useMemo(
     () =>
-      searchCriterias.map((criteria) => (
+      orderCriterias.map((criteria) => (
         <div key={criteria} className="main__filters--action">
           Order by
           <Button
@@ -47,8 +47,8 @@ export default function Filters({ searchCriterias }) {
           </Button>
         </div>
       )),
-    [searchCriterias, query]
+    [orderCriterias, query]
   );
 
-  return <div className="main__filters--container">{filtersSection}</div>;
+  return <div className="main__filters--container">{ordersSection}</div>;
 }

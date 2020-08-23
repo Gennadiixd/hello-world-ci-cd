@@ -21,7 +21,7 @@ import {
   getProductsPaginationSelector,
 } from "./ducks/selectors";
 
-const searchCriterias = ["price", "rate"];
+const orderCriterias = ["price", "rate"];
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
@@ -62,7 +62,7 @@ export default function ProductsPage() {
     <MainLayout title="Products Page">
       <div className="grid-12 cards__grid">
         <div className="cards__grid--actions">
-          <Filters searchCriterias={searchCriterias} />
+          <Filters orderCriterias={orderCriterias} />
           <SearchBar
             searchItems={productsSearchState}
             onSearch={handleProductSearch}
