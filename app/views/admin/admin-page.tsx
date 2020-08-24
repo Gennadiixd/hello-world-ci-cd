@@ -4,6 +4,8 @@ import MainLayout from "@/components/complex/main-layout";
 import OptionCard from "@/components/complex/option-card";
 import componentGuard from "@/components/security/component-guard";
 
+import { ROLES } from "@/constants";
+
 const adminOptions = [
   {
     option: "manageProducts",
@@ -33,7 +35,7 @@ export default function AdminPage() {
 }
 
 export async function getServerSideProps(ctx) {
-  componentGuard(ctx.res, ["admin"]);
+  componentGuard(ctx.res, [ROLES.ADMIN]);
 
   return { props: {} };
 }

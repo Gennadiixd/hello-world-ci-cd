@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { logoutCurrentUserAC } from "@/views/user/ducks/action-creators";
 import Link from "@/components/atomic/link";
 import { useRouter } from "next/router";
+import { ROLES } from '@/constants';
 
 export default function MainNavigation({ userRole }) {
   const dispatch = useDispatch();
@@ -13,28 +14,21 @@ export default function MainNavigation({ userRole }) {
     dispatch(logoutCurrentUserAC());
   };
 
-  const adminSection = useMemo(
-    () =>
-      userRole === "admin" ? (
-        <li>
-          <Link href="/admin">Admin page</Link>
-        </li>
-      ) : null,
-    [userRole]
-  );
+  const adminSection =
+    userRole === ROLES.ADMIN ? (
+      <li>
+        <Link href="/admin">Admin page</Link>
+      </li>
+    ) : null;
 
-  const authenticationUserSection = useMemo(
-    () =>
-      userRole ? (
-        <li>
-          <a onClick={handleLogout}>Log out</a>
-        </li>
-      ) : (
-        <li>
-          <Link href="/login">Login</Link>
-        </li>
-      ),
-    [userRole]
+  const authenticationUserSection = userRole ? (
+    <li>
+      <a onClick={handleLogout}>Log out</a>
+    </li>
+  ) : (
+    <li>
+      <Link href="/login">Login</Link>
+    </li>
   );
 
   return (

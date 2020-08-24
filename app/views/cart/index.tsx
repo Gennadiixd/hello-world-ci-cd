@@ -1,4 +1,3 @@
-import CartPage, { getServerSideProps } from "./cart-page";
+import CartPage from "./cart-page";
 
 export default CartPage;
-export { getServerSideProps };

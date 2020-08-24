@@ -13,10 +13,7 @@ export default function MainLayout({ children, title }) {
 
   const { length } = useSelector(getCartStateSelector);
 
-  const cartSection = useMemo(
-    () => <Link href={"/cart"}>Your cart x {length}</Link>,
-    [authorized, length]
-  );
+  const cartSection = <Link href={"/cart"}>Your cart x {length}</Link>;
 
   const userInfoSection = useMemo(
     () => (
