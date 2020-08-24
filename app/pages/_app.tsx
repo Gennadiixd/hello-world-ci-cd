@@ -5,7 +5,7 @@ import "../assets/styles/index.scss";
 import { useStore } from "../ducks";
 
 import { initializeStore } from "@/ducks/index";
-import { loginCurrentUserByCookieAC } from "@/views/user/ducks";
+import { restoreSessionAC } from "@/views/user/ducks";
 import getClaims from "@/components/security/get-claims";
 import { isServer } from "@/utils";
 
@@ -31,7 +31,7 @@ App.getInitialProps = async function ({ ctx }) {
   const { token } = getClaims(ctx);
 
   if (token && isServer()) {
-    await dispatch(loginCurrentUserByCookieAC(token));
+    await dispatch(restoreSessionAC(token));
   }
 
   const { user } = reduxStore.getState();

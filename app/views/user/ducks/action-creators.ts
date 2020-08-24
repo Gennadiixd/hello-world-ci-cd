@@ -34,10 +34,10 @@ export const loginCurrentUserAC = (userData) => async (dispatch) => {
   return setCurrentUserFlow(() => usersService.loginUser(userData), dispatch);
 };
 
-export const loginCurrentUserByCookieAC = (token?: string) => async (
+export const restoreSessionAC = (token?: string) => async (
   dispatch
 ) => {
-  return setCurrentUserFlow(() => usersService.loginUserByCookie(token), dispatch);
+  return setCurrentUserFlow(() => usersService.restoreSession(token), dispatch);
 };
 
 export const logoutCurrentUserAC = () => async (dispatch) => {

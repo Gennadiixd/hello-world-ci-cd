@@ -27,7 +27,8 @@ container.register("IAuthGuard", {
 const usersRouter = Router();
 const usersController = container.resolve(UsersController);
 
-usersRouter.post("/login", usersController.loginUser);
-usersRouter.post("/logout", usersController.logoutUser);
+usersRouter.post("/", usersController.createUser);
+usersRouter.patch("/", usersController.updateUser);
+usersRouter.delete("/", usersController.deleteUser);
 
 export default usersRouter;

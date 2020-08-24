@@ -7,16 +7,16 @@ export default class UsersService extends HttpService {
   }
 
   async logoutUser() {
-    return this.post("user/logout");
+    return this.delete("session");
   }
 
   async loginUser(userData): Promise<{ data: any }> {
-    const { data } = await this.post("user/login", userData);
+    const { data } = await this.post("session", userData);
 
     return data;
   }
 
-  async loginUserByCookie(token?: string): Promise<{ data: any }> {
+  async restoreSession(token?: string): Promise<{ data: any }> {
     const options =
       token && isServer()
         ? {
@@ -26,7 +26,7 @@ export default class UsersService extends HttpService {
           }
         : {};
 
-    const { data } = await this.post("user/login", {}, options);
+    const { data } = await this.get("session", options);
 
     return data;
   }
