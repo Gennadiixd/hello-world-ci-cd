@@ -15,13 +15,10 @@ export default function MainLayout({ children, title }) {
 
   const cartSection = <Link href={"/cart"}>Your cart x {length}</Link>;
 
-  const userInfoSection = useMemo(
-    () => (
-      <Link href={authorized ? "/user" : "/login"}>
-        {authorized ? `You : ${name} / Role : ${role}` : `Unauthorized`}
-      </Link>
-    ),
-    [name, role, authorized]
+  const userInfoSection = (
+    <Link href={authorized ? "/user" : "/login"}>
+      {authorized ? `You : ${name} / Role : ${role}` : `Unauthorized`}
+    </Link>
   );
 
   return (
