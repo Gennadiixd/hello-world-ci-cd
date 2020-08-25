@@ -4,7 +4,7 @@ import { isServer } from "@/utils";
 export default class HttpService {
   options: any;
   constructor(options) {
-    const { get, post } = axios.create({
+    const { get, post, delete: deleteRequest } = axios.create({
       baseURL: isServer() ? process.env.API_BASE : "api/",
       responseType: "json",
     });
@@ -12,6 +12,7 @@ export default class HttpService {
     this.options = options;
     this.post = post;
     this.get = get;
+    this.delete = deleteRequest;
   }
 
   async get(endpoint, options = {}): Promise<{ data: any }> {
@@ -20,5 +21,9 @@ export default class HttpService {
 
   async post(endpoint, data = {}, options = {}) {
     return this.post(endpoint, data, options);
+  }
+
+  async delete(endpoint, options = {}) {
+    return this.delete(endpoint, options);
   }
 }

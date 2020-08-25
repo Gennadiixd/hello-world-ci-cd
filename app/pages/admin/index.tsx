@@ -1,4 +1,4 @@
-import AdminPage from "@/views/admin";
-import { privateRoute } from "@/components/security/private-route";
+import AdminPage, { getServerSideProps } from "@/views/admin";
 
-export default privateRoute(AdminPage);
+export default AdminPage;
+export { getServerSideProps };

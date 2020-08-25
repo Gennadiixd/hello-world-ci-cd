@@ -14,9 +14,9 @@ export const getCurrentUserAC = (payload) => ({
   payload,
 });
 
-export const loginCurrentUserAC = (userData) => async (dispatch) => {
+const setCurrentUserFlow = async (getUser, dispatch) => {
   try {
-    const user = await usersService.loginUser(userData);
+    const user = await getUser();
 
     return dispatch({
       type: AT.SET_CURRENT_USER,
@@ -30,18 +30,16 @@ export const loginCurrentUserAC = (userData) => async (dispatch) => {
   }
 };
 
-export const loginCurrentUserByCookieAC = (token) => async (dispatch) => {
-  try {
-    const user = await usersService.loginUserByCookie(token);
+export const loginCurrentUserAC = (userData) => async (dispatch) => {
+  return setCurrentUserFlow(() => usersService.loginUser(userData), dispatch);
+};
 
-    return dispatch({
-      type: AT.SET_CURRENT_USER,
-      payload: user,
-    });
-  } catch (err) {
-    return dispatch({
-      type: AT.SET_CURRENT_USER,
-      payload: err,
-    });
-  }
+export const restoreSessionAC = (token?: string) => async (
+  dispatch
+) => {
+  return setCurrentUserFlow(() => usersService.restoreSession(token), dispatch);
+};
+
+export const logoutCurrentUserAC = () => async (dispatch) => {
+  return setCurrentUserFlow(() => usersService.logoutUser(), dispatch);
 };

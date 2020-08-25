@@ -13,5 +13,6 @@ export default function getClaims(ctx) {
 
   const claims = decodeJWT(token);
 
-  return { claims, token };
+  if (!claims) return {};
+  return { claims, token: `claims=${token}` };
 }

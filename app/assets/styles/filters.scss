@@ -5,10 +5,17 @@
   &--container {
     font-size: 16px;
 
-    @media (max-width: 990px) {
-      border: $border;
+    @media (max-width: 768px) {
       margin: 10px 0;
       padding: 10px 5px;
+      display: flex;
+    }
+  }
+
+  &--action {
+    @media (max-width: 768px) {
+      border: $border;
+      margin: 10px;
     }
   }
 

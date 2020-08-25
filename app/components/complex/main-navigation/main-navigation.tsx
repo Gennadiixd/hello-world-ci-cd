@@ -1,28 +1,46 @@
-import Link from "next/link";
+// import Link from "next/link";
+import { useMemo } from "react";
+import { useDispatch } from "react-redux";
+import { logoutCurrentUserAC } from "@/views/user/ducks/action-creators";
+import Link from "@/components/atomic/link";
+import { useRouter } from "next/router";
+import { ROLES } from '@/constants';
 
-export default function MainNavigation() {
+export default function MainNavigation({ userRole }) {
+  const dispatch = useDispatch();
+  const { route } = useRouter();
+
+  const handleLogout = () => {
+    dispatch(logoutCurrentUserAC());
+  };
+
+  const adminSection =
+    userRole === ROLES.ADMIN ? (
+      <li>
+        <Link href="/admin">Admin page</Link>
+      </li>
+    ) : null;
+
+  const authenticationUserSection = userRole ? (
+    <li>
+      <a onClick={handleLogout}>Log out</a>
+    </li>
+  ) : (
+    <li>
+      <Link href="/login">Login</Link>
+    </li>
+  );
+
   return (
     <nav className="main__navigation">
       <ul>
+        {adminSection}
+        {authenticationUserSection}
         <li>
-          <Link href="/user">
-            <a>User page</a>
-          </Link>
+          <Link href="/products">Products page</Link>
         </li>
         <li>
-          <Link href="/admin">
-            <a>Admin page</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/products">
-            <a>Products page</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/">
-            <a>Main page</a>
-          </Link>
+          <Link href="/">Main page</Link>
         </li>
       </ul>
     </nav>

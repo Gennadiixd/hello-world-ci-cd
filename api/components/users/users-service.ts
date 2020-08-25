@@ -4,7 +4,7 @@ import { compareSync } from "bcrypt";
 import { IUsersRepository } from "./users-repository";
 
 export interface IUsersService {
-  loginUser: (any) => any;
+  authenticateUser: (any) => any;
   findUserByName: (any) => any;
 }
 
@@ -15,8 +15,8 @@ class UsersService implements IUsersService {
     public usersRepository: IUsersRepository
   ) {}
 
-  async loginUser(loginUserDTO) {
-    const { name, password } = loginUserDTO;
+  async authenticateUser(authUserDTO) {
+    const { name, password } = authUserDTO;
 
     try {
       const user = await this.usersRepository.getUser(name);

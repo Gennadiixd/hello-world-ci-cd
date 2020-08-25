@@ -1,43 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
 import MainLayout from "@/components/complex/main-layout";
-import TextInput from "@/components/atomic/text-input";
+import { useSelector } from "react-redux";
 
-import { loginCurrentUserAC } from "./ducks";
+import { getCurrentUserSelector } from "./ducks/selectors";
 
 export default function UserPage() {
-  const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = (userData) => {
-    dispatch(loginCurrentUserAC(userData));
-  };
+  const { name, role, id } = useSelector(getCurrentUserSelector);
 
   return (
     <MainLayout title="User page">
       <div className="grid-12 user-page--container">
-        <div className="grid-12 user__login__form--container">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="grid-4 grid-sm-6 grid-xs-8 user__login__form"
-          >
-            <h2>Login</h2>
-            <TextInput
-              name="name"
-              label="User name"
-              id="name"
-              fieldRef={register}
-            />
-            <TextInput
-              name="password"
-              label="User password"
-              id="password"
-              fieldRef={register}
-            />
-            <button type="submit">Login</button>
-          </form>
-        </div>
+        {name} {role} {id}
       </div>
     </MainLayout>
   );

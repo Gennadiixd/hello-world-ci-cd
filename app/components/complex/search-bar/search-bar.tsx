@@ -51,7 +51,7 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
   };
 
   return (
-    <div className="grid-4 search__bar--container">
+    <div className="search__bar--container">
       <div className="search__bar--search" onFocus={handleSuggestsOpen}>
         <TextInput
           name="search-bar"
