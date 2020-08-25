@@ -1,0 +1,46 @@
+@import "variables";
+@import "mixins";
+
+.cart__page {
+  padding: 5px;
+
+  .cart__item {
+    &--container {
+      display: flex;
+      margin: 5px;
+      padding: 5px;
+    }
+
+    &--about {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      border: none;
+    }
+
+    &--actions {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      border: none;
+
+      button {
+        @include button();
+        padding: 5px 10px;
+        margin: 10px;
+      }
+    }
+
+    &--image-container {
+      max-width: 400px;
+      border: none;
+
+      img {
+        max-width: 90%;
+        height: auto;
+        padding: 5px;
+        object-fit: contain;
+      }
+    }
+  }
+}

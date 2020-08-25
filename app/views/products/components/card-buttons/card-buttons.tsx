@@ -1,8 +1,8 @@
-export default function CardButtons({ onClickLookCloser }) {
+export default function CardButtons({ onLookCloser, onAddToCart }) {
   return (
     <div className="card--actions">
-      <button>Add to cart</button>
-      <button onClick={onClickLookCloser}>Look closer</button>
+      <button onClick={onAddToCart}>Add to cart</button>
+      <button onClick={onLookCloser}>Look closer</button>
     </div>
   );
 }

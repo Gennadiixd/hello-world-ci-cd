@@ -5,7 +5,7 @@ export const addToCartAC = (payload) => ({
   payload,
 });
 
-export const removeFromCart = (payload) => ({
+export const removeFromCartAC = (payload) => ({
   type: AT.REMOVE_FROM_CART,
   payload,
 });
