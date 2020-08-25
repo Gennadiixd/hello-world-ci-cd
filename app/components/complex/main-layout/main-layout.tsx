@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { useMemo } from "react";
 
 import Link from "@/components/atomic/link/link";
 import { getCartStateSelector } from "@/views/cart/ducks/selectors";
