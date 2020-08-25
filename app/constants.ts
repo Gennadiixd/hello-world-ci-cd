@@ -5,3 +5,4 @@ export const ASCENDING = "ASC";
 export const DESCENDING = "DESC";
 
 export const ROLES = { ADMIN: "admin", CUSTOMER: "customer" };
+export const ORDERS = { PRICE: "price", RATE: "rate" };

@@ -13,6 +13,7 @@ import {
   fetchProductsByAC,
   getProductsSearchStateSelector,
 } from "@/views/products/ducks";
+import { ORDERS } from "@/constants";
 
 import ProductCard from "./components/product-card";
 import { fetchProductsAC } from "./ducks";
@@ -21,7 +22,7 @@ import {
   getProductsPaginationSelector,
 } from "./ducks/selectors";
 
-const orderCriterias = ["price", "rate"];
+const orderCriterias = [ORDERS.PRICE, ORDERS.RATE];
 
 export default function ProductsPage() {
   const pageNumberParam = useQuery({ param: "page" });
