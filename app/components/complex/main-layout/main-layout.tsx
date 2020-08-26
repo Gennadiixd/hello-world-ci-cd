@@ -10,9 +10,9 @@ import Footer from "../footer";
 export default function MainLayout({ children, title }) {
   const { name, role, authorized } = useSelector(getCurrentUserSelector);
 
-  const { length } = useSelector(getCartStateSelector);
+  const { totalCount } = useSelector(getCartStateSelector);
 
-  const cartSection = <Link href={"/cart"}>Your cart x {length}</Link>;
+  const cartSection = <Link href={"/cart"}>Your cart x {totalCount}</Link>;
 
   const userInfoSection = (
     <Link href={authorized ? "/user" : "/login"}>

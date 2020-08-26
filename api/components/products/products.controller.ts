@@ -4,22 +4,25 @@ import { Response, Request } from "express";
 import { IProductsService } from "./products-service";
 import { CreateProductDTO } from "./dto/create-product.dto";
 import { GetProductsDTO } from "./dto/get-products.dto";
+import { ITGMessenger } from "../telegram/tg-messenger";
 
 export interface IProductsController {
   getProducts: (_: any, res: Response) => void;
   createProduct: (req: Request, res: Response) => void;
   getProduct: (req: Request, res: Response) => void;
+  checkout: (req: Request, res: Response) => void;
 }
 
 @injectable()
 class ProductsController implements IProductsController {
   constructor(
-    @inject("IProductsService") public productsService: IProductsService
+    @inject("IProductsService") public productsService: IProductsService,
+    @inject("ITGMessenger") public tgMessenger: ITGMessenger
   ) {}
 
   getProducts = async (req: Request, res: Response) => {
     const { offset, perPage, title, filterBy, orderBy } = req.query as any;
-    
+
     const getProductsDTO = new GetProductsDTO({
       skip: parseInt(offset, 10) * parseInt(perPage, 10),
       take: perPage,
@@ -51,6 +54,11 @@ class ProductsController implements IProductsController {
     const product = await this.productsService.createProduct(createProductDTO);
 
     res.json(product);
+  };
+
+  checkout = async (req: any, res: Response) => {
+    this.tgMessenger.sendCheckoutMessage(req.body);
+    res.json({ ok: "ok" });
   };
 }
 

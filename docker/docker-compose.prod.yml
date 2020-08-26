@@ -40,6 +40,8 @@ services:
       - DB_PORT=5432
       - NODE_ENV=production
       - JWT_SECRET="${JWT_SECRET}"
+      - TG_TOKEN=${TG_TOKEN}
+      - TG_CHAT_ID=${TG_CHAT_ID}
     links:
       - db:db
     volumes:

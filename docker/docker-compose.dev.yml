@@ -54,6 +54,8 @@ services:
       - WAIT_SLEEP_INTERVAL=30
       - WAIT_HOST_CONNECT_TIMEOUT=30
       - JWT_SECRET="${JWT_SECRET}"
+      - TG_TOKEN=${TG_TOKEN}
+      - TG_CHAT_ID=${TG_CHAT_ID}
     links:
       - db:db
     volumes:

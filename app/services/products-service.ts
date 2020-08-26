@@ -20,4 +20,8 @@ export default class ProductsService extends HttpService {
   createProduct(productData): Promise<{ data: any }> {
     return this.post("products", productData);
   }
+
+  async checkout(checkoutData) {
+    return this.post("products/checkout", checkoutData);
+  }
 }

@@ -9,6 +9,8 @@ import ProductsService from "./products-service";
 import ProductsRepository from "./products-repository";
 import DBConnection from "../../connection";
 import AuthGuard from "../auth/auth-guard";
+import TGMessenger from "../telegram/tg-messenger";
+import TGTemplater from "../telegram/tg-templater";
 
 const { isAuthenticated } = new AuthGuard();
 
@@ -35,11 +37,20 @@ container.register("IDBConnection", {
   useClass: DBConnection,
 });
 
+container.register("ITGMessenger", {
+  useClass: TGMessenger,
+});
+
+container.register("ITGTemplater", {
+  useClass: TGTemplater,
+});
+
 const productsRouter = Router();
 const productsController = container.resolve(ProductsController);
 
 productsRouter.get("/", productsController.getProducts);
 productsRouter.get("/:id", productsController.getProduct);
+productsRouter.post("/checkout", productsController.checkout);
 
 productsRouter.post(
   "/",
