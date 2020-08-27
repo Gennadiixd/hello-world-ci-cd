@@ -3,22 +3,24 @@ export default function CartItem({
   onIncreaseItemsCounter,
   onDecreaseItemsCounter,
 }) {
-  const { image, price, title, description, count, id } = item;
+  const { image, price, title, description, count } = item;
 
   return (
     <div className="grid-12 cart__item--container">
-      <div className="grid-4 cart__item--image-container">
-        <img src={image} />
+      <div className="grid-10 grid-xs-12 cart__item--info">
+        <div className="grid-4 cart__item--image-container">
+          <img src={image} />
+        </div>
+        <div className="grid-6 cart__item--about">
+          <div className="cart__item--title">{title}</div>
+          <div className="cart__item--description">{description}</div>
+          <div className="cart__item--price">{price} $</div>
+        </div>
       </div>
-      <div className="grid-6 cart__item--about">
-        <div className="cart__item--title">{title}</div>
-        <div className="cart__item--description">{description}</div>
-        <div className="cart__item--price">{price} $</div>
-      </div>
-      <div className="grid-2 cart__item--actions">
-        <button onClick={() => onIncreaseItemsCounter(id)}>+</button>
+      <div className="grid-2 grid-xs-12 cart__item--actions">
+        <button onClick={() => onIncreaseItemsCounter(item)}>+</button>
         {count}
-        <button onClick={() => onDecreaseItemsCounter(id)}>-</button>
+        <button onClick={() => onDecreaseItemsCounter(item)}>-</button>
       </div>
     </div>
   );

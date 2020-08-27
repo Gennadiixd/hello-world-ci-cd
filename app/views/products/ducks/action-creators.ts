@@ -1,4 +1,5 @@
 import ProductsService from "@/services/products-service";
+import * as CART_AT from "@/views/cart/ducks/action-types";
 
 import * as AT from "./action-types";
 
@@ -52,4 +53,20 @@ export const fetchProductsByAC = (searchCriteria) => async (dispatch) => {
     type: AT.SET_SEARCH_STATE,
     payload: productsSearchState,
   });
+};
+
+export const checkoutAC = (checkoutData, cbf) => async (dispatch) => {
+  try {
+    await productsService.checkout(checkoutData);
+    cbf();
+
+    return dispatch({
+      type: CART_AT.CLEAR_CART,
+    });
+  } catch (error) {
+    return dispatch({
+      type: CART_AT.SET_CHECKOUT_ERROR,
+      payload: error,
+    });
+  }
 };

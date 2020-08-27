@@ -3,25 +3,27 @@ import { useSelector, useDispatch } from "react-redux";
 import MainLayout from "@/components/complex/main-layout";
 import Link from "@/components/atomic/link";
 
-import { getCartItemsSelector } from "./ducks/selectors";
+import { getCartItemsSelector, getCartStateSelector } from "./ducks/selectors";
 import CartItem from "./components/cart-item/index";
 import { addToCartAC, removeFromCartAC } from "./ducks/action-creators";
 
 export default function CartPage() {
   const cartItems = useSelector(getCartItemsSelector);
+  const { totalPrice } = useSelector(getCartStateSelector);
   const dispatch = useDispatch();
 
-  const handleIncreaseItemsCounter = (id) => {
-    dispatch(addToCartAC({ id }));
+  const handleIncreaseItemsCounter = (product) => {
+    dispatch(addToCartAC(product));
   };
 
-  const handleDecreaseItemsCounter = (id) => {
-    dispatch(removeFromCartAC({ id }));
+  const handleDecreaseItemsCounter = (product) => {
+    dispatch(removeFromCartAC(product));
   };
 
-  const CartItemsSection = cartItems.map((cartElement) => {
+  const cartItemsSection = cartItems.map((cartElement: any) => {
     return (
       <CartItem
+        key={cartElement.id}
         item={cartElement}
         onIncreaseItemsCounter={handleIncreaseItemsCounter}
         onDecreaseItemsCounter={handleDecreaseItemsCounter}
@@ -32,10 +34,16 @@ export default function CartPage() {
   return (
     <MainLayout title="Cart Page">
       <div className="grid-12 cart__page">
-        {CartItemsSection}
-        <button>
-          <Link href="checkout">Checkout</Link>
-        </button>
+        <div className="cart__page--info">
+          Total price {totalPrice} $
+          <Link href="checkout" className="cart__page--checkout--link">
+            Checkout
+          </Link>
+        </div>
+        {cartItemsSection}
+        <Link href="checkout" className="cart__page--checkout--link">
+          Checkout
+        </Link>
       </div>
     </MainLayout>
   );

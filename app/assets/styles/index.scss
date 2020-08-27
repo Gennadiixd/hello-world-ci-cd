@@ -10,11 +10,13 @@
 @import "pagination";
 @import "filters";
 @import "search_bar";
+@import "modal";
 
 @import "cart_page";
 @import "manage_products_page";
 @import "user_page";
 @import "product_page";
+@import "checkout_page";
 
 * {
   margin: 0;
