@@ -75,6 +75,10 @@ export default function ProductsPage() {
           totalPages={totalPages}
         />
         {productCardsSection}
+        <Paginator
+          currentPageNumber={currentPageNumber}
+          totalPages={totalPages}
+        />
       </div>
     </MainLayout>
   );

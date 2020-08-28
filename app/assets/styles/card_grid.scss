@@ -4,6 +4,8 @@
 .cards__grid {
   padding: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 
   &--actions {
     display: flex;
