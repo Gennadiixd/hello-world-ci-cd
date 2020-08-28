@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
 
 import MainLayout from "@/components/complex/main-layout";
 import TextInput from "@/components/atomic/text-input";
@@ -8,20 +7,21 @@ import { getCartStateSelector } from "@/views/cart/ducks/selectors";
 import { checkoutAC } from "@/views/products/ducks";
 import Modal from "@/components/complex/modal";
 import useBoolean from "@/hooks/use-boolean";
+import useRedirect from "@/hooks/use-redirect";
 
 export default function Checkout() {
   const { register, handleSubmit, watch } = useForm();
   const watchNameValue = watch("name");
   const dispatch = useDispatch();
-  const { push } = useRouter();
   const [isModalOpen, setModalOpen, setModalClose] = useBoolean();
+  const { redirectToProductsPage } = useRedirect();
 
   const cartData = useSelector(getCartStateSelector);
   const { items, totalPrice } = cartData;
 
   const handleCloseModal = () => {
+    redirectToProductsPage();
     setModalClose();
-    push("/products");
   };
 
   const onSubmit = ({ name, address, comment }) => {

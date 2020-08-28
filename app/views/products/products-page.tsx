@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/router";
 
 import { PRODUCTS_PER_PAGE } from "@/constants";
 import SearchBar from "@/components/complex/search-bar";
@@ -8,11 +7,12 @@ import Order from "@/components/complex/order";
 import MainLayout from "@/components/complex/main-layout";
 import Paginator from "@/components/complex/paginator";
 import { initializeStore } from "@/ducks/index";
-import useQuery from "@/hooks/use-query";
+import useObserveQueryParam from "@/hooks/use-observe-query-param";
 import {
   fetchProductsByAC,
   getProductsSearchStateSelector,
 } from "@/views/products/ducks";
+import useRedirect from "@/hooks/use-redirect";
 import { ORDERS } from "@/constants";
 
 import ProductCard from "./components/product-card";
@@ -25,14 +25,14 @@ import {
 const orderCriterias = [ORDERS.PRICE, ORDERS.RATE];
 
 export default function ProductsPage() {
-  const pageNumberParam = useQuery({ param: "page" });
+  const { currentPageParam } = useObserveQueryParam();
   const { totalPages } = useSelector(getProductsPaginationSelector);
   const productsSearchState = useSelector(getProductsSearchStateSelector);
   const dispatch = useDispatch();
-  const { push } = useRouter();
+  const { redirectToProductPage } = useRedirect();
 
   const products = useSelector((state) =>
-    getProductsPageSelector(pageNumberParam || 1, state)
+    getProductsPageSelector(currentPageParam, state)
   );
 
   const productCardsSection = useMemo(
@@ -46,17 +46,13 @@ export default function ProductsPage() {
     [products]
   );
 
-  const currentPageNumber = useMemo(() => parseInt(pageNumberParam) || 1, [
-    pageNumberParam,
-  ]);
-
   const handleProductSearch = (searchCriteria) => {
     dispatch(fetchProductsByAC(searchCriteria));
   };
 
   const handleSelectSuggest = (event) => {
     const { id } = event.target.dataset;
-    if (id) push(`/product/[id]`, `/product/${id}`);
+    if (id) redirectToProductPage(id);
   };
 
   return (
@@ -71,12 +67,12 @@ export default function ProductsPage() {
           />
         </div>
         <Paginator
-          currentPageNumber={currentPageNumber}
+          currentPageNumber={currentPageParam}
           totalPages={totalPages}
         />
         {productCardsSection}
         <Paginator
-          currentPageNumber={currentPageNumber}
+          currentPageNumber={currentPageParam}
           totalPages={totalPages}
         />
       </div>

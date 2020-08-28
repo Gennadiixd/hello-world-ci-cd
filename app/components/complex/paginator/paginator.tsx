@@ -1,19 +1,15 @@
 import React, { useMemo } from "react";
-import { useRouter } from "next/router";
 
 import { getPageNumbers } from "@/utils";
 import { PAGINATOR_BUTTONS_QUANTITY } from "@/constants";
 import Button from "@/components/atomic/button";
+import useQuery from "@/hooks/use-query";
 
 export default function Paginator({ currentPageNumber = 1, totalPages }) {
-  const { push, query } = useRouter();
+  const { queryPage } = useQuery();
 
   const handlePageRequest = (number) => {
-    if (number) {
-      push({
-        query: { ...query, page: number },
-      });
-    }
+    if (number) queryPage(number);
   };
 
   const { pagesLeft, pagesRight } = useMemo(
@@ -34,7 +30,7 @@ export default function Paginator({ currentPageNumber = 1, totalPages }) {
           {number}
         </Button>
       )),
-    [pagesLeft, currentPageNumber, pagesRight, query]
+    [pagesLeft, currentPageNumber, pagesRight]
   );
 
   return (

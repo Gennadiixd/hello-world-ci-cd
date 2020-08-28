@@ -11,12 +11,14 @@ class TGTemplater implements ITGTemplater {
   getCheckoutMessageTemplate({ name, address, comment, cartData }) {
     const { items, totalCount, totalPrice } = cartData;
 
-    const productTitles = Object.values(items).reduce((accum, item: any) => {
-      return `${accum}${item.title} (${item.price}\$ x ${item.count}), `;
-    }, "");
-
-    console.log(
-      productTitles
+    const productTitles = Object.values(items).reduce(
+      (accum, item: any, index, itemsArray) => {
+        const isLast = index === itemsArray.length - 1;
+        return `${accum}${item.title} (${item.price}\$ x ${item.count})${
+          isLast ? "." : ","
+        } `;
+      },
+      ""
     );
 
     return encodeURI(`
