@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import Link from "@/components/atomic/link/link";
 import { getCartStateSelector } from "@/views/cart/ducks/selectors";
 import { getCurrentUserSelector } from "@/views/user/ducks/selectors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Header from "../header";
 import Footer from "../footer";
@@ -12,7 +14,12 @@ export default function MainLayout({ children, title }) {
 
   const { totalCount } = useSelector(getCartStateSelector);
 
-  const cartSection = <Link href={"/cart"}>Your cart x {totalCount}</Link>;
+  const cartSection = (
+    <Link href={"/cart"}>
+      <FontAwesomeIcon icon={faShoppingCart} />
+      Your cart x {totalCount}
+    </Link>
+  );
 
   const userInfoSection = (
     <Link href={authorized ? "/user" : "/login"}>

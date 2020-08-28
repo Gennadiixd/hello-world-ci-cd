@@ -31,19 +31,24 @@ export default function CartPage() {
     );
   });
 
+  const checkoutLinkSection = (predicate, alternativeSection = null) =>
+    predicate ? (
+      <Link href="checkout" className="cart__page--checkout--link">
+        Checkout
+      </Link>
+    ) : (
+      alternativeSection
+    );
+
   return (
     <MainLayout title="Cart Page">
       <div className="grid-12 cart__page">
         <div className="cart__page--info">
           Total price {totalPrice} $
-          <Link href="checkout" className="cart__page--checkout--link">
-            Checkout
-          </Link>
+          <div>{checkoutLinkSection(totalPrice, "Your cart is empty")}</div>
         </div>
         {cartItemsSection}
-        <Link href="checkout" className="cart__page--checkout--link">
-          Checkout
-        </Link>
+        {checkoutLinkSection(totalPrice)}
       </div>
     </MainLayout>
   );
