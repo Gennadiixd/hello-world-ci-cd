@@ -9,11 +9,11 @@ export class GetProductsDTO {
 
   order: object;
 
-  constructor({ skip, take, title, filterBy, orderBy }) {
+  constructor({ skip, take, title, order, orderBy }) {
     this.skip = skip;
     this.take = take;
     this.title = title ? Like(`%${title}%`) : undefined;
-    this.order = filterBy ? { [filterBy]: orderBy } : undefined;
+    this.order = orderBy ? { [orderBy]: order } : undefined;
   }
 
   get params() {

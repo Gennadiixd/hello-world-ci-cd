@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "@/components/atomic/link/link";
 import { getCartStateSelector } from "@/views/cart/ducks/selectors";
 import { getCurrentUserSelector } from "@/views/user/ducks/selectors";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Header from "../header";
 import Footer from "../footer";
@@ -31,7 +31,7 @@ export default function MainLayout({ children, title }) {
     <>
       <Header title={title} userRole={role}>
         {userInfoSection}
-        {cartSection}
+        <div>{cartSection}</div>
       </Header>
       <main>{children}</main>
       <Footer />

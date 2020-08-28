@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { PRODUCTS_PER_PAGE } from "@/constants";
 import SearchBar from "@/components/complex/search-bar";
-import Filters from "@/components/complex/filters";
+import Order from "@/components/complex/order";
 import MainLayout from "@/components/complex/main-layout";
 import Paginator from "@/components/complex/paginator";
 import { initializeStore } from "@/ducks/index";
@@ -63,7 +63,7 @@ export default function ProductsPage() {
     <MainLayout title="Products Page">
       <div className="grid-12 cards__grid">
         <div className="cards__grid--actions">
-          <Filters orderCriterias={orderCriterias} />
+          <Order orderCriterias={orderCriterias} />
           <SearchBar
             searchItems={productsSearchState}
             onSearch={handleProductSearch}
@@ -81,7 +81,7 @@ export default function ProductsPage() {
 }
 
 export async function getServerSideProps({ query }) {
-  const { page, filterBy, orderBy } = query;
+  const { page, order, orderBy } = query;
   const reduxStore = initializeStore({});
   const { dispatch } = reduxStore;
 
@@ -89,7 +89,7 @@ export async function getServerSideProps({ query }) {
     fetchProductsAC({
       page: page || 1,
       perPage: PRODUCTS_PER_PAGE,
-      filterBy,
+      order,
       orderBy,
     })
   );

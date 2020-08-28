@@ -24,13 +24,13 @@ export const fetchProductByIdAC = (id) => async (dispatch) => {
   });
 };
 
-export const fetchProductsAC = ({ page, perPage, filterBy, orderBy }) => async (
+export const fetchProductsAC = ({ page, perPage, order, orderBy }) => async (
   dispatch
 ) => {
   const productsPage = await productsService.getProducts({
     offset: page,
     perPage,
-    filterBy,
+    order,
     orderBy,
   });
 

@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import Button from "@/components/atomic/button";
 import { ASCENDING, DESCENDING } from "@/constants";
 
-export default function Filters({ orderCriterias }) {
+export default function Order({ orderCriterias }) {
   const { push, query } = useRouter();
 
-  const handleFilter = (filterBy, orderBy = DESCENDING) => {
+  const handleOrder = (orderBy, order = DESCENDING) => {
     push({
-      query: { ...query, filterBy, orderBy },
+      query: { ...query, orderBy, order },
     });
   };
 
@@ -20,17 +20,17 @@ export default function Filters({ orderCriterias }) {
           Order by
           <Button
             className="main__filters--button"
-            onClick={() => handleFilter(criteria)}
-            isActive={criteria === query.filterBy}
+            onClick={() => handleOrder(criteria)}
+            isActive={criteria === query.orderBy}
           >
             {criteria}
           </Button>
           :
           <Button
             className="main__filters--button"
-            onClick={() => handleFilter(criteria, ASCENDING)}
+            onClick={() => handleOrder(criteria, ASCENDING)}
             isActive={
-              ASCENDING === query.orderBy && criteria === query.filterBy
+              ASCENDING === query.order && criteria === query.orderBy
             }
           >
             &#8593;
@@ -38,9 +38,9 @@ export default function Filters({ orderCriterias }) {
           \
           <Button
             className="main__filters--button"
-            onClick={() => handleFilter(criteria, DESCENDING)}
+            onClick={() => handleOrder(criteria, DESCENDING)}
             isActive={
-              DESCENDING === query.orderBy && criteria === query.filterBy
+              DESCENDING === query.order && criteria === query.orderBy
             }
           >
             &#8595;
