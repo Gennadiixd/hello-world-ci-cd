@@ -1,16 +1,14 @@
 import { useMemo } from "react";
-import { useRouter } from "next/router";
 
 import Button from "@/components/atomic/button";
 import { ASCENDING, DESCENDING } from "@/constants";
+import useQuery from "@/hooks/use-query";
 
 export default function Order({ orderCriterias }) {
-  const { push, query } = useRouter();
+  const { queryOrder, query } = useQuery();
 
   const handleOrder = (orderBy, order = DESCENDING) => {
-    push({
-      query: { ...query, orderBy, order },
-    });
+    queryOrder(orderBy, order);
   };
 
   const ordersSection = useMemo(
@@ -29,9 +27,7 @@ export default function Order({ orderCriterias }) {
           <Button
             className="main__filters--button"
             onClick={() => handleOrder(criteria, ASCENDING)}
-            isActive={
-              ASCENDING === query.order && criteria === query.orderBy
-            }
+            isActive={ASCENDING === query.order && criteria === query.orderBy}
           >
             &#8593;
           </Button>
@@ -39,9 +35,7 @@ export default function Order({ orderCriterias }) {
           <Button
             className="main__filters--button"
             onClick={() => handleOrder(criteria, DESCENDING)}
-            isActive={
-              DESCENDING === query.order && criteria === query.orderBy
-            }
+            isActive={DESCENDING === query.order && criteria === query.orderBy}
           >
             &#8595;
           </Button>

@@ -3,15 +3,19 @@ import { useRouter } from "next/router";
 export default function useQuery() {
   const { push, query } = useRouter();
 
-  const pushToQuery = (param, value) => {
+  const pushToQuery = (params) => {
     push({
-      query: { ...query, [param]: value },
+      query: { ...query, ...params },
     });
   };
 
   const queryPage = (number) => {
-    pushToQuery("page", number);
+    pushToQuery({ page: number });
   };
 
-  return { pushToQuery, queryPage };
+  const queryOrder = (orderBy, order) => {
+    pushToQuery({ orderBy, order });
+  };
+
+  return { queryPage, queryOrder, query };
 }

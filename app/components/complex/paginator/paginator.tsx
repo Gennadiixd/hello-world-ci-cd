@@ -18,19 +18,17 @@ export default function Paginator({ currentPageNumber = 1, totalPages }) {
     [currentPageNumber]
   );
 
-  const numbersSection = useMemo(
-    () =>
-      [...pagesLeft, currentPageNumber, ...pagesRight].map((number) => (
-        <Button
-          onClick={() => handlePageRequest(number)}
-          isActive={number === currentPageNumber}
-          key={number}
-          className="main__pagination--button"
-        >
-          {number}
-        </Button>
-      )),
-    [pagesLeft, currentPageNumber, pagesRight]
+  const numbersSection = [...pagesLeft, currentPageNumber, ...pagesRight].map(
+    (number) => (
+      <Button
+        onClick={() => handlePageRequest(number)}
+        isActive={number === currentPageNumber}
+        key={number}
+        className="main__pagination--button"
+      >
+        {number}
+      </Button>
+    )
   );
 
   return (

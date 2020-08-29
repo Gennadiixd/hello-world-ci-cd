@@ -11,9 +11,18 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
   const watchSearchInputValue = watch("search-bar");
   const debouncedSearchValue = useDebounce(watchSearchInputValue, 500);
   const [isSearchInFocus, setSearchInFocus] = useState(false);
+  const [cachedSearchItems, setCachedSearchItems] = useState(searchItems);
 
   useEffect(() => {
-    if (debouncedSearchValue?.length > 1) {
+    setCachedSearchItems(searchItems);
+  }, [searchItems]);
+
+  useEffect(() => {
+    if (debouncedSearchValue?.length > 2 && cachedSearchItems?.length) {
+      setCachedSearchItems(
+        searchItems.filter((item) => item.title.includes(debouncedSearchValue))
+      );
+    } else if (debouncedSearchValue?.length > 1) {
       onSearch({ title: debouncedSearchValue });
     } else {
       if (searchItems?.length) onSearch();
@@ -27,8 +36,8 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
           className={`search__bar--suggests ${isSearchInFocus ? "" : "hidden"}`}
           onClick={onSelectSuggest}
         >
-          {searchItems.length ? (
-            searchItems.map(({ id, title }) => (
+          {cachedSearchItems.length ? (
+            cachedSearchItems.map(({ id, title }) => (
               <li className="search__bar--suggest" key={id} data-id={id}>
                 {title}
               </li>
@@ -38,7 +47,7 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
           )}
         </ul>
       ) : null,
-    [searchItems, debouncedSearchValue]
+    [searchItems, debouncedSearchValue, cachedSearchItems]
   );
 
   const handleSuggestsOpen = (event) => {
