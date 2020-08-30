@@ -5,17 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import TextInput from "@/components/atomic/text-input/text-input";
 import useDebounce from "@/hooks/use-debounce";
+import useCache from "@/hooks/use-cache";
 
 export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
   const { register, watch, setValue } = useForm();
   const watchSearchInputValue = watch("search-bar");
   const debouncedSearchValue = useDebounce(watchSearchInputValue, 500);
   const [isSearchInFocus, setSearchInFocus] = useState(false);
-  const [cachedSearchItems, setCachedSearchItems] = useState(searchItems);
-
-  useEffect(() => {
-    setCachedSearchItems(searchItems);
-  }, [searchItems]);
+  const [cachedSearchItems, setCachedSearchItems] = useCache(searchItems);
 
   useEffect(() => {
     if (debouncedSearchValue?.length > 2 && cachedSearchItems?.length) {

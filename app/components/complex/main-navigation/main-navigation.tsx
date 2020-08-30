@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 
 import { logoutCurrentUserAC } from "@/views/user/ducks/action-creators";
 import Link from "@/components/atomic/link";
-import { ROLES } from '@/constants';
+import { ROLES } from "@/constants";
 
 export default function MainNavigation({ userRole }) {
   const dispatch = useDispatch();
