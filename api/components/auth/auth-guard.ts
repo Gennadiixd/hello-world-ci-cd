@@ -19,7 +19,7 @@ class AuthGuard implements IAuthGuard {
   JWTSecret: string;
 
   constructor(@inject("IConfig") private config: IConfig) {
-    this.cookieClaimsOptions = { maxAge: this.config.ONE_DAY };
+    this.cookieClaimsOptions = { maxAge: this.config.SESSION_LIFETIME };
     this.JWTTokenOptions = {
       expiresIn: "24h",
     };
