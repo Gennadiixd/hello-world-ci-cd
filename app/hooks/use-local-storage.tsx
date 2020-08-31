@@ -1,9 +1,10 @@
 import { useRef } from "react";
-import { isServer } from "../utils";
+import { isServer } from "@/utils";
 
 function useLocalStorage(key, initialValue) {
   const getValue = () => {
     if (isServer()) return initialValue;
+    
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
@@ -16,10 +17,11 @@ function useLocalStorage(key, initialValue) {
 
   const setValue = (valueToStore) => {
     if (isServer()) return undefined;
+
     try {
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -12,13 +12,13 @@ function useReduxLocalStorage(localStorageKey, reduxState, setReduxState) {
   );
 
   useEffect(() => {
-    if (!isServer()) {
-      if (isFirstRender) {
-        setReduxState(fromLocalStorage);
-        isFirstRender = false;
-      } else {
-        setValue(reduxState);
-      }
+    if (isServer()) return;
+    
+    if (isFirstRender) {
+      setReduxState(fromLocalStorage);
+      isFirstRender = false;
+    } else {
+      setValue(reduxState);
     }
   }, [reduxState]);
 }

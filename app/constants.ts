@@ -6,3 +6,5 @@ export const DESCENDING = "DESC";
 
 export const ROLES = { ADMIN: "admin", CUSTOMER: "customer" };
 export const ORDERS = { PRICE: "price", RATE: "rate" };
+
+export const SEARCH_LENGTH_THRESHOLD = 2;

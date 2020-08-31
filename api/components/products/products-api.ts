@@ -11,8 +11,7 @@ import DBConnection from "../../connection";
 import AuthGuard from "../auth/auth-guard";
 import TGMessenger from "../telegram/tg-messenger";
 import TGTemplater from "../telegram/tg-templater";
-
-const { isAuthenticated } = new AuthGuard();
+import Config from "../config/index";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -44,6 +43,12 @@ container.register("ITGMessenger", {
 container.register("ITGTemplater", {
   useClass: TGTemplater,
 });
+
+container.register("IConfig", {
+  useClass: Config,
+});
+
+const { isAuthenticated } = container.resolve(AuthGuard);
 
 const productsRouter = Router();
 const productsController = container.resolve(ProductsController);
