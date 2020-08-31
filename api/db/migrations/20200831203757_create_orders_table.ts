@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.integer("user_id");
     table.foreign("user_id").references("id").inTable("users");
     table.specificType("products_id", "integer ARRAY");
+    table.foreign("user_id").references("id").inTable("products");
   });
 }
 

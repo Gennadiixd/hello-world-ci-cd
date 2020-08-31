@@ -6,6 +6,7 @@ import {
   ManyToOne,
 } from "typeorm";
 import { UserEntity } from "../users/user.entity";
+import { ProductEntity } from "../products/product.entity";
 
 @Entity({ name: "orders" })
 export class OrderEntity extends BaseEntity {
@@ -19,5 +20,5 @@ export class OrderEntity extends BaseEntity {
   user_id: UserEntity;
 
   @Column()
-  product_ids: Array<string>;
+  product_ids: Array<ProductEntity>;
 }
