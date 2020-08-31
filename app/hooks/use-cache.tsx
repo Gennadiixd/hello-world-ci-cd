@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
 export default function useCache(items) {
-  const [cachedItems, setCachedSearchItems] = useState(items);
+  const [cachedItems, setCachedItems] = useState(items);
 
   useEffect(() => {
-    setCachedSearchItems(items);
+    setCachedItems(items);
   }, [items]);
 
-  return [cachedItems, setCachedSearchItems];
+  return [cachedItems, setCachedItems];
 }
