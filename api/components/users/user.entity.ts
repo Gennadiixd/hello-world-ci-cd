@@ -1,6 +1,13 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { OrderEntity } from "./../orders/order.entity";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+} from "typeorm";
 
-@Entity({name: "users"})
+@Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -13,4 +20,7 @@ export class UserEntity extends BaseEntity {
 
   @Column()
   role: string;
+
+  @OneToMany((type) => OrderEntity, (order) => order.user_id, { eager: true })
+  order_ids: OrderEntity[];
 }
