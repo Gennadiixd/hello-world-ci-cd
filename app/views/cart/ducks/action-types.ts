@@ -1,2 +1,5 @@
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const CLEAR_CART = "CLEAR_CART";
+export const SET_CART_STATE = "SET_CART_STATE";
+export const SET_CHECKOUT_ERROR = "SET_CHECKOUT_ERROR";

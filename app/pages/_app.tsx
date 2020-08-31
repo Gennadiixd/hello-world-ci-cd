@@ -1,13 +1,13 @@
 import { Provider } from "react-redux";
 
-import "../assets/styles/index.scss";
-
-import { useStore } from "../ducks";
-
 import { initializeStore } from "@/ducks/index";
 import { restoreSessionAC } from "@/views/user/ducks";
 import getClaims from "@/components/security/get-claims";
 import { isServer } from "@/utils";
+
+import "../assets/styles/index.scss";
+import { useStore } from "../ducks";
+import RestoreLocalStorageState from "../components/restore-local-storage-state";
 
 export default function App({ Component, pageProps }) {
   const { initialReduxState, initialUserState } = pageProps;
@@ -19,6 +19,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
+      <RestoreLocalStorageState />
       <Component {...pageProps} />
     </Provider>
   );

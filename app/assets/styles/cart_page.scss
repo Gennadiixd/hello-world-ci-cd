@@ -1,0 +1,88 @@
+@import "variables";
+@import "mixins";
+
+.cart__page {
+  padding: 5px;
+
+  &--info {
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    margin: 20px;
+  }
+
+  &--checkout--link {
+    font-size: 16px;
+    margin: 0 10px;
+  }
+
+  .cart__item {
+    &--container {
+      display: flex;
+      margin: 5px;
+      padding: 5px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+    }
+
+    &--info {
+      display: flex;
+      border: none;
+    }
+
+    &--about {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      border: none;
+    }
+
+    &--actions {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      border: none;
+
+      button {
+        @include button();
+        padding: 5px 10px;
+        margin: 10px;
+      }
+    }
+
+    &--title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      font-weight: bold;
+    }
+
+    &--description {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+
+      @media (max-width: 768px) {
+        -webkit-line-clamp: 2;
+      }
+    }
+
+    &--image-container {
+      max-width: 200px;
+      border: none;
+
+      img {
+        max-width: 90%;
+        height: auto;
+        padding: 5px;
+        object-fit: contain;
+      }
+    }
+  }
+}

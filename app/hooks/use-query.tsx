@@ -1,9 +1,21 @@
-import { useMemo } from "react";
 import { useRouter } from "next/router";
 
-export default function useQuery({ param }): any {
-  const { query } = useRouter();
-  const observableParam = useMemo((): any => query[param], [query, param]);
+export default function useQuery() {
+  const { push, query } = useRouter();
 
-  return observableParam;
+  const pushToQuery = (params) => {
+    push({
+      query: { ...query, ...params },
+    });
+  };
+
+  const queryPage = (number) => {
+    pushToQuery({ page: number });
+  };
+
+  const queryOrder = (orderBy, order) => {
+    pushToQuery({ orderBy, order });
+  };
+
+  return { queryPage, queryOrder, query };
 }

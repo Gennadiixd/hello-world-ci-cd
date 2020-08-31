@@ -5,7 +5,12 @@ export const addToCartAC = (payload) => ({
   payload,
 });
 
-export const removeFromCart = (payload) => ({
+export const removeFromCartAC = (payload) => ({
   type: AT.REMOVE_FROM_CART,
+  payload,
+});
+
+export const setCartStateAC = (payload) => ({
+  type: AT.SET_CART_STATE,
   payload,
 });

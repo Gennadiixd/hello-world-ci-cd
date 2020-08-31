@@ -1,4 +1,6 @@
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "@/components/atomic/link/link";
 import { getCartStateSelector } from "@/views/cart/ducks/selectors";
@@ -10,9 +12,14 @@ import Footer from "../footer";
 export default function MainLayout({ children, title }) {
   const { name, role, authorized } = useSelector(getCurrentUserSelector);
 
-  const { length } = useSelector(getCartStateSelector);
+  const { totalCount } = useSelector(getCartStateSelector);
 
-  const cartSection = <Link href={"/cart"}>Your cart x {length}</Link>;
+  const cartSection = (
+    <Link href={"/cart"}>
+      <FontAwesomeIcon icon={faShoppingCart} />
+      Your cart x {totalCount}
+    </Link>
+  );
 
   const userInfoSection = (
     <Link href={authorized ? "/user" : "/login"}>
@@ -24,7 +31,7 @@ export default function MainLayout({ children, title }) {
     <>
       <Header title={title} userRole={role}>
         {userInfoSection}
-        {cartSection}
+        <div>{cartSection}</div>
       </Header>
       <main>{children}</main>
       <Footer />

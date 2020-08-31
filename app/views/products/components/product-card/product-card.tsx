@@ -1,12 +1,21 @@
-import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+
+import { addToCartAC } from "@/views/cart/ducks";
 
 import CardButtons from "../card-buttons/card-buttons";
+import useRedirect from "@/hooks/use-redirect";
 
 export default function ProductCard({ product }) {
-  const { push } = useRouter();
   const { id, title, description, image, price } = product;
-  const onClickLookCloser = () => {
-    push(`/product/[id]`, `/product/${id}`);
+  const dispatch = useDispatch();
+  const { redirectToProductPage } = useRedirect();
+
+  const handleLookCloser = () => {
+    redirectToProductPage(id);
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCartAC(product));
   };
 
   return (
@@ -18,7 +27,10 @@ export default function ProductCard({ product }) {
         </div>
         <div className="card--description">{description}</div>
         <div className="card--price">{price} $</div>
-        <CardButtons onClickLookCloser={onClickLookCloser} />
+        <CardButtons
+          onLookCloser={handleLookCloser}
+          onAddToCart={handleAddToCart}
+        />
       </div>
     </div>
   );

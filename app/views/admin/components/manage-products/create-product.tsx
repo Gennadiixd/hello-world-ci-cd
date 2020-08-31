@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import TextInput from "@/components/atomic/text-input";
 import ImageInput from "@/components/atomic/image-input";
+import NumericInput from "@/components/atomic/numeric-input";
 import ProductsService from "@/services/products-service";
 
 import useImage from "./hooks/useImage";
@@ -35,7 +36,7 @@ export default function CreateProduct() {
               fieldRef={register}
               textArea
             />
-            <TextInput
+            <NumericInput
               name="price"
               label="Product price"
               id="price"

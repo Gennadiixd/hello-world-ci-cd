@@ -4,8 +4,8 @@ import { Response, Request } from "express";
 import { GetUserDTO } from "../users/dto/get-user.dto";
 import { IUsersService } from "../users/users-service";
 import { IAuthGuard } from "../auth/auth-guard";
-import { TOKEN_NAME } from "../../constants";
 import { AuthUserDTO } from "../users/dto/auth-user-dto";
+import { IConfig } from "../config";
 
 export interface ISessionController {
   destroySession: (req: Request, res: Response) => void;
@@ -17,7 +17,8 @@ export interface ISessionController {
 class SessionController implements ISessionController {
   constructor(
     @inject("IUsersService") public usersService: IUsersService,
-    @inject("IAuthGuard") public authGuard: IAuthGuard
+    @inject("IAuthGuard") public authGuard: IAuthGuard,
+    @inject("IConfig") public config: IConfig
   ) {}
 
   destroySession = (_, res: Response) => {
@@ -25,7 +26,7 @@ class SessionController implements ISessionController {
   };
 
   getSession = async (req: Request, res: Response) => {
-    const token = req.cookies[TOKEN_NAME];
+    const token = req.cookies[this.config.TOKEN_NAME];
 
     try {
       const claims = this.authGuard.decode(token);

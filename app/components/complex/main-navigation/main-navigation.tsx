@@ -1,14 +1,11 @@
-// import Link from "next/link";
-import { useMemo } from "react";
 import { useDispatch } from "react-redux";
+
 import { logoutCurrentUserAC } from "@/views/user/ducks/action-creators";
 import Link from "@/components/atomic/link";
-import { useRouter } from "next/router";
-import { ROLES } from '@/constants';
+import { ROLES } from "@/constants";
 
 export default function MainNavigation({ userRole }) {
   const dispatch = useDispatch();
-  const { route } = useRouter();
 
   const handleLogout = () => {
     dispatch(logoutCurrentUserAC());

@@ -7,6 +7,7 @@ import UsersService from "./users-service";
 import DBConnection from "../../connection";
 import UsersRepository from "./users-repository";
 import AuthGuard from "../auth/auth-guard";
+import Config from "../config/index";
 
 container.register("IUsersService", {
   useClass: UsersService,
@@ -22,6 +23,10 @@ container.register("IDBConnection", {
 
 container.register("IAuthGuard", {
   useClass: AuthGuard,
+});
+
+container.register("IConfig", {
+  useClass: Config,
 });
 
 const usersRouter = Router();

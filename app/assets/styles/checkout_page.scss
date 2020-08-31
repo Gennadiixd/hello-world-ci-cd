@@ -1,0 +1,66 @@
+@import "variables";
+@import "mixins";
+
+.checkout {
+  &--item {
+    display: flex;
+    border: none;
+  }
+
+  &--preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &--info {
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border: none;
+    font-size: 16px;
+    margin: 10px 0;
+    text-decoration: underline;
+  }
+
+  &--count {
+    font-weight: bold;
+    padding: 0 5px;
+    white-space: nowrap;
+  }
+
+  &--title {
+    font-style: italic;
+  }
+
+  &__form {
+    font-size: 16px;
+
+    .text__input--label {
+      margin: 5px 0;
+    }
+
+    input,
+    textarea {
+      max-width: 400px;
+      width: 100%;
+    }
+
+    button {
+      @include button();
+    }
+  }
+
+  &--image-container {
+    max-width: 200px;
+    border: none;
+
+    img {
+      max-width: 90%;
+      height: auto;
+      padding: 5px;
+      object-fit: contain;
+    }
+  }
+}

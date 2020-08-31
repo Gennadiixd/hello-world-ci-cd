@@ -1,34 +1,30 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import TextInput from "@/components/atomic/text-input/text-input";
-import useDebounce from "@/hooks/use-debounce";
+import useSearch from "@/hooks/use-search";
 
 export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
   const { register, watch, setValue } = useForm();
   const watchSearchInputValue = watch("search-bar");
-  const debouncedSearchValue = useDebounce(watchSearchInputValue, 500);
   const [isSearchInFocus, setSearchInFocus] = useState(false);
-
-  useEffect(() => {
-    if (debouncedSearchValue?.length > 1) {
-      onSearch({ title: debouncedSearchValue });
-    } else {
-      if (searchItems?.length) onSearch();
-    }
-  }, [debouncedSearchValue]);
+  const [debouncedSearchValue, cachedSearchItems] = useSearch({
+    onSearch,
+    searchItems,
+    searchValue: watchSearchInputValue,
+  });
 
   const suggestsSection = useMemo(
     () =>
-      debouncedSearchValue?.length ? (
+      debouncedSearchValue?.length > 1 ? (
         <ul
           className={`search__bar--suggests ${isSearchInFocus ? "" : "hidden"}`}
           onClick={onSelectSuggest}
         >
-          {searchItems.length ? (
-            searchItems.map(({ id, title }) => (
+          {cachedSearchItems.length ? (
+            cachedSearchItems.map(({ id, title }) => (
               <li className="search__bar--suggest" key={id} data-id={id}>
                 {title}
               </li>
@@ -38,7 +34,7 @@ export default function SearchBar({ onSearch, searchItems, onSelectSuggest }) {
           )}
         </ul>
       ) : null,
-    [searchItems, debouncedSearchValue]
+    [debouncedSearchValue, cachedSearchItems, isSearchInFocus]
   );
 
   const handleSuggestsOpen = (event) => {

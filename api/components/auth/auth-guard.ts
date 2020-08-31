@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { injectable } from "tsyringe";
+import { injectable, inject } from "tsyringe";
 
-import { TOKEN_NAME, ONE_DAY } from "../../constants";
+import { IConfig } from "../config";
 
 export interface IAuthGuard {
   sign: (body: any) => any;
@@ -18,8 +18,8 @@ class AuthGuard implements IAuthGuard {
   cookieClaimsOptions: any;
   JWTSecret: string;
 
-  constructor() {
-    this.cookieClaimsOptions = { maxAge: ONE_DAY };
+  constructor(@inject("IConfig") private config: IConfig) {
+    this.cookieClaimsOptions = { maxAge: this.config.SESSION_LIFETIME };
     this.JWTTokenOptions = {
       expiresIn: "24h",
     };
@@ -35,8 +35,8 @@ class AuthGuard implements IAuthGuard {
   }
 
   isAuthenticated = (req, res, next) => {
-    const token = req.cookies[TOKEN_NAME];
-
+    const token = req.cookies[this.config.TOKEN_NAME];
+    
     if (token) {
       try {
         req.user = this.decode(token);
@@ -51,7 +51,7 @@ class AuthGuard implements IAuthGuard {
 
   setClaims(res, claims) {
     const token = this.sign(claims);
-    res.cookie(TOKEN_NAME, token, this.cookieClaimsOptions);
+    res.cookie(this.config.TOKEN_NAME, token, this.cookieClaimsOptions);
   }
 
   handleAuthorized(res, user) {
@@ -61,7 +61,7 @@ class AuthGuard implements IAuthGuard {
   }
 
   handleUnauthorized(res, reason = "because", status = 401) {
-    res.clearCookie(TOKEN_NAME);
+    res.clearCookie(this.config.TOKEN_NAME);
     res.status(status).json({ authorized: false, reason });
   }
 }
