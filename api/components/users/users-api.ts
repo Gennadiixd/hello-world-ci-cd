@@ -7,7 +7,7 @@ import UsersService from "./users-service";
 import DBConnection from "../../connection";
 import UsersRepository from "./users-repository";
 import AuthGuard from "../auth/auth-guard";
-import Config from "../config/index";
+import configRegistry from "../config/config-registry";
 
 container.register("IUsersService", {
   useClass: UsersService,
@@ -25,9 +25,7 @@ container.register("IAuthGuard", {
   useClass: AuthGuard,
 });
 
-container.register("IConfig", {
-  useClass: Config,
-});
+configRegistry(container);
 
 const usersRouter = Router();
 const usersController = container.resolve(UsersController);

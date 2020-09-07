@@ -11,7 +11,7 @@ import DBConnection from "../../connection";
 import AuthGuard from "../auth/auth-guard";
 import TGMessenger from "../telegram/tg-messenger";
 import TGTemplater from "../telegram/tg-templater";
-import Config from "../config/index";
+import configRegistry from '../config/config-registry';
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -44,9 +44,7 @@ container.register("ITGTemplater", {
   useClass: TGTemplater,
 });
 
-container.register("IConfig", {
-  useClass: Config,
-});
+configRegistry(container);
 
 const { isAuthenticated } = container.resolve(AuthGuard);
 

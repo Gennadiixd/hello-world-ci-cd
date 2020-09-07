@@ -12,7 +12,7 @@ export interface IProductsRepository {
 
 @injectable()
 @EntityRepository(ProductEntity)
-class ProductsRepository extends Repository<any> {
+class ProductsRepository extends Repository<ProductEntity> {
   constructor(@inject("IDBConnection") private dbConnection: IDBConnection) {
     super();
   }

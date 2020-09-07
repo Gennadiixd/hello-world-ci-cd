@@ -4,7 +4,7 @@ import { container } from "tsyringe";
 import SessionController from "./session-controller";
 import UsersService from "../users/users-service";
 import AuthGuard from "../auth/auth-guard";
-import Config from "../config/index";
+import configRegistry from '../config/config-registry';
 
 container.register("IUsersService", {
   useClass: UsersService,
@@ -14,9 +14,7 @@ container.register("IAuthGuard", {
   useClass: AuthGuard,
 });
 
-container.register("IConfig", {
-  useClass: Config,
-});
+configRegistry(container);
 
 const sessionRouter = Router();
 
