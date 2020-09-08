@@ -14,6 +14,7 @@ app.use(cors());
 import productsRoutes from "./components/products/products-api";
 import usersRoutes from "./components/users/users-api";
 import sessionRoutes from "./components/session/session-api";
+import ordersRoutes from "./components/orders/orders-api";
 
 app.use(morgan("dev"));
 app.use(bodyParser.json());
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/products", productsRoutes);
+app.use("/orders", ordersRoutes);
 app.use("/user", usersRoutes);
 app.use("/session", sessionRoutes);
 

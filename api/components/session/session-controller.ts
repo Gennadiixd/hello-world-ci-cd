@@ -3,7 +3,7 @@ import { Response, Request } from "express";
 
 import { GetUserDTO } from "../users/dto/get-user.dto";
 import { IUsersService } from "../users/users-service";
-import { IAuthGuard } from "../auth/auth-guard";
+import { IAuthGuard } from "../../DAL/auth/auth-guard";
 import { AuthUserDTO } from "../users/dto/auth-user-dto";
 import { IConfig } from "../config";
 

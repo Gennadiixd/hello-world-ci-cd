@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { injectable, inject } from "tsyringe";
 
-import { IConfig } from "../config";
+import { IConfig } from "../../components/config";
 
 export interface IAuthGuard {
   sign: (body: any) => any;
@@ -36,7 +36,7 @@ class AuthGuard implements IAuthGuard {
 
   isAuthenticated = (req, res, next) => {
     const token = req.cookies[this.config.TOKEN_NAME];
-    
+
     if (token) {
       try {
         req.user = this.decode(token);

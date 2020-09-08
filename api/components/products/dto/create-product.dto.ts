@@ -8,7 +8,7 @@ export class CreateProductDTO {
   description: string;
 
   @IsNotEmpty()
-  price: string;
+  price: number;
 
   @IsNotEmpty()
   image: string;
