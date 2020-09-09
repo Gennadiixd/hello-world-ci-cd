@@ -2,7 +2,7 @@ import { injectable, inject } from "tsyringe";
 import axios from "axios";
 
 import { ITGTemplater } from "./tg-templater";
-import { IConfig } from "../config";
+import { IConfig } from "../../components/config";
 
 export interface ITGMessenger {
   sendCheckoutMessage: (any: any) => any;

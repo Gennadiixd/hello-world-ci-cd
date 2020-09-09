@@ -1,5 +1,5 @@
 import OrdersRegistry from "./orders-registry";
-import AuthGuard from "../../DAL/auth/auth-guard";
+import AuthGuard from "../../lib/auth/auth-guard";
 import OrdersController from "./orders.controller";
 
 export default class OrdersDIContainer {

@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { Router } from "express";
 import { container } from "tsyringe";
 import ProductsDIContainer from "./products-di-container";
-import PersistStorage from "../../DAL/persist-storage";
+import PersistStorage from "../../lib/persist-storage";
 
 const { uploadSingleImage } = new PersistStorage();
 

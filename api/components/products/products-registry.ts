@@ -1,8 +1,8 @@
 import ProductsService from "./products-service";
 import ProductsRepository from "./products-repository";
 import DBConnection from "../../connection";
-import TGMessenger from "../telegram/tg-messenger";
-import TGTemplater from "../telegram/tg-templater";
+import TGMessenger from "../../lib/telegram/tg-messenger";
+import TGTemplater from "../../lib/telegram/tg-templater";
 import ConfigRegistry from "../config/config-registry";
 
 export default class ProductsRegistry extends ConfigRegistry {

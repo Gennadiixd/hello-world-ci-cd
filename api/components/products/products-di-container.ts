@@ -1,5 +1,5 @@
 import ProductsRegistry from "./products-registry";
-import AuthGuard from "../../DAL/auth/auth-guard";
+import AuthGuard from "../../lib/auth/auth-guard";
 import ProductsController from "./products.controller";
 
 export default class ProductsDIContainer {

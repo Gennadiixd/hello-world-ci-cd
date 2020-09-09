@@ -33,7 +33,8 @@
   },
   "scripts": {
     "start": "npx knex migrate:latest && knex seed:run && ts-node server.ts",
-    "start:dev": "echo '>>> MIGRATIONS_START' && npx knex migrate:latest && knex seed:run && echo '>>> MIGRATIONS_END' && NODE_ENV=development nodemon server.ts",
+    "start:dev:with-migrations": "echo '>>> MIGRATIONS_START' && npx knex migrate:latest && knex seed:run && echo '>>> MIGRATIONS_END' && NODE_ENV=development nodemon server.ts",
+    "start:dev": "NODE_ENV=development nodemon server.ts",
     "start:dev:local": "NODE_ENV=test nodemon server.ts",
     "tsc": "tsc",
     "migrate": "echo '>>> MIGRATIONS_START' && npx knex migrate:latest && knex seed:run && echo '>>> MIGRATIONS_END'"
