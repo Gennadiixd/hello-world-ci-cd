@@ -2,7 +2,7 @@ import { Repository, EntityRepository } from "typeorm";
 import { injectable, inject } from "tsyringe";
 
 import { UserEntity } from "./user.entity";
-import { IDBConnection } from "../../connection";
+import { IDBConnection } from "../../db/connection";
 
 export interface IUsersRepository {
   getUser: (loginDTO) => any;

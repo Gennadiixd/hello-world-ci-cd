@@ -1,7 +1,7 @@
 import ConfigRegistry from "../config/config-registry";
 import UsersService from "./users-service";
 import UsersRepository from "./users-repository";
-import DBConnection from "../../connection";
+import DBConnection from "../../db/connection";
 import AuthGuard from "../../lib/auth/auth-guard";
 
 export default class UsersRegistry extends ConfigRegistry {

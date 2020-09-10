@@ -1,4 +1,12 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  BaseEntity,
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  JoinColumn,
+} from "typeorm";
+import { OrdersToProductsEntity } from "../junctions/orders_to_products.entity";
 
 @Entity({ name: "products" })
 export class ProductEntity extends BaseEntity {
@@ -22,4 +30,11 @@ export class ProductEntity extends BaseEntity {
 
   @Column()
   category: number;
+
+  @OneToMany(
+    (type) => OrdersToProductsEntity,
+    (ordersToProductsEntity) => ordersToProductsEntity.product
+  )
+  @JoinColumn({ name: "id" })
+  orders_to_products: OrdersToProductsEntity[];
 }

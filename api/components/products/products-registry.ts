@@ -1,6 +1,6 @@
 import ProductsService from "./products-service";
 import ProductsRepository from "./products-repository";
-import DBConnection from "../../connection";
+import DBConnection from "../../db/connection";
 import TGMessenger from "../../lib/telegram/tg-messenger";
 import TGTemplater from "../../lib/telegram/tg-templater";
 import ConfigRegistry from "../config/config-registry";

@@ -2,8 +2,8 @@ import { Repository, EntityRepository, getManager } from "typeorm";
 import { injectable, inject } from "tsyringe";
 
 import { OrderEntity } from "./order.entity";
-import { IDBConnection } from "../../connection";
-import { MapOrdersProductsEntity } from "../mappings/map_orders_products.entity";
+import { IDBConnection } from "../../db/connection";
+import { OrdersToProductsEntity } from "../junctions/orders_to_products.entity";
 
 export interface IOrdersRepository {
   getOrders: (any: any) => any;
@@ -30,7 +30,10 @@ class OrdersRepository extends Repository<OrderEntity> {
 
   async getOrders(getOrdersDTO) {
     const repository = await this.getRepository();
-    const orders = await repository.find(getOrdersDTO.params);
+    const orders = await repository.find({
+      ...getOrdersDTO.params,
+      relations: ["orders_to_products", "orders_to_products.product"],
+    });
     return orders;
   }
 
@@ -55,16 +58,16 @@ class OrdersRepository extends Repository<OrderEntity> {
 
     await order.save();
 
-    const map_orders_products = products_ids.map(({ productsQuantity, id }) => {
-      const map_order_product = new MapOrdersProductsEntity();
-      map_order_product.product_id = id;
-      map_order_product.order_id = order.id;
-      map_order_product.products_quantity = productsQuantity;
-      return map_order_product;
+    const orders_to_products = products_ids.map(({ productsQuantity, id }) => {
+      const order_to_product = new OrdersToProductsEntity();
+      order_to_product.product_id = id;
+      order_to_product.order_id = order.id;
+      order_to_product.products_quantity = productsQuantity;
+      return order_to_product;
     });
 
     await getManager().transaction(async (transactionalEntityManager) => {
-      await transactionalEntityManager.save(map_orders_products);
+      await transactionalEntityManager.save(orders_to_products);
     });
 
     return order;

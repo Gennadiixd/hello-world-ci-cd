@@ -23,7 +23,6 @@ class UsersService implements IUsersService {
 
       if (compareSync(password, user.password)) {
         delete user.password;
-
         return user;
       }
 

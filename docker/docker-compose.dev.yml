@@ -63,6 +63,7 @@ services:
       - ./../tmp/images:/api/public/images
     working_dir: /api
     entrypoint: /bin/sh -c "npm i && npm run start:dev"
+    # entrypoint: /bin/sh -c "npm i && npm run start:dev:with-migrations"
     ports:
       - "3000:3000"
   db:

@@ -1,7 +1,7 @@
 import * as Knex from "knex";
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTableIfNotExists("map_orders_products", function (
+  return knex.schema.createTableIfNotExists("orders_to_products", function (
     table
   ) {
     table.primary(["order_id", "product_id"]);
@@ -10,10 +10,10 @@ export async function up(knex: Knex): Promise<void> {
     table.integer("product_id");
     table.foreign("product_id").references("products.id");
     table.integer("products_quantity");
-    // table.integer("product_price");
+    table.integer("product_price");
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTable("map_orders_products");
+  return knex.schema.dropTable("orders_to_products");
 }
