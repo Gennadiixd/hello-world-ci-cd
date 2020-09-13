@@ -5,7 +5,8 @@ import { IUsersRepository } from "./users-repository";
 
 export interface IUsersService {
   authenticateUser: (any) => any;
-  findUserByName: (any) => any;
+  getUser: (any) => any;
+  createUser: (any) => any;
 }
 
 @injectable()
@@ -32,12 +33,16 @@ class UsersService implements IUsersService {
     }
   }
 
-  async findUserByName(name) {
+  async getUser(getUserDTO) {
     try {
-      return this.usersRepository.getUser(name);
+      return this.usersRepository.getUser(getUserDTO);
     } catch (error) {
       throw new Error(error?.message + " db request problem");
     }
+  }
+
+  async createUser(createUserDTO) {
+    return this.usersRepository.createUser(createUserDTO);
   }
 }
 

@@ -3,7 +3,7 @@ import { injectable, inject } from "tsyringe";
 
 import { OrderEntity } from "./order.entity";
 import { IDBConnection } from "../../db/connection";
-import { OrdersToProductsEntity } from "../junctions/orders_to_products.entity";
+import { OrderToProductsEntity } from "../junctions/order_to_products.entity";
 
 export interface IOrdersRepository {
   getOrders: (any: any) => any;
@@ -32,7 +32,7 @@ class OrdersRepository extends Repository<OrderEntity> {
     const repository = await this.getRepository();
     const orders = await repository.find({
       ...getOrdersDTO.params,
-      relations: ["orders_to_products", "orders_to_products.product"],
+      relations: ["order_to_products", "order_to_products.product"],
     });
     return orders;
   }
@@ -47,7 +47,7 @@ class OrdersRepository extends Repository<OrderEntity> {
       user_id,
       total_products_count,
       total_price,
-      products_ids,
+      products,
     } = createOrderDTO;
 
     const order = new OrderEntity();
@@ -58,16 +58,16 @@ class OrdersRepository extends Repository<OrderEntity> {
 
     await order.save();
 
-    const orders_to_products = products_ids.map(({ productsQuantity, id }) => {
-      const order_to_product = new OrdersToProductsEntity();
+    const order_to_products = products.map(({ productQuantity, id }) => {
+      const order_to_product = new OrderToProductsEntity();
       order_to_product.product_id = id;
       order_to_product.order_id = order.id;
-      order_to_product.products_quantity = productsQuantity;
+      order_to_product.product_quantity = productQuantity;
       return order_to_product;
     });
 
     await getManager().transaction(async (transactionalEntityManager) => {
-      await transactionalEntityManager.save(orders_to_products);
+      await transactionalEntityManager.save(order_to_products);
     });
 
     return order;

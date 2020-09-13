@@ -1,10 +1,13 @@
-import { IsNotEmpty } from "class-validator";
+import GetEntityDTO from "../../../lib/dto-proto/get-entity-dto";
 
-export class GetUserDTO {
-  @IsNotEmpty()
+export class GetUserDTO extends GetEntityDTO {
   name: string;
 
-  constructor({ name }) {
+  id: number;
+
+  constructor({ name, id }) {
+    super();
     this.name = name;
+    this.id = id;
   }
 }

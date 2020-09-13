@@ -6,9 +6,12 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
-import { OrdersToProductsEntity } from "../junctions/orders_to_products.entity";
+import { OrderToProductsEntity } from "../junctions/order_to_products.entity";
 import { ProductEntity } from "../products/product.entity";
+import { UserEntity } from "../users/user.entity";
 
 @Entity({ name: "orders" })
 export class OrderEntity extends BaseEntity {
@@ -26,7 +29,7 @@ export class OrderEntity extends BaseEntity {
 
   @ManyToMany((type) => ProductEntity, (productEntity) => productEntity.id)
   @JoinTable({
-    name: "orders_to_products",
+    name: "order_to_products",
     joinColumn: {
       name: "order_id",
       referencedColumnName: "id",
@@ -39,8 +42,12 @@ export class OrderEntity extends BaseEntity {
   products: ProductEntity[];
 
   @OneToMany(
-    (type) => OrdersToProductsEntity,
-    (ordersToProductsEntity) => ordersToProductsEntity.order
+    (type) => OrderToProductsEntity,
+    (orderToProductsEntity) => orderToProductsEntity.order
   )
-  orders_to_products: OrdersToProductsEntity[];
+  order_to_products: OrderToProductsEntity[];
+
+  @OneToOne((type) => UserEntity, { eager: true })
+  @JoinColumn({ name: "user_id" })
+  user: UserEntity;
 }

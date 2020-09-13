@@ -24,7 +24,7 @@ app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/products", productsRoutes);
 app.use("/orders", ordersRoutes);
-app.use("/user", usersRoutes);
+app.use("/users", usersRoutes);
 app.use("/session", sessionRoutes);
 
 export default app;

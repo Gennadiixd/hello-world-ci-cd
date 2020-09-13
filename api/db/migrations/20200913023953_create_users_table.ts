@@ -6,6 +6,8 @@ export async function up(knex: Knex): Promise<void> {
     table.string("name").unique();
     table.string("password");
     table.string("role");
+    table.integer("address_id").references("addresses.id");
+    table.integer("contact_id").references("contacts.id");
   });
 }
 

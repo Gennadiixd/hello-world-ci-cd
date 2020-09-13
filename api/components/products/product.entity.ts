@@ -6,7 +6,7 @@ import {
   OneToMany,
   JoinColumn,
 } from "typeorm";
-import { OrdersToProductsEntity } from "../junctions/orders_to_products.entity";
+import { OrderToProductsEntity } from "../junctions/order_to_products.entity";
 
 @Entity({ name: "products" })
 export class ProductEntity extends BaseEntity {
@@ -32,9 +32,9 @@ export class ProductEntity extends BaseEntity {
   category: number;
 
   @OneToMany(
-    (type) => OrdersToProductsEntity,
-    (ordersToProductsEntity) => ordersToProductsEntity.product
+    (type) => OrderToProductsEntity,
+    (orderToProductsEntity) => orderToProductsEntity.product
   )
   @JoinColumn({ name: "id" })
-  orders_to_products: OrdersToProductsEntity[];
+  order_to_products: OrderToProductsEntity[];
 }

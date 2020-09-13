@@ -31,7 +31,7 @@ class SessionController implements ISessionController {
     try {
       const claims = this.authGuard.decode(token);
       const getUserDTO = new GetUserDTO(claims);
-      const user = await this.usersService.findUserByName(getUserDTO.name);
+      const user = await this.usersService.getUser(getUserDTO);
 
       this.authGuard.handleAuthorized(res, user);
     } catch (error) {

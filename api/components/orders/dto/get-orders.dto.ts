@@ -1,8 +1,6 @@
-import { IsNotEmpty } from "class-validator";
 import GetEntityDTO from "../../../lib/dto-proto/get-entity-dto";
 
 export class GetOrdersDTO extends GetEntityDTO {
-  @IsNotEmpty()
   where: any;
 
   constructor({ userId }) {
