@@ -4,7 +4,6 @@ export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTableIfNotExists("addresses", function (table) {
     table.increments('id').primary();
     table.string("city");
-    table.string("street");
     table.string("index");
     table.string("street_name");
     table.string("home_number");

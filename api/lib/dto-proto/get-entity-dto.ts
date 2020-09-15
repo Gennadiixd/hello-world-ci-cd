@@ -1,4 +1,8 @@
-export default class GetEntityDTO {
+export interface IGetEntityDTO {
+  params: Object;
+}
+
+export default class GetEntityDTO implements IGetEntityDTO {
   get params() {
     return Object.keys(this).reduce((accum, param) => {
       const currentParam = this[param];

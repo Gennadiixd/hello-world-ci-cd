@@ -1,6 +1,10 @@
-export class AuthUserDTO {
+export interface IAuthUserDTO {
   name: string;
+  password: string;
+}
 
+export class AuthUserDTO implements IAuthUserDTO {
+  name: string;
   password: string;
 
   constructor({ name, password }) {

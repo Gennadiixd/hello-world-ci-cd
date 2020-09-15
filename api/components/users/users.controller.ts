@@ -3,7 +3,6 @@ import { IUsersService } from "./users-service";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { Response, Request } from "express";
 import { GetUserDTO } from "./dto/get-user.dto";
-import { validationResult } from "express-validator";
 import ControllerProto from "../../lib/controller-proto/index";
 
 export interface IUsersController {
@@ -22,14 +21,16 @@ class UsersController extends ControllerProto implements IUsersController {
   updateUser = async () => {};
 
   createUser = async (req: Request, res: Response) => {
+    if (this.validationHook(req, res)) return;
+
     const createUserDTO = new CreateUserDTO(req.body);
     const user = await this.usersService.createUser(createUserDTO);
     res.json({ user });
   };
 
   getUser = async (req: Request, res: Response) => {
-    this.validationHook(req, res);
-    
+    if (this.validationHook(req, res)) return;
+
     const getUserDTO = new GetUserDTO(req.body);
     const user = await this.usersService.getUser(getUserDTO);
     res.json({ user });

@@ -11,8 +11,6 @@ export async function up(knex: Knex): Promise<void> {
     table.foreign("product_id").references("products.id");
     table.integer("product_quantity");
     table.integer("product_price");
-    table.integer("customer_contact_id").references("contacts.id");
-    table.integer("customer_address_id").references("addresses.id");
   });
 }
 

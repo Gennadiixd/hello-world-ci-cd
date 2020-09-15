@@ -4,6 +4,7 @@ import { container } from "tsyringe";
 
 import UsersDIContainer from "./users-di-container";
 import getUserValidation from "./validations/get-user";
+import createUserValidation from "./validations/create-user";
 
 const usersDIContainer = new UsersDIContainer(container);
 
@@ -15,8 +16,8 @@ const {
   getUser,
 } = usersDIContainer.resolveUsersController();
 
-usersRouter.post("/", createUser);
-usersRouter.get("/", getUserValidation(), getUser);
+usersRouter.post("/", createUserValidation, createUser);
+usersRouter.get("/", getUserValidation, getUser);
 usersRouter.patch("/", updateUser);
 usersRouter.delete("/", deleteUser);
 
