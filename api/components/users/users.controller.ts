@@ -1,9 +1,10 @@
 import { injectable, inject } from "tsyringe";
 import { IUsersService } from "./users-service";
-import { CreateUserDTO } from "./dto/create-user.dto";
+import { CreateUserDTO, ICreateUserDTO } from "./dto/create-user.dto";
 import { Response, Request } from "express";
-import { GetUserDTO } from "./dto/get-user.dto";
+import { GetUserDTO, IGetUserDTO } from "./dto/get-user.dto";
 import ControllerProto from "../../lib/controller-proto/index";
+import { UserEntity } from "./user.entity";
 
 export interface IUsersController {
   deleteUser: (req: Request, res: Response) => void;
@@ -23,17 +24,27 @@ class UsersController extends ControllerProto implements IUsersController {
   createUser = async (req: Request, res: Response) => {
     if (this.validationHook(req, res)) return;
 
-    const createUserDTO = new CreateUserDTO(req.body);
-    const user = await this.usersService.createUser(createUserDTO);
-    res.json({ user });
+    try {
+      const createUserDTO: ICreateUserDTO = new CreateUserDTO(req.body);
+      const user: UserEntity = await this.usersService.createUser(
+        createUserDTO
+      );
+      res.json({ user });
+    } catch (error) {
+      res.json(error.message);
+    }
   };
 
   getUser = async (req: Request, res: Response) => {
     if (this.validationHook(req, res)) return;
 
-    const getUserDTO = new GetUserDTO(req.body);
-    const user = await this.usersService.getUser(getUserDTO);
-    res.json({ user });
+    try {
+      const getUserDTO: IGetUserDTO = new GetUserDTO(req.body);
+      const user: UserEntity = await this.usersService.getUser(getUserDTO);
+      res.json({ user });
+    } catch (error) {
+      res.json(error.message);
+    }
   };
 }
 
