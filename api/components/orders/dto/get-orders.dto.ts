@@ -1,6 +1,10 @@
 import GetEntityDTO from "../../../lib/dto-proto/get-entity-dto";
 
-export class GetOrdersDTO extends GetEntityDTO {
+export interface IGetOrdersDTO extends GetEntityDTO {
+  where?: number;
+}
+
+export class GetOrdersDTO extends GetEntityDTO implements IGetOrdersDTO {
   where: any;
 
   constructor({ userId }) {

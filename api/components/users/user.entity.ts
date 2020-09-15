@@ -37,9 +37,6 @@ export class UserEntity extends BaseEntity {
   @Column()
   address_id: number;
 
-  @Column()
-  contact_id: number;
-
   @OneToOne((type) => AddressEntity, { eager: true })
   @JoinColumn({ name: "address_id" })
   address: AddressEntity;

@@ -2,11 +2,15 @@ import { injectable, inject } from "tsyringe";
 import { compareSync } from "bcrypt";
 
 import { IUsersRepository } from "./users-repository";
+import { IAuthUserDTO } from "./dto/auth-user-dto";
+import { UserEntity } from "./user.entity";
+import { GetUserDTO, IGetUserDTO } from "./dto/get-user.dto";
+import { ICreateUserDTO } from "./dto/create-user.dto";
 
 export interface IUsersService {
-  authenticateUser: (any) => any;
-  getUser: (any) => any;
-  createUser: (any) => any;
+  authenticateUser: (authUserDTO: IAuthUserDTO) => Promise<UserEntity>;
+  getUser: (getUserDTO: IGetUserDTO) => Promise<UserEntity>;
+  createUser: (createUserDTO: ICreateUserDTO) => Promise<UserEntity>;
 }
 
 @injectable()
@@ -16,11 +20,12 @@ class UsersService implements IUsersService {
     public usersRepository: IUsersRepository
   ) {}
 
-  async authenticateUser(authUserDTO) {
+  async authenticateUser(authUserDTO: IAuthUserDTO): Promise<UserEntity> {
     const { name, password } = authUserDTO;
+    const getUserDTO: IGetUserDTO = new GetUserDTO({ name });
 
     try {
-      const user = await this.usersRepository.getUser(name);
+      const user: UserEntity = await this.usersRepository.getUser(getUserDTO);
 
       if (compareSync(password, user.password)) {
         delete user.password;
@@ -33,7 +38,7 @@ class UsersService implements IUsersService {
     }
   }
 
-  async getUser(getUserDTO) {
+  async getUser(getUserDTO: IGetUserDTO): Promise<UserEntity> {
     try {
       return this.usersRepository.getUser(getUserDTO);
     } catch (error) {
@@ -41,7 +46,7 @@ class UsersService implements IUsersService {
     }
   }
 
-  async createUser(createUserDTO) {
+  async createUser(createUserDTO: ICreateUserDTO): Promise<UserEntity> {
     return this.usersRepository.createUser(createUserDTO);
   }
 }

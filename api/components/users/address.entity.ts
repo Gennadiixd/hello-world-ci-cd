@@ -16,9 +16,6 @@ export class AddressEntity extends BaseEntity {
   city: string;
 
   @Column()
-  street: string;
-
-  @Column()
   index: string;
 
   @Column()

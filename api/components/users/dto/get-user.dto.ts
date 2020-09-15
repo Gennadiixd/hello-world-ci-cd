@@ -8,10 +8,10 @@ export interface IGetUserDTO extends IGetEntityDTO {
 }
 
 export class GetUserDTO extends GetEntityDTO implements IGetUserDTO {
-  name: string;
-  id: number;
+  name?: string;
+  id?: number;
 
-  constructor({ name, id }) {
+  constructor({ name = undefined, id = undefined }) {
     super();
     this.name = name;
     this.id = id;

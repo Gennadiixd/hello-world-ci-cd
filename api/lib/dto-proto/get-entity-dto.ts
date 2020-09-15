@@ -1,5 +1,5 @@
 export interface IGetEntityDTO {
-  params: Object;
+  params: object;
 }
 
 export default class GetEntityDTO implements IGetEntityDTO {

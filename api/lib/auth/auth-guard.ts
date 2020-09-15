@@ -1,21 +1,29 @@
 import jwt from "jsonwebtoken";
 import { injectable, inject } from "tsyringe";
+import { Response, Request, NextFunction } from "express";
 
 import { IConfig } from "../../components/config";
+import { UserEntity } from "../../components/users/user.entity";
 
 export interface IAuthGuard {
-  sign: (body: any) => any;
+  sign: (payload: object) => string;
   isAuthenticated: (req: any, res: any, next: any) => void;
-  decode: (token: string) => any;
-  setClaims: (res: any, claims: any) => void;
-  handleUnauthorized: (res: any, reason: any, status?: any) => void;
-  handleAuthorized: (res: any, user: any) => void;
+  decode: (token: string) => IClaims;
+  setClaims: (res: Response, claims: IClaims) => void;
+  handleUnauthorized: (res: Response, reason?: string, status?: number) => void;
+  handleAuthorized: (res: Response, user: UserEntity) => void;
+}
+
+interface IClaims {
+  id: number;
+  role: string;
+  name: string;
 }
 
 @injectable()
 class AuthGuard implements IAuthGuard {
-  JWTTokenOptions: any;
-  cookieClaimsOptions: any;
+  JWTTokenOptions: object;
+  cookieClaimsOptions: object;
   JWTSecret: string;
 
   constructor(@inject("IConfig") private config: IConfig) {
@@ -26,20 +34,34 @@ class AuthGuard implements IAuthGuard {
     this.JWTSecret = process.env.JWT_SECRET;
   }
 
-  sign(body) {
-    return jwt.sign({ ...body }, this.JWTSecret, this.JWTTokenOptions);
+  sign(payload: IClaims): string {
+    return jwt.sign(payload, this.JWTSecret, this.JWTTokenOptions);
   }
 
-  decode(claims) {
-    return jwt.verify(claims, this.JWTSecret);
+  decode(token: string): IClaims {
+    // TODO: research about types, looks like hack
+    let decoded: any = jwt.verify(token, this.JWTSecret);
+
+    if (typeof decoded === "string") {
+      decoded = JSON.parse(decoded);
+    }
+    
+    const {
+      id,
+      role,
+      name,
+    }: { id: number; role: string; name: string } = decoded;
+    const claims: IClaims = { id, role, name };
+
+    return claims;
   }
 
-  isAuthenticated = (req, res, next) => {
-    const token = req.cookies[this.config.TOKEN_NAME];
+  isAuthenticated = (req: Request, res: Response, next: NextFunction): void => {
+    const token: string = req.cookies[this.config.TOKEN_NAME];
 
     if (token) {
       try {
-        req.user = this.decode(token);
+        res.locals.user = this.decode(token);
         next();
       } catch (error) {
         this.handleUnauthorized(res, "token is invalid");
@@ -49,18 +71,22 @@ class AuthGuard implements IAuthGuard {
     }
   };
 
-  setClaims(res, claims) {
-    const token = this.sign(claims);
+  setClaims(res: Response, claims: IClaims): void {
+    const token: string = this.sign(claims);
     res.cookie(this.config.TOKEN_NAME, token, this.cookieClaimsOptions);
   }
 
-  handleAuthorized(res, user) {
+  handleAuthorized(res: Response, user: UserEntity): void {
     const { id, role, name } = user;
     this.setClaims(res, { id, role, name });
     res.status(200).json({ authorized: true, ...user });
   }
 
-  handleUnauthorized(res, reason = "because", status = 401) {
+  handleUnauthorized(
+    res: Response,
+    reason: string = "because",
+    status: number = 401
+  ): void {
     res.clearCookie(this.config.TOKEN_NAME);
     res.status(status).json({ authorized: false, reason });
   }

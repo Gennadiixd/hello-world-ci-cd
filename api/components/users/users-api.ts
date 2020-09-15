@@ -6,7 +6,7 @@ import UsersDIContainer from "./users-di-container";
 import getUserValidation from "./validations/get-user";
 import createUserValidation from "./validations/create-user";
 
-const usersDIContainer = new UsersDIContainer(container);
+const usersDIContainer: UsersDIContainer = new UsersDIContainer(container);
 
 const usersRouter = Router();
 const {

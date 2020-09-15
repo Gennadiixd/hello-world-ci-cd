@@ -7,9 +7,10 @@ import ControllerProto from "../../lib/controller-proto/index";
 import { UserEntity } from "./user.entity";
 
 export interface IUsersController {
-  deleteUser: (req: Request, res: Response) => void;
-  updateUser: (req: Request, res: Response) => void;
-  createUser: (req: Request, res: Response) => void;
+  deleteUser: (req: Request, res: Response) => Promise<void>;
+  updateUser: (req: Request, res: Response) => Promise<void>;
+  createUser: (req: Request, res: Response) => Promise<void>;
+  getUser: (req: Request, res: Response) => Promise<void>;
 }
 
 @injectable()
@@ -21,7 +22,7 @@ class UsersController extends ControllerProto implements IUsersController {
   deleteUser = async () => {};
   updateUser = async () => {};
 
-  createUser = async (req: Request, res: Response) => {
+  createUser = async (req: Request, res: Response): Promise<void> => {
     if (this.validationHook(req, res)) return;
 
     try {
@@ -35,7 +36,7 @@ class UsersController extends ControllerProto implements IUsersController {
     }
   };
 
-  getUser = async (req: Request, res: Response) => {
+  getUser = async (req: Request, res: Response): Promise<void> => {
     if (this.validationHook(req, res)) return;
 
     try {

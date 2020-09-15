@@ -1,6 +1,8 @@
+import { IAuthGuard } from "./../../lib/auth/auth-guard";
 import OrdersRegistry from "./orders-registry";
 import AuthGuard from "../../lib/auth/auth-guard";
 import OrdersController from "./orders.controller";
+import { IOrdersController } from "./orders.controller";
 
 export default class OrdersDIContainer {
   registry;
@@ -11,11 +13,11 @@ export default class OrdersDIContainer {
     this.registry.registerDependencies();
   }
 
-  resolveAuthGuard() {
+  resolveAuthGuard(): IAuthGuard {
     return this.container.resolve(AuthGuard);
   }
 
-  resolveOrdersController() {
+  resolveOrdersController(): IOrdersController {
     return this.container.resolve(OrdersController);
   }
 }

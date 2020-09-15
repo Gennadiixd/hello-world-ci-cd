@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { container } from "tsyringe";
 import SessionDIContainer from "./session-di-container";
+import createSessionValidation from "./validation/create-session-validation";
 
 const sessionDIContainer = new SessionDIContainer(container);
 
@@ -13,7 +14,7 @@ const {
 } = sessionDIContainer.resolveSessionController();
 
 sessionRouter.get("/", getSession);
-sessionRouter.post("/", createSession);
+sessionRouter.post("/", createSessionValidation, createSession);
 sessionRouter.delete("/", destroySession);
 
 export default sessionRouter;

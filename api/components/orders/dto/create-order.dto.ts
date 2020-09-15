@@ -1,10 +1,14 @@
-export class CreateOrderDTO {
+export interface ICreateOrderDTO {
   user_id: number;
-
   total_products_count: number;
-
   total_price: number;
+  products: Array<any>;
+}
 
+export class CreateOrderDTO implements ICreateOrderDTO {
+  user_id: number;
+  total_products_count: number;
+  total_price: number;
   products: Array<any>;
 
   constructor({ userId, totalProductsCount, totalPrice, products }) {

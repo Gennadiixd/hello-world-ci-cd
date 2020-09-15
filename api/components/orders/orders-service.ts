@@ -1,11 +1,14 @@
 import { injectable, inject } from "tsyringe";
 
 import { IOrdersRepository } from "./orders-repository";
+import { OrderEntity } from "./order.entity";
+import { IGetOrdersDTO } from "./dto/get-orders.dto";
+import { ICreateOrderDTO } from "./dto/create-order.dto";
 
 export interface IOrdersService {
-  getOrders: (any: any) => any;
-  getOrder: (any: any) => any;
-  createOrder: (any: any) => any;
+  getOrders: (getOrdersDTO: IGetOrdersDTO) => Promise<Array<OrderEntity>>;
+  getOrder: (id: number) => Promise<OrderEntity>;
+  createOrder: (createOrderDTO: ICreateOrderDTO) => Promise<OrderEntity>;
 }
 
 @injectable()
@@ -15,15 +18,15 @@ class OrdersService implements IOrdersService {
     public ordersRepository: IOrdersRepository
   ) {}
 
-  getOrders(getOrdersDTO) {
+  async getOrders(getOrdersDTO: IGetOrdersDTO): Promise<Array<OrderEntity>> {
     return this.ordersRepository.getOrders(getOrdersDTO);
   }
 
-  getOrder(id) {
+  getOrder(id: number): Promise<OrderEntity> {
     return this.ordersRepository.getOrder(id);
   }
 
-  createOrder(createOrderDTO) {
+  createOrder(createOrderDTO: ICreateOrderDTO): Promise<OrderEntity> {
     return this.ordersRepository.createOrder(createOrderDTO);
   }
 }

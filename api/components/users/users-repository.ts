@@ -27,7 +27,7 @@ class UsersRepository
   }
 
   async getUser(getUserDTO: IGetUserDTO): Promise<UserEntity> {
-    const repository = await this.getRepository();
+    const repository: Repository<UserEntity> = await this.getRepository();
     const user: UserEntity = await repository.findOne(getUserDTO.params);
 
     return user;
