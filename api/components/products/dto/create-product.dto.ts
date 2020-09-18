@@ -1,16 +1,10 @@
-import { IsNotEmpty } from "class-validator";
-
 export class CreateProductDTO {
-  @IsNotEmpty()
   title: string;
 
-  @IsNotEmpty()
   description: string;
 
-  @IsNotEmpty()
-  price: string;
+  price: number;
 
-  @IsNotEmpty()
   image: string;
 
   constructor({ title, description, price, filename }) {

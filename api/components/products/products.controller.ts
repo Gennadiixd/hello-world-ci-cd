@@ -4,7 +4,7 @@ import { Response, Request } from "express";
 import { IProductsService } from "./products-service";
 import { CreateProductDTO } from "./dto/create-product.dto";
 import { GetProductsDTO } from "./dto/get-products.dto";
-import { ITGMessenger } from "../telegram/tg-messenger";
+import { ITGMessenger } from "../../lib/telegram/tg-messenger";
 
 export interface IProductsController {
   getProducts: (_: any, res: Response) => void;

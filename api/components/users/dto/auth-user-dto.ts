@@ -1,10 +1,10 @@
-import { IsNotEmpty } from "class-validator";
-
-export class AuthUserDTO {
-  @IsNotEmpty()
+export interface IAuthUserDTO {
   name: string;
+  password: string;
+}
 
-  @IsNotEmpty()
+export class AuthUserDTO implements IAuthUserDTO {
+  name: string;
   password: string;
 
   constructor({ name, password }) {

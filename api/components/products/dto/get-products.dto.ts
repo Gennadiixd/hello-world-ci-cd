@@ -1,6 +1,7 @@
 import { Like } from "typeorm";
+import GetEntityDTO from "../../../lib/dto-proto/get-entity-dto";
 
-export class GetProductsDTO {
+export class GetProductsDTO extends GetEntityDTO {
   skip: number;
 
   take: number;
@@ -10,17 +11,10 @@ export class GetProductsDTO {
   order: object;
 
   constructor({ skip, take, title, order, orderBy }) {
+    super();
     this.skip = skip;
     this.take = take;
     this.title = title ? Like(`%${title}%`) : undefined;
     this.order = orderBy ? { [orderBy]: order } : undefined;
-  }
-
-  get params() {
-    return Object.keys(this).reduce((accum, param) => {
-      const currentParam = this[param];
-      if (currentParam) accum[param] = currentParam;
-      return accum;
-    }, {});
   }
 }

@@ -17,7 +17,7 @@ export default class ProductsService extends HttpService {
     return data;
   }
 
-  createProduct(productData): Promise<{ data: any }> {
+  async createProduct(productData): Promise<{ data: any }> {
     return this.post("products", productData);
   }
 

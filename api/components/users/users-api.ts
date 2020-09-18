@@ -2,38 +2,23 @@ import "reflect-metadata";
 import { Router } from "express";
 import { container } from "tsyringe";
 
-import UsersController from "./users.controller";
-import UsersService from "./users-service";
-import DBConnection from "../../connection";
-import UsersRepository from "./users-repository";
-import AuthGuard from "../auth/auth-guard";
-import Config from "../config/index";
+import UsersDIContainer from "./users-di-container";
+import getUserValidation from "./validations/get-user";
+import createUserValidation from "./validations/create-user";
 
-container.register("IUsersService", {
-  useClass: UsersService,
-});
-
-container.register("IUsersRepository", {
-  useClass: UsersRepository,
-});
-
-container.register("IDBConnection", {
-  useClass: DBConnection,
-});
-
-container.register("IAuthGuard", {
-  useClass: AuthGuard,
-});
-
-container.register("IConfig", {
-  useClass: Config,
-});
+const usersDIContainer: UsersDIContainer = new UsersDIContainer(container);
 
 const usersRouter = Router();
-const usersController = container.resolve(UsersController);
+const {
+  createUser,
+  updateUser,
+  deleteUser,
+  getUser,
+} = usersDIContainer.resolveUsersController();
 
-usersRouter.post("/", usersController.createUser);
-usersRouter.patch("/", usersController.updateUser);
-usersRouter.delete("/", usersController.deleteUser);
+usersRouter.post("/", createUserValidation, createUser);
+usersRouter.get("/", getUserValidation, getUser);
+usersRouter.patch("/", updateUser);
+usersRouter.delete("/", deleteUser);
 
 export default usersRouter;

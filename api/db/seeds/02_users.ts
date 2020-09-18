@@ -11,16 +11,19 @@ export async function seed(knex: Knex): Promise<void> {
       name: "userOne",
       password: hashSync("1234", SALT_ROUNDS),
       role: "customer",
+      email: "userOne@mail.com"
     },
     {
       name: "admin",
       password: hashSync("1234", SALT_ROUNDS),
       role: "admin",
+      email: "admin@mail.com"
     },
     {
       name: "www",
       password: hashSync("www", SALT_ROUNDS),
       role: "admin",
+      email: "www@mail.com"
     },
   ]);
 }
