@@ -1,3 +1,4 @@
+// TODO: remove if will not use
 import { body } from "express-validator";
 
 const VALIDATION_FIELDS_MAP = {
