@@ -1,10 +1,14 @@
 @import "variables";
 @import "mixins";
 
-footer.main__footer {
+.footer {
   border: none;
-  background-color: #424242;
-  color: #bdbdbd;
+  background-color: #d3cec4;
+  color: #27241d;
 
   margin-top: auto;
+
+  &__content {
+    padding: 15px;
+  }
 }

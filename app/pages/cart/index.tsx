@@ -1,3 +1,3 @@
-import CartPage from "@/views/cart";
+import CartPage from "@/modules/cart";
 
 export default CartPage;

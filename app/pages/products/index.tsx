@@ -1,4 +1,4 @@
-import ProductsPage, { getServerSideProps } from "../../views/products";
+import ProductsPage, { getServerSideProps } from "../../modules/products";
 
 export default ProductsPage;
 export { getServerSideProps };

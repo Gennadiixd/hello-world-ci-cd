@@ -4,31 +4,37 @@ module.exports = withTypescript();
 const withSass = require("@zeit/next-sass");
 module.exports = withSass({});
 
-const withReactSvg = require("next-react-svg");
-const path = require("path");
+// const withReactSvg = require("next-react-svg");
+// const path = require("path");
 
-module.exports = withReactSvg({
-  include: path.resolve(__dirname, "assets/icons"),
-  webpack(config, options) {
-    return config;
-  },
-});
+// const withImages = require("next-images");
+// module.exports = withImages({
+//   esModule: true,
+//   webpack(config, options) {
+//     return config;
+//   },
+// });
+
+// module.exports = withReactSvg({
+//   include: path.resolve(__dirname, "assets/icons"),
+//   webpack(config, options) {
+//     return config;
+//   },
+// });
 
 module.exports = {
-  webpack: config => {
-    config.module.rules.push(
-      {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            outputPath: 'static/webfonts/',
-            publicPath: '../webfonts/',
-            name: '[name].[ext]',
-          },
-        ],
-      },
-    );
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      use: [
+        {
+          loader: "file-loader",
+          outputPath: "static/webfonts/",
+          publicPath: "../webfonts/",
+          name: "[name].[ext]",
+        },
+      ],
+    });
     return config;
   },
 };

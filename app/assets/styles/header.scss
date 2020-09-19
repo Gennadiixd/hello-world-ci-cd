@@ -1,18 +1,91 @@
 @import "variables";
 @import "mixins";
 
-header.main__header {
+.header {
   display: flex;
-  flex-direction: column;
   align-items: flex-end;
-  background-color: $silver-background;
+  background-color: $warm-grey900;
+  margin-bottom: 20px;
 
-  .page__title {
-    padding: 10px;
-    color: $fade-black;
+  &__content {
+    height: 80%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    padding-right: 30px;
+  }
+
+  &__cart {
+    a {
+      color: $warm-grey100;
+      font-size: $accent-text-size;
+      text-decoration: none;
+
+      &.--active,
+      :hover {
+        p {
+          color: $warm-grey100;
+          border-bottom: 2px solid $red600;
+        }
+      }
+    }
+
+    .cart {
+      display: flex;
+      p {
+        padding: 3px 10px 5px 3px;
+      }
+    }
+  }
+
+  .logo {
+    &__container {
+      display: flex;
+      padding-left: 30px;
+    }
+
+    &__image {
+      max-height: 100px;
+      margin: 10px 10px 10px 0;
+    }
+
+    &__motto {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: $warm-grey100;
+
+      .brand {
+        font-size: 24px;
+      }
+
+      .motto {
+        font-size: 14px;
+      }
+
+      .line {
+        &__first {
+          border: 1px solid $warm-grey100;
+          width: 100%;
+          margin: 5px 0;
+          border-radius: 5px;
+        }
+
+        &__second {
+          border: 1px solid $warm-grey100;
+          width: 60%;
+          margin: 5px 0;
+          border-radius: 3px;
+        }
+      }
+    }
   }
 
   nav.main__navigation {
+    font-size: $text-size;
+
     ul {
       display: flex;
       list-style-type: none;
@@ -22,17 +95,22 @@ header.main__header {
 
         a {
           text-decoration: none;
-          color: $fade-black;
+          color: $warm-grey200;
           font-size: 14px;
           cursor: pointer;
 
           &.--active {
-            color: black;
+            padding-bottom: 5px;
+            color: $warm-grey100;
+            border-bottom: 2px solid $red600;
           }
 
           &:hover {
-            transition: color 0.5s;
-            color: black;
+            transition: color 0.3s;
+            transition: border-bottom 0.08s;
+            padding-bottom: 5px;
+            color: $warm-grey100;
+            border-bottom: 2px solid $red600;
           }
         }
       }
